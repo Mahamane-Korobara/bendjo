@@ -4,8 +4,9 @@
     --logo:      #5A3A22;   /* brun logo */
     --accent:    #E8912D;   /* orange safran bouton */
     --accent-dk: #d17f1e;
-    --green:     #4B7F52;   /* vert feuille marque BenDjo */
-    --muted:     #857567;   /* gris chaud sous-titre */
+    --green:     #4B7F52;   /* vert feuille marque BenDjo (fonds/boutons) */
+    --green-ink: #3C6A43;   /* vert foncé pour texte sur crème (contraste AA) */
+    --muted:     #6B5A4A;   /* gris chaud sous-titre (assombri pour contraste AA) */
     --nav:       #4a4038;
 }
 
@@ -150,7 +151,7 @@ body {
     font-size: 13px;
     font-weight: 600;
     letter-spacing: .5px;
-    color: var(--green);
+    color: var(--green-ink);
     margin-bottom: 18px;
 }
 .origines {
