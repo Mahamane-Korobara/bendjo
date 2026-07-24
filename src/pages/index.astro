@@ -1,0 +1,115 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const WHATSAPP =
+    'https://wa.me/2290162014161?text=Bonjour%20BenDjo%2C%20je%20souhaite%20commander%20vos%20infusions.';
+---
+
+<Layout>
+    <!-- ==================== HEADER ==================== -->
+    <header class="header">
+        <input type="checkbox" id="nav-toggle" class="nav-toggle" />
+
+        <a href="#" class="logo" aria-label="BenDjo">
+            <img class="mark-img" src="/images/bendjo/logo-mark.png" alt="BenDjo" />
+            <span class="wordmark">Ben<span class="djo">Djo</span></span>
+        </a>
+
+        <nav class="nav-wrap">
+            <label for="nav-toggle" class="nav-close" aria-label="Fermer le menu"><span></span><span></span></label>
+            <ul class="nav">
+                <li><a href="#"><span class="num">01</span><span class="lbl">Accueil</span></a></li>
+                <li><a href="#"><span class="num">02</span><span class="lbl">À propos</span></a></li>
+                <li><a href="#"><span class="num">03</span><span class="lbl">Services</span></a></li>
+                <li><a href="#infusions"><span class="num">04</span><span class="lbl">Nos infusions</span></a></li>
+                <li><a href="#"><span class="num">05</span><span class="lbl">Contact</span></a></li>
+            </ul>
+            <div class="nav-foot">
+                <a href={WHATSAPP} target="_blank" rel="noopener" class="nav-foot-cta">Commander sur WhatsApp</a>
+                <div class="nav-contact">
+                    <a href="tel:+2290162014161">+229 01 62 01 41 61</a>
+                    <a href="mailto:bendjobenin@gmail.com">bendjobenin@gmail.com</a>
+                </div>
+            </div>
+            <img class="nav-decor" src="/images/bendjo/corner-bottom.png" alt="" />
+        </nav>
+
+        <div class="actions">
+            <a href="#infusions" class="cart" aria-label="Panier">
+                <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"></circle><circle cx="19" cy="21" r="1"></circle><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path></svg>
+                <span class="cart-count">0</span>
+            </a>
+            <a href="#infusions" class="btn-nav-cta desktop-cta">Commander</a>
+            <label for="nav-toggle" class="burger" aria-label="Ouvrir le menu"><span></span><span></span><span></span></label>
+        </div>
+    </header>
+
+    <!-- ==================== HERO ==================== -->
+    <section class="hero">
+        <!-- Décors BenDjo : coin haut-gauche (dominante hibiscus) + bas-gauche (dominante verte) -->
+        <img class="decor decor-top" src="/images/bendjo/corner-top.png" alt="" />
+        <img class="decor decor-bottom" src="/images/bendjo/corner-bottom.png" alt="" />
+
+        <!-- Texte à gauche -->
+        <div class="hero-text">
+            <p class="eyebrow">
+                La marque qui vous reconnecte à vos <span class="origines">origines<svg viewBox="0 0 200 18" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M4,11 C40,3 70,16 104,9 C140,2 168,15 196,8"></path></svg></span>
+            </p>
+            <h1 class="hero-title">
+                Trois plantes,<br />
+                tout votre bien-être
+            </h1>
+            <p class="hero-subtitle">
+                Hibiscus, citronnelle, basilic : trois infusions du terroir pour
+                <strong>se purifier, digérer et se détendre</strong>. Récoltées et
+                séchées au Bénin, livrées chez vous.
+            </p>
+            <div class="hero-cta">
+                <a href={WHATSAPP} target="_blank" rel="noopener" class="btn-shop">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.11.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.39c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.83 2.42a8.2 8.2 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.28 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.42-.14 0-.31-.02-.47-.02s-.43.06-.66.31c-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29Z"></path></svg>
+                    Commander sur WhatsApp
+                </a>
+                <a href="#infusions" class="btn-ghost">Nos infusions <span class="arrow">→</span></a>
+            </div>
+        </div>
+
+        <!-- Visuel hero : 3 boîtes (desktop) / tasse d'infusion (mobile) -->
+        <div class="hero-visual">
+            <div class="visual-stage">
+                <picture>
+                    <source media="(max-width: 1000px)" srcset="/images/bendjo/hero-mobile.png" />
+                    <img src="/images/bendjo/tray.png" alt="Infusions naturelles BenDjo — hibiscus, citronnelle, basilic" />
+                </picture>
+                <!-- Étiquettes des 3 infusions (mobile + tablette uniquement) -->
+                <span class="infusion-tag t-hibiscus"><i></i>Hibiscus</span>
+                <span class="infusion-tag t-citronnelle"><i></i>Citronnelle</span>
+                <span class="infusion-tag t-basilic"><i></i>Basilic</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== BANDEAU RÉASSURANCE ==================== -->
+    <section class="reassurance">
+        <div class="reassurance-inner">
+            <div class="trust">
+                <span class="trust-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path><path d="M2 21c0-3 1.85-5.36 5.08-6"></path></svg>
+                </span>
+                <div><b>100% Made in Bénin</b><span>Ingrédients du terroir local</span></div>
+            </div>
+            <div class="trust">
+                <span class="trust-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1Z"></path><path d="m9 12 2 2 4-4"></path></svg>
+                </span>
+                <div><b>Sans additif ni colorant</b><span>Séché lentement à l'ombre</span></div>
+            </div>
+            <div class="trust">
+                <span class="trust-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"></path><path d="M15 18H9"></path><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.48-4.35A1 1 0 0 0 17.52 8H14"></path><circle cx="7" cy="18" r="2"></circle><circle cx="17" cy="18" r="2"></circle></svg>
+                </span>
+                <div><b>Livraison dès 500 FCFA</b><span>Cotonou &amp; Abomey-Calavi</span></div>
+            </div>
+        </div>
+        <div class="trust-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+    </section>
+</Layout>

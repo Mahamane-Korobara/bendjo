@@ -1,0 +1,25 @@
+---
+import '../styles/global.css';
+const { title = 'BenDjo — Infusions naturelles 100% Made in Bénin' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="BenDjo — infusions naturelles 100% made in Bénin : hibiscus, citronnelle, basilic. Purifier, digérer, se détendre. La marque qui vous reconnecte à vos origines." />
+        <link rel="icon" type="image/png" href="/images/bendjo/logo-mark.png" />
+        <title>{title}</title>
+
+        <!-- Polices : Fraunces (titres) + Inter (corps) -->
+        <link rel="preconnect" href="https://fonts.bunny.net" />
+        <link
+            href="https://fonts.bunny.net/css?family=fraunces:400,500,600,700|inter:400,500,600"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <slot />
+    </body>
+</html>

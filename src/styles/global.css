@@ -1,0 +1,624 @@
+:root {
+    --bg:        #FAF0E2;   /* crème calé sur le fond de l'image hero → fusion invisible */
+    --title:     #4A2C18;   /* brun foncé titre */
+    --logo:      #5A3A22;   /* brun logo */
+    --accent:    #E8912D;   /* orange safran bouton */
+    --accent-dk: #d17f1e;
+    --green:     #4B7F52;   /* vert feuille marque BenDjo */
+    --muted:     #857567;   /* gris chaud sous-titre */
+    --nav:       #4a4038;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--title);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
+
+/* ---------------- HEADER ---------------- */
+.header {
+    position: relative;
+    z-index: 10;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 24px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+/* Logo : vrai monogramme B/J (mark) à gauche + wordmark « BenDjo » à droite */
+.logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+}
+.logo .mark-img {
+    height: 42px;
+    width: auto;
+    display: block;
+    flex-shrink: 0;
+}
+.logo .wordmark {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 28px;
+    letter-spacing: -0.5px;
+    line-height: 1;
+    color: #6B4A2E;              /* « Ben » en brun */
+}
+.logo .wordmark .djo { color: var(--green); }   /* « Djo » en vert */
+
+.nav {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+}
+.nav a {
+    text-decoration: none;
+    color: var(--nav);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: color .2s;
+}
+.nav a:hover { color: var(--accent); }
+
+.actions { display: flex; align-items: center; gap: 20px; }
+
+/* Panier avec compteur (fonctionnalité clé : panier → WhatsApp) */
+.cart {
+    position: relative;
+    display: inline-flex;
+    color: var(--title);
+    transition: color .2s;
+}
+.cart:hover { color: var(--green); }
+.cart-count {
+    position: absolute;
+    top: -8px;
+    right: -9px;
+    min-width: 17px;
+    height: 17px;
+    padding: 0 4px;
+    border-radius: 999px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    display: grid;
+    place-items: center;
+    line-height: 1;
+}
+
+/* Bouton Commander (action persistante, remplace l'ancien LOG IN) */
+.btn-nav-cta {
+    background: var(--green);
+    color: #fff;
+    padding: 10px 22px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-decoration: none;
+    transition: background .2s;
+}
+.btn-nav-cta:hover { background: color-mix(in srgb, var(--green) 85%, #000); }
+
+/* Menu mobile (hamburger CSS-only) — éléments mobiles masqués sur desktop */
+.header { position: relative; }
+.nav-toggle { display: none; }
+.burger { display: none; }
+.nav .num, .nav-close, .nav-foot, .nav-decor { display: none; }
+.burger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--title);
+    border-radius: 2px;
+    transition: transform .25s ease, opacity .25s ease;
+}
+
+/* ---------------- HERO ---------------- */
+.hero {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 10px 0 40px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    align-items: center;
+    min-height: calc(100vh - 96px);
+    overflow: visible;           /* pas de clip → les plantes des coins débordent naturellement */
+}
+
+/* Colonne texte (gauche) — décalée vers le centre-droit */
+.hero-text {
+    position: relative;
+    z-index: 5;
+    padding-left: clamp(64px, 11vw, 200px);
+    padding-right: 24px;
+}
+
+/* Eyebrow slogan + trait dessiné à la main sous « origines » */
+.eyebrow {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .5px;
+    color: var(--green);
+    margin-bottom: 18px;
+}
+.origines {
+    position: relative;
+    white-space: nowrap;
+    color: var(--accent);
+    font-weight: 700;
+}
+.origines svg {
+    position: absolute;
+    left: -4px;
+    right: -4px;
+    bottom: -9px;
+    width: calc(100% + 8px);
+    height: 14px;
+    overflow: visible;
+}
+.origines path {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: draw 0.9s ease 0.7s forwards;   /* se dessine au chargement */
+}
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes navIn { to { opacity: 1; transform: translateX(0); } }
+/* Carrousel réassurance mobile : chaque carte apparaît ~3s puis cède la place */
+@keyframes trustCycle {
+    0%   { opacity: 0; transform: translateY(10px); }
+    4%   { opacity: 1; transform: translateY(0); }
+    29%  { opacity: 1; transform: translateY(0); }
+    34%  { opacity: 0; transform: translateY(-10px); }
+    100% { opacity: 0; transform: translateY(-10px); }
+}
+
+.hero-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: clamp(32px, 3.4vw, 48px);
+    line-height: 1.08;
+    color: var(--title);
+    letter-spacing: -0.5px;
+}
+.hero-subtitle {
+    margin-top: 20px;
+    font-size: 15.5px;
+    line-height: 1.65;
+    color: var(--muted);
+    max-width: 430px;
+}
+.hero-subtitle strong { color: var(--title); font-weight: 600; }
+
+.hero-cta {
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: nowrap;           /* les deux CTA restent sur une seule ligne */
+}
+.btn-shop, .btn-ghost { white-space: nowrap; }
+.btn-shop {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #EF9C3C 0%, #E0801E 100%);
+    color: #fff;
+    border: none;
+    padding: 14px 24px;
+    border-radius: 999px;
+    font-size: 14.5px;
+    font-weight: 700;
+    letter-spacing: .2px;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 14px 28px -12px rgba(224,128,30,.70), inset 0 1px 0 rgba(255,255,255,.25);
+    transition: transform .22s ease, box-shadow .22s ease;
+}
+.btn-shop svg { width: 19px; height: 19px; }
+.btn-shop:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 36px -12px rgba(224,128,30,.80), inset 0 1px 0 rgba(255,255,255,.25);
+}
+
+.btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--title);
+    font-size: 14.5px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color .2s;
+}
+.btn-ghost .arrow {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+    border: 1.6px solid rgba(74,44,24,.22);
+    color: var(--green);
+    transition: transform .22s ease, background .22s ease, color .22s ease, border-color .22s ease;
+}
+.btn-ghost:hover { color: var(--green); }
+.btn-ghost:hover .arrow {
+    background: var(--green);
+    border-color: var(--green);
+    color: #fff;
+    transform: translateX(4px);
+}
+
+/* Colonne image (droite) — image 3 : le plateau */
+.hero-visual {
+    position: relative;
+    z-index: 4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: float 7s ease-in-out infinite;   /* flottement continu (sur le wrapper) */
+}
+.hero-visual img {
+    /* image carrée 1254px : affichée entière, grande, centrée.
+       Fond crème identique à la page → aucun bord visible.
+       Entrée en pulsation de cœur au chargement. */
+    height: min(700px, calc(100vh - 130px));
+    width: auto;
+    max-width: 100%;
+    transform-origin: center center;
+    animation: heartbeat 1.5s ease-out both;
+    /* Fondu des 4 bords (haut/bas/gauche/droite) : dissout les arêtes du carré
+       sans ternir le centre de l'image */
+    -webkit-mask-image:
+        linear-gradient(to right,  transparent 0, #000 8%, #000 92%, transparent 100%),
+        linear-gradient(to bottom, transparent 0, #000 8%, #000 92%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-image:
+        linear-gradient(to right,  transparent 0, #000 8%, #000 92%, transparent 100%),
+        linear-gradient(to bottom, transparent 0, #000 8%, #000 92%, transparent 100%);
+    mask-composite: intersect;
+}
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-16px); }
+}
+/* Pulsation de cœur : entrée avec un double battement puis repos */
+@keyframes heartbeat {
+    0%   { transform: scale(.82); opacity: 0; }
+    18%  { transform: scale(1.06); opacity: 1; }
+    30%  { transform: scale(.97); }
+    45%  { transform: scale(1.04); }
+    60%  { transform: scale(.99); }
+    100% { transform: scale(1);   opacity: 1; }
+}
+
+/* Étiquettes infusions — masquées sur desktop, affichées autour de la tasse sur mobile */
+.infusion-tag { display: none; }
+/* Pastilles du carrousel réassurance — mobile uniquement */
+.trust-dots { display: none; }
+
+/* ---------------- DÉCORS BenDjo — plantes dans les coins gauches ---------------- */
+.decor {
+    position: absolute;
+    width: 300px;
+    max-width: 26vw;
+    height: auto;
+    z-index: 1;                 /* derrière le texte : le titre reste lisible */
+    pointer-events: none;
+    /* Fondu des bords : dissout l'arête droite du PNG en dégradé doux */
+    -webkit-mask-image:
+        linear-gradient(to right,  transparent, #000 10%, #000 90%, transparent),
+        linear-gradient(to bottom, transparent, #000 10%, #000 90%, transparent);
+    -webkit-mask-composite: source-in;
+    mask-image:
+        linear-gradient(to right,  transparent, #000 10%, #000 90%, transparent),
+        linear-gradient(to bottom, transparent, #000 10%, #000 90%, transparent);
+    mask-composite: intersect;
+}
+/* Chaque image a déjà sa densité dans le bon coin (aucun retournement).
+   Entrée en pulsation de cœur, légèrement décalée après le visuel produit. */
+.decor-top    { top: -20px;    left: -30px; transform-origin: top left;     animation: heartbeat 1.5s ease-out .15s both; }
+.decor-bottom { bottom: -25px; left: -30px; transform-origin: bottom left;  animation: heartbeat 1.5s ease-out .30s both; }
+
+/* ---------------- RÉASSURANCE : carte flottante qui chevauche hero/corps ---------------- */
+.reassurance {
+    position: relative;
+    z-index: 6;
+    max-width: 980px;
+    margin: -48px auto 60px;      /* remonte pour chevaucher le bas du hero */
+    background: #FFFDF9;
+    border: 1px solid rgba(74,44,24,.10);
+    border-radius: 20px;
+    box-shadow: 0 24px 50px -26px rgba(74,44,24,.30);
+}
+.reassurance-inner {
+    margin: 0 auto;
+    padding: 20px 26px;
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+}
+.trust {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 4px 28px;
+}
+.trust + .trust { border-left: 1px solid rgba(74,44,24,.12); }
+.trust-icon {
+    flex-shrink: 0;
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--green) 14%, transparent);
+    color: var(--green);
+}
+.trust-icon svg { width: 22px; height: 22px; }
+.trust b {
+    display: block;
+    font-size: 14.5px;
+    font-weight: 700;
+    color: var(--title);
+    line-height: 1.25;
+}
+.trust span {
+    display: block;
+    font-size: 12.5px;
+    color: var(--muted);
+    margin-top: 2px;
+}
+
+/* ---------------- RESPONSIVE ---------------- */
+/* 1024–1440 : colonne texte plus étroite → on réduit l'indentation pour
+   garder les deux CTA sur une seule ligne */
+@media (max-width: 1440px) {
+    .hero-text { padding-left: clamp(52px, 6.3vw, 135px); }
+}
+/* ≤ 1000px : menu hamburger + hero empilé (1 colonne) */
+@media (max-width: 1000px) {
+    .header { justify-content: space-between; padding: 16px 22px; }
+    .burger {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        width: 42px;
+        height: 42px;
+        cursor: pointer;
+    }
+    .actions .desktop-cta { display: none; }   /* « Commander » desktop → dans le menu */
+
+    /* ===== Menu plein écran premium ===== */
+    .nav-wrap {
+        position: fixed;
+        inset: 0;
+        z-index: 40;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 92px 34px 40px;
+        background: linear-gradient(165deg, #FBF3E6 0%, #EFE2CC 100%);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: opacity .4s ease, transform .4s ease, visibility .4s;
+        overflow-y: auto;
+    }
+    .nav-toggle:checked ~ .nav-wrap { opacity: 1; visibility: visible; transform: translateY(0); }
+
+    .nav-close {
+        display: block;
+        position: absolute;
+        top: 24px; right: 24px;
+        width: 42px; height: 42px;
+        cursor: pointer;
+    }
+    .nav-close span {
+        position: absolute; top: 50%; left: 9px;
+        width: 24px; height: 2px; background: var(--title); border-radius: 2px;
+    }
+    .nav-close span:nth-child(1) { transform: rotate(45deg); }
+    .nav-close span:nth-child(2) { transform: rotate(-45deg); }
+
+    .nav { flex-direction: column; align-items: stretch; gap: 0; }
+    .nav li { border-bottom: 1px solid rgba(74,44,24,.10); }
+    .nav a {
+        display: flex; align-items: baseline; gap: 16px;
+        padding: 17px 2px;
+        text-transform: none;
+        font-family: 'Fraunces', serif;
+        font-size: clamp(26px, 8vw, 34px);
+        font-weight: 600;
+        letter-spacing: -.5px;
+        color: var(--title);
+        opacity: 0; transform: translateX(-18px);
+    }
+    .nav .num {
+        display: inline-block;
+        font-family: 'Inter', sans-serif;
+        font-size: 12px; font-weight: 700;
+        color: var(--green); letter-spacing: 1px;
+        transform: translateY(-6px);
+    }
+    .nav a:hover { color: var(--green); }
+
+    /* entrée en cascade des liens */
+    .nav-toggle:checked ~ .nav-wrap .nav a { animation: navIn .5s cubic-bezier(.2,.7,.3,1) forwards; }
+    .nav-toggle:checked ~ .nav-wrap li:nth-child(1) a { animation-delay: .10s; }
+    .nav-toggle:checked ~ .nav-wrap li:nth-child(2) a { animation-delay: .16s; }
+    .nav-toggle:checked ~ .nav-wrap li:nth-child(3) a { animation-delay: .22s; }
+    .nav-toggle:checked ~ .nav-wrap li:nth-child(4) a { animation-delay: .28s; }
+    .nav-toggle:checked ~ .nav-wrap li:nth-child(5) a { animation-delay: .34s; }
+
+    .nav-foot { display: block; margin-top: 34px; }
+    .nav-foot-cta {
+        display: flex; align-items: center; justify-content: center; gap: 10px;
+        background: var(--green); color: #fff;
+        padding: 15px; border-radius: 999px;
+        font-weight: 700; font-size: 14.5px; text-decoration: none;
+    }
+    .nav-contact { margin-top: 18px; display: flex; flex-direction: column; gap: 7px; }
+    .nav-contact a { color: var(--muted); text-decoration: none; font-size: 14px; }
+
+    .nav-decor {
+        display: block; position: absolute; bottom: -12px; right: -22px;
+        width: 46vw; max-width: 210px; opacity: .5; pointer-events: none;
+        -webkit-mask-image: radial-gradient(closest-side, #000 58%, transparent 100%);
+        mask-image: radial-gradient(closest-side, #000 58%, transparent 100%);
+    }
+
+    /* (hero empilé + réassurance : gérés dans les blocs dédiés plus bas) */
+}
+@media (max-width: 640px) {
+    .logo .wordmark { display: none; }   /* mobile : seul le monogramme */
+}
+/* ≤ 1000px : hero mobile + tablette éditorial — Eyebrow → Titre → Image → Sous-titre → CTA */
+@media (max-width: 1000px) {
+    .hero {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        text-align: left;
+        padding: 12px 26px 52px;
+    }
+    .hero-text { display: contents; }   /* ses enfants rejoignent le flux pour l'ordre */
+
+    /* colonne de contenu centrée (même largeur que la carte réassurance) */
+    .eyebrow,
+    .hero-title,
+    .hero-subtitle,
+    .hero-cta { width: 100%; max-width: 600px; margin-left: auto; margin-right: auto; }
+
+    .eyebrow       { order: 1; margin-bottom: 12px; }
+    .hero-title    { order: 2; font-size: clamp(34px, 7vw, 52px); line-height: 1.03; }
+
+    /* Halo kraft pleine largeur derrière la tasse (cf. brief) */
+    .hero-visual   {
+        order: 3;
+        position: relative;
+        width: 100vw;
+        margin: 24px 0 12px calc(50% - 50vw);
+        padding: 46px 0 40px;
+        background: radial-gradient(closest-side at 50% 48%,
+                    rgba(193,138,74,.58) 0%,
+                    rgba(198,150,104,.32) 56%,
+                    rgba(198,150,104,0) 80%);
+    }
+    /* Scène centrée : la tasse + ses étiquettes restent groupées, quelle que soit la largeur */
+    .visual-stage {
+        position: relative;
+        width: 66%;
+        max-width: 240px;
+        margin: 0 auto;
+        line-height: 0;
+    }
+    .hero-visual picture { display: block; width: 100%; }
+    .hero-visual img {
+        width: 100%; height: auto; max-width: none; max-height: none; margin: 0;
+        -webkit-mask-image: none; mask-image: none;   /* photo déjà détourée */
+    }
+
+    /* Étiquettes des 3 infusions, positionnées autour de la tasse (relatif au stage) */
+    .infusion-tag {
+        display: inline-flex; align-items: center; gap: 7px;
+        position: absolute;
+        background: rgba(255,255,255,.94);
+        box-shadow: 0 8px 18px -8px rgba(74,44,24,.4);
+        border-radius: 999px;
+        padding: 6px 12px 6px 9px;
+        font-size: 12.5px; font-weight: 700; color: var(--title);
+        white-space: nowrap; z-index: 2; line-height: 1;
+    }
+    .infusion-tag i { width: 9px; height: 9px; border-radius: 50%; }
+    .t-hibiscus    { top: 14px;    left: -34px; }
+    .t-hibiscus i    { background: #D64545; }
+    .t-citronnelle { top: 44%;     right: -42px; }
+    .t-citronnelle i { background: #E08A2E; }
+    .t-basilic     { bottom: 26px; left: -26px; }
+    .t-basilic i     { background: #D97C93; }
+
+    .hero-subtitle { order: 4; margin-top: 6px; }
+    .hero-cta      { order: 5; justify-content: flex-start; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+    .btn-shop, .btn-ghost { width: 100%; justify-content: center; }
+
+    /* coins retirés : l'image + les étiquettes portent déjà l'univers */
+    .decor { display: none; }
+}
+
+/* Réassurance ≤1000 : rangée 3 colonnes, même largeur (600px) que le contenu du hero */
+@media (max-width: 1000px) {
+    .reassurance { max-width: 600px; margin: -30px auto 48px; }
+    .reassurance-inner { padding: 16px 6px; }
+    .trust { padding: 8px 14px; gap: 11px; }
+}
+/* Réassurance ≤680 : cartes individuelles qui défilent (carrousel auto CSS) */
+@media (max-width: 680px) {
+    .reassurance {
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        max-width: 430px;
+        margin: -6px auto 34px;
+        padding: 0 16px;
+    }
+    .reassurance-inner {
+        position: relative;
+        display: block;
+        height: 88px;
+        padding: 0;
+    }
+    .trust {
+        position: absolute;
+        inset: 0;
+        flex: none;
+        gap: 14px;
+        background: #FFFDF9;
+        border: 1px solid rgba(74,44,24,.10);
+        border-radius: 16px;
+        box-shadow: 0 16px 30px -18px rgba(74,44,24,.32);
+        padding: 0 20px;
+        margin: 0;
+        opacity: 0;
+        animation: trustCycle 9s infinite;
+    }
+    .trust + .trust { border-top: none; border-left: none; }
+    .trust:nth-child(1) { animation-delay: 0s; }
+    .trust:nth-child(2) { animation-delay: 3s; }
+    .trust:nth-child(3) { animation-delay: 6s; }
+
+    /* pastilles indicatrices (3 points) */
+    .trust-dots { display: flex; justify-content: center; gap: 7px; margin-top: 14px; }
+    .trust-dots i {
+        width: 7px; height: 7px; border-radius: 50%;
+        background: color-mix(in srgb, var(--green) 30%, transparent);
+        animation: dotCycle 9s infinite;
+    }
+    .trust-dots i:nth-child(1) { animation-delay: 0s; }
+    .trust-dots i:nth-child(2) { animation-delay: 3s; }
+    .trust-dots i:nth-child(3) { animation-delay: 6s; }
+}
+@keyframes dotCycle {
+    0%   { background: var(--green); transform: scale(1.3); }
+    33%  { background: var(--green); transform: scale(1.3); }
+    34%  { background: color-mix(in srgb, var(--green) 25%, transparent); transform: scale(1); }
+    100% { background: color-mix(in srgb, var(--green) 25%, transparent); transform: scale(1); }
+}
