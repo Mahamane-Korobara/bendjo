@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "bendjo",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev", "--", "--port", "4321", "--host"],
+      "runtimeExecutable": "bash",
+      "runtimeArgs": ["-c", "cd /home/mahamane/Bureau/Mahamane/Bendjo && export PATH=\"$HOME/.nvm/versions/node/v22.23.0/bin:$PATH\" && exec npm run dev -- --port 4321 --host"],
       "port": 4321
     }
   ]

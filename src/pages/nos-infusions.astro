@@ -1,0 +1,107 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+
+const leaf =
+    'M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z';
+
+const products = [
+    {
+        id: 'hibiscus',
+        num: 'N°01',
+        tag: 'Bissap',
+        latin: 'Hibiscus sabdariffa',
+        name: 'Hibiscus',
+        note: 'Rouge profond, acidulé. L’infusion qui réveille la journée.',
+        benefits: ['Vitamine C', 'Antioxydants', 'Magnésium', 'Potassium'],
+        price: '1 500',
+        photo: '/images/bendjo/p-hibiscus.webp',
+    },
+    {
+        id: 'citronnelle',
+        num: 'N°02',
+        tag: '3-en-1',
+        latin: 'Cymbopogon citratus',
+        name: 'Citronnelle',
+        note: 'Citronnelle, clou de girofle & laurier. Pour purifier après le repas.',
+        benefits: ['Digestion', 'Vitamine E', 'Enzymes digestives', 'Antioxydants'],
+        price: '1 500',
+        photo: '/images/bendjo/p-citronnelle.webp',
+    },
+    {
+        id: 'basilic',
+        num: 'N°03',
+        tag: 'Sérénité',
+        latin: 'Ocimum gratissimum',
+        name: 'Basilic',
+        note: 'Vert poivré, apaisant. Le rituel du soir, 30 min avant de dormir.',
+        benefits: ['Calme & sommeil', 'Vitamines A · E · C', 'Anti-tensions'],
+        price: '1 500',
+        photo: '/images/bendjo/p-basilic.webp',
+    },
+];
+---
+
+<Layout title="Nos infusions — BenDjo">
+    <Header />
+
+    <main class="infusions-page">
+        <!-- Intro éducative -->
+        <section class="inf-intro">
+            <p class="inf-eyebrow">Le catalogue</p>
+            <h1 class="inf-title">Nos infusions</h1>
+            <p class="inf-lead">
+                Trois plantes du terroir béninois, récoltées et
+                <strong>séchées lentement à l’ombre</strong>. Une infusion, c’est
+                l’essence d’une plante libérée par l’eau chaude — sans additif, sans
+                colorant. Choisissez votre rituel.
+            </p>
+        </section>
+
+        <!-- Grille produits (bento) -->
+        <section class="inf-grid">
+            {products.map((p, i) => (
+                <article class={`inf-card card-${p.id} ${i === 0 ? 'is-feature' : ''}`}>
+                    <div class="inf-card-head">
+                        <span class="inf-num">{p.num}</span>
+                        <span class="inf-tag">{p.tag}</span>
+                    </div>
+
+                    <div class="inf-card-body">
+                        <p class="inf-latin">{p.latin}</p>
+                        <h2 class="inf-name">{p.name}</h2>
+                        <p class="inf-note">{p.note}</p>
+                        <ul class="inf-benefits">
+                            {p.benefits.map((b) => <li>{b}</li>)}
+                        </ul>
+                    </div>
+
+                    <div class="inf-card-buy">
+                        <span class="inf-price">{p.price} <small>FCFA</small></span>
+                        <button class="inf-add" type="button" data-add={p.id} data-name={p.name}>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5v14"></path></svg>
+                            Ajouter au panier
+                        </button>
+                    </div>
+
+                    <img class="inf-photo" src={p.photo} alt={`Infusion ${p.name} BenDjo`} width="500" height="500" loading="lazy" />
+                </article>
+            ))}
+
+            <!-- Carte « à venir » -->
+            <article class="inf-card card-soon">
+                <div class="inf-card-head">
+                    <span class="inf-num">N°04</span>
+                    <span class="inf-tag">Bientôt</span>
+                </div>
+                <div class="inf-card-body">
+                    <h2 class="inf-name">Autres variétés</h2>
+                    <p class="inf-note">Feuille de laurier seule &amp; autres infusions du terroir — en préparation.</p>
+                </div>
+                <div class="inf-card-buy">
+                    <span class="inf-soon-badge">Prochainement</span>
+                </div>
+            </article>
+        </section>
+    </main>
+</Layout>
