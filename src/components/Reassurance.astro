@@ -1,28 +1,47 @@
 ---
 // Bandeau réassurance partagé (accueil + catalogue).
 // Responsive : rangée 3 colonnes ≥1000px → carrousel CSS auto ≤680px.
+// `variant` choisit le jeu d'arguments : la home parle de la marque,
+// le catalogue parle de l'achat. Toutes les infos viennent des données du site.
+const { variant = 'brand' } = Astro.props;
+
+const icons = {
+    leaf: 'M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z|M2 21c0-3 1.85-5.36 5.08-6',
+    shield: 'M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1Z|m9 12 2 2 4-4',
+    truck: 'M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2|M15 18H9|M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.48-4.35A1 1 0 0 0 17.52 8H14',
+    tag: 'M3 11V5a2 2 0 0 1 2-2h6l10 10-8 8L3 11Z|M7.5 7.5h.01',
+    chat: 'M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.9-.9L3 20.5l1.5-4.4A8.4 8.4 0 0 1 12 3.1a8.4 8.4 0 0 1 9 8.4Z',
+    clock: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z|M12 7v5l3.5 2',
+};
+
+const sets = {
+    brand: [
+        { icon: 'leaf', title: '100% Made in Bénin', sub: 'Ingrédients du terroir local' },
+        { icon: 'shield', title: 'Sans additif ni colorant', sub: 'Séché lentement à l’ombre' },
+        { icon: 'truck', title: 'Livraison dès 500 FCFA', sub: 'Cotonou & Abomey-Calavi' },
+    ],
+    catalog: [
+        { icon: 'tag', title: '1 500 FCFA l’unité', sub: 'Le même prix pour les trois' },
+        { icon: 'chat', title: 'Commande WhatsApp', sub: '+229 01 62 01 41 61' },
+        { icon: 'clock', title: 'Trois moments par jour', sub: 'Matin · après-repas · soir' },
+    ],
+};
+
+const items = sets[variant] ?? sets.brand;
 ---
 
 <section class="reassurance">
     <div class="reassurance-inner">
-        <div class="trust">
-            <span class="trust-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path><path d="M2 21c0-3 1.85-5.36 5.08-6"></path></svg>
-            </span>
-            <div><b>100% Made in Bénin</b><span>Ingrédients du terroir local</span></div>
-        </div>
-        <div class="trust">
-            <span class="trust-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1Z"></path><path d="m9 12 2 2 4-4"></path></svg>
-            </span>
-            <div><b>Sans additif ni colorant</b><span>Séché lentement à l'ombre</span></div>
-        </div>
-        <div class="trust">
-            <span class="trust-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"></path><path d="M15 18H9"></path><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.48-4.35A1 1 0 0 0 17.52 8H14"></path><circle cx="7" cy="18" r="2"></circle><circle cx="17" cy="18" r="2"></circle></svg>
-            </span>
-            <div><b>Livraison dès 500 FCFA</b><span>Cotonou &amp; Abomey-Calavi</span></div>
-        </div>
+        {items.map((it) => (
+            <div class="trust">
+                <span class="trust-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        {icons[it.icon].split('|').map((d) => <path d={d}></path>)}
+                    </svg>
+                </span>
+                <div><b>{it.title}</b><span>{it.sub}</span></div>
+            </div>
+        ))}
     </div>
     <div class="trust-dots" aria-hidden="true"><i></i><i></i><i></i></div>
 </section>

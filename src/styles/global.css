@@ -373,14 +373,16 @@ body {
     color: var(--green);
 }
 .trust-icon svg { width: 22px; height: 22px; }
-.trust b {
+/* Ciblé sur le bloc texte : sans le « div », « .trust span » l'emportait sur
+   « .trust-icon » (spécificité) et cassait le centrage de l'icône dans sa pastille. */
+.trust div b {
     display: block;
     font-size: 14.5px;
     font-weight: 700;
     color: var(--title);
     line-height: 1.25;
 }
-.trust span {
+.trust div span {
     display: block;
     font-size: 12.5px;
     color: var(--muted);
@@ -544,12 +546,13 @@ body {
         white-space: nowrap; z-index: 2; line-height: 1;
     }
     .infusion-tag i { width: 9px; height: 9px; border-radius: 50%; }
+    /* Pastilles : mêmes encres que les bandes de la page « Nos infusions » */
     .t-hibiscus    { top: 14px;    left: -34px; }
-    .t-hibiscus i    { background: #D64545; }
+    .t-hibiscus i    { background: #A63535; }
     .t-citronnelle { top: 44%;     right: -42px; }
-    .t-citronnelle i { background: #E08A2E; }
+    .t-citronnelle i { background: #935512; }
     .t-basilic     { bottom: 26px; left: -26px; }
-    .t-basilic i     { background: #D97C93; }
+    .t-basilic i     { background: #3B6942; }
 
     .hero-subtitle { order: 4; margin-top: 6px; }
     .hero-cta      { order: 5; justify-content: flex-start; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
@@ -559,14 +562,10 @@ body {
     .decor { display: none; }
 }
 
-/* Réassurance ≤1000 : rangée 3 colonnes, même largeur (600px) que le contenu du hero */
+/* Réassurance ≤1000 : cartes individuelles qui défilent (carrousel auto CSS).
+   Même palier que le reste du responsive — en 3 colonnes sous 1000px, les
+   libellés passaient sur 2 à 3 lignes. */
 @media (max-width: 1000px) {
-    .reassurance { max-width: 600px; margin: -30px auto 48px; }
-    .reassurance-inner { padding: 16px 6px; }
-    .trust { padding: 8px 14px; gap: 11px; }
-}
-/* Réassurance ≤680 : cartes individuelles qui défilent (carrousel auto CSS) */
-@media (max-width: 680px) {
     .reassurance {
         background: transparent;
         border: none;
@@ -1182,11 +1181,13 @@ html { scroll-behavior: smooth; }
     .pack-title { font-size: clamp(32px, 7vw, 48px); }
 
     .inf-legal { text-align: left; margin-inline: 0; }
+
+    /* le pied de page porte déjà sa gouttière */
+    .inf-foot .reassurance { padding-inline: 0; }
 }
 
-/* ≤680 : même palier que le carrousel réassurance de l'accueil */
+/* ≤680 : resserrement des derniers détails */
 @media (max-width: 680px) {
-    .inf-foot .reassurance { padding-inline: 0; }
     .plant-brew { gap: 18px; }
     .plant-brew dt { font-size: 19px; }
     .jump { padding: 6px 16px 6px 6px; }
