@@ -7,21 +7,31 @@ import { products, formatFCFA } from '../data/products';
 const WHATSAPP =
     'https://wa.me/2290162014161?text=Bonjour%20BenDjo%2C%20je%20souhaite%20commander%20vos%20infusions.';
 
+
 const servicesPreview = [
     {
         id: 'infusions',
         name: 'Infusions naturelles',
-        text: 'Trois plantes du terroir béninois, en boîte de 10 sachets.',
+        img: '/images/bendjo/service-infusions.webp',
+        alt: 'Préparation des infusions BenDjo : tri des fleurs d’hibiscus séchées',
+        w: 900,
+        h: 900,
     },
     {
         id: 'petit-dejeuner',
         name: 'Petit-déjeuner en entreprise',
-        text: 'Livré dans vos locaux, déjà dans une cinquantaine de structures.',
+        img: '/images/bendjo/service-petit-dejeuner.webp',
+        alt: 'Service de petit-déjeuner BenDjo livré en entreprise',
+        w: 900,
+        h: 675,
     },
     {
         id: 'traiteur',
         name: 'Service traiteur',
-        text: 'Pour vos événements et vos lancements de produit.',
+        img: '/images/bendjo/service-traiteur.webp',
+        alt: 'Service traiteur BenDjo pour événements et lancements de produit',
+        w: 500,
+        h: 500,
     },
 ];
 ---
@@ -132,20 +142,36 @@ const servicesPreview = [
 
     <!-- ==================== APERÇU SERVICES ==================== -->
     <section class="lp-services">
-        <div class="lp-head">
-            <p class="inf-eyebrow">Nos services</p>
-            <h2 class="sec-title">Trois façons de travailler ensemble</h2>
+        <div class="srvx-head">
+            <div>
+                <p class="srvx-eyebrow">/ Nos services</p>
+                <h2 class="srvx-title">Trois façons<br />de travailler ensemble</h2>
+            </div>
+            <div class="srvx-aside">
+                <p>
+                    Des infusions du terroir aux petits-déjeuners livrés en entreprise,
+                    BenDjo nourrit Cotonou et Abomey-Calavi depuis 2025.
+                </p>
+                <div class="srvx-links">
+                    <a href="/services">Voir tous les services <span aria-hidden="true">›</span></a>
+                    <a href="/contact">Nous contacter <span aria-hidden="true">›</span></a>
+                </div>
+            </div>
         </div>
-        <ul class="lp-services-grid">
+
+        <ul class="srvx-grid">
             {servicesPreview.map((s, i) => (
-                <li class={`lp-service srv-${s.id}`}>
-                    <span class="lp-service-num">{String(i + 1).padStart(2, '0')}</span>
-                    <h3>{s.name}</h3>
-                    <p>{s.text}</p>
+                <li class={`srvx-card ${i === 0 ? 'is-accent' : ''}`}>
+                    <a href={`/services#${s.id}`}>
+                        <img src={s.img} alt={s.alt} width={s.w} height={s.h} loading="lazy" />
+                        <span class="srvx-label">{s.name}</span>
+                        <span class="srvx-arrow" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"></path></svg>
+                        </span>
+                    </a>
                 </li>
             ))}
         </ul>
-        <a class="lp-link lp-link-center" href="/services">Voir le détail des services <span class="arrow">→</span></a>
     </section>
 
     <!-- ==================== GALERIE DES INFUSIONS ==================== -->

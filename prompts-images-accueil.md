@@ -168,21 +168,161 @@ réelles (hibiscus, citronnelle, basilic, girofle, laurier).
 ```
 
 ---
+---
+
+# Section « Nos services » — 3 cartes photo
+
+Trois cartes verticales, photo plein cadre, dégradé sombre vers le bas, libellé en
+bas à gauche et flèche ronde en bas à droite. Aujourd'hui elles affichent des visuels
+provisoires (`about-atelier`, `about-sechage`, `corner-top`).
+
+⚠️ Contraintes communes aux trois :
+
+- **Format portrait 4:5**, recadrage `object-fit: cover` → **sujet au centre, marge de
+  sécurité sur les bords**.
+- **Le tiers inférieur est assombri** par un dégradé pour faire ressortir le libellé
+  blanc : n'y placez rien d'important. Prévoyez une zone calme en bas de cadre.
+- Aucun texte, aucun logo, aucune lettre lisible.
+
+---
+
+## IMAGE D — carte « Infusions naturelles »
+
+**Fichier cible : `/public/images/bendjo/service-infusions.webp`** · **Portrait 4:5**
+
+```
+Photographie produit premium, format portrait 4:5, style publicitaire chaleureux.
+
+SUJET : trois boîtes de tisane en carton kraft naturel dressées côte à côte sur
+une table en bois clair, légèrement décalées en profondeur. Chaque boîte porte
+une bande de couleur d'accent différente : une bande ROUGE hibiscus, une bande
+ORANGE citronnelle, une bande ROSE basilic. Devant les boîtes, deux sachets de
+tisane en papier kraft posés à plat, une petite coupelle de fleurs d'hibiscus
+séchées, quelques brins de citronnelle et des feuilles de basilic frais.
+
+IMPORTANT : aucun texte, aucun logo, aucune lettre lisible sur les boîtes ni sur
+les sachets — surfaces propres, juste les bandes de couleur et une petite
+illustration de feuille. Sujet centré, marge de sécurité sur les quatre bords.
+Le bas du cadre doit rester calme et peu chargé (il sera assombri par un dégradé).
+
+STYLE : naturel, appétissant, premium, bien-être, terroir africain béninois, fier
+et chaleureux. Lumière douce et diffuse, ombres portées courtes, rendu photo
+réaliste haute définition.
+
+PALETTE : fond crème chaud très clair et uni (#FDFBF7), bois clair ; kraft
+(#C89B6B) dominant, accents rouge hibiscus (#D64545), orange citronnelle
+(#E08A2E), rose basilic (#E895A3), vert feuille (#4B7F52) pour les plantes.
+
+CADRAGE : vue frontale légèrement en contre-plongée, composition centrée, boîtes
+dans la moitié haute du cadre.
+
+À ÉVITER : épices indiennes (curcuma en poudre, cannelle, cardamome, cumin),
+plateau en laiton doré style thali indien, ambiance de marché indien, texte ou
+logo lisible, packaging chargé. Rester 100% identité béninoise BenDjo et plantes
+réelles (hibiscus, citronnelle, basilic, girofle, laurier).
+```
+
+---
+
+## IMAGE E — carte « Petit-déjeuner en entreprise »
+
+**Fichier cible : `/public/images/bendjo/service-petit-dejeuner.webp`** · **Portrait 4:5**
+
+```
+Photographie lifestyle premium, format portrait 4:5, style publicitaire chaleureux.
+
+SUJET : une table de réunion en bois clair dressée pour un petit-déjeuner
+d'entreprise, dans un bureau lumineux d'Afrique de l'Ouest. Sur la table :
+des plateaux garnis de viennoiseries et de fruits frais coupés (ananas, papaye,
+banane), des petits pains, un pichet de jus d'hibiscus rouge rubis, et plusieurs
+tasses en céramique claire remplies d'infusion fumante. Deux mains à la peau
+noire, en tenue de bureau, viennent de poser un plateau — geste de service saisi
+en action, visages non visibles.
+
+IMPORTANT : aucun texte, aucun logo, aucune lettre lisible — ni sur les tasses,
+ni sur les serviettes, ni sur les emballages. Aucun écran d'ordinateur allumé
+affichant du texte. Sujet centré, marge de sécurité sur les quatre bords. Le bas
+du cadre doit rester calme (il sera assombri par un dégradé).
+
+STYLE : chaleureux, professionnel sans être froid, convivial, matinal. Lumière
+naturelle douce venant d'une fenêtre latérale, rendu photo réaliste haute
+définition, faible profondeur de champ sur l'arrière-plan du bureau.
+
+PALETTE : fond crème chaud (#FDFBF7) et bois clair ; accents rouge hibiscus
+(#D64545) pour le jus, vert feuille (#4B7F52) pour quelques plantes, kraft
+(#C89B6B) pour les emballages. Ambiance chaude, jamais froide ni bleutée.
+
+CADRAGE : vue en légère plongée à 45° sur la table, composition centrée.
+
+À ÉVITER : épices indiennes, plateau en laiton doré style thali indien, ambiance
+de marché indien, open space américain aseptisé, gobelets en carton de chaîne de
+café, texte ou logo lisible, nourriture occidentale industrielle. Rester 100%
+identité béninoise BenDjo.
+```
+
+---
+
+## IMAGE F — carte « Service traiteur »
+
+**Fichier cible : `/public/images/bendjo/service-traiteur.webp`** · **Portrait 4:5**
+
+```
+Photographie événementielle premium, format portrait 4:5, style publicitaire
+chaleureux.
+
+SUJET : un buffet traiteur dressé pour un événement de lancement de produit,
+dans un lieu élégant d'Afrique de l'Ouest. Une longue table nappée de lin écru
+présente des bouchées et petites assiettes soignées disposées en rangées
+régulières, des verres remplis d'infusion d'hibiscus rouge rubis et de citronnelle
+dorée, et de petits bouquets de plantes fraîches (basilic, citronnelle) en guise
+de décor de table. En arrière-plan flou, quelques invités debout, en tenue de
+soirée, verre à la main.
+
+IMPORTANT : aucun texte, aucun logo, aucune lettre lisible — ni sur les
+chevalets, ni sur les étiquettes, ni sur les verres. Aucun visage net au premier
+plan. Sujet centré, marge de sécurité sur les quatre bords. Le bas du cadre doit
+rester calme (il sera assombri par un dégradé).
+
+STYLE : élégant, soigné, chaleureux, festif mais sobre. Lumière douce de fin de
+journée, quelques points de lumière chaude en arrière-plan, rendu photo réaliste
+haute définition, faible profondeur de champ (le buffet net, les invités flous).
+
+PALETTE : nappe et fond crème chaud (#FDFBF7) ; accents rouge hibiscus (#D64545)
+et orange citronnelle (#E08A2E) dans les verres, vert feuille (#4B7F52) pour les
+plantes, kraft (#C89B6B) en touches. Ambiance chaude et dorée.
+
+CADRAGE : vue de trois quarts le long de la table, composition centrée, buffet
+dans la moitié haute du cadre.
+
+À ÉVITER : épices indiennes, plateau en laiton doré style thali indien, ambiance
+de marché indien, buffet de mariage occidental avec pièce montée, chafing dishes
+en inox, ballons ou décoration criarde, texte ou logo lisible. Rester 100%
+identité béninoise BenDjo.
+```
+
+---
 
 ## Après génération
 
 1. Pour l'**IMAGE C uniquement** : détourer le fond (fond transparent), puisqu'elle
    est posée sur le vert foncé. A et B gardent leur fond, elles sont recadrées.
 2. Convertir en **WebP** (les images du site le sont toutes).
-3. Redimensionner : **IMAGE A → 900×900**, **IMAGE B → 900×675**, **IMAGE C → 700×700**.
-   Inutile d'aller au-delà, les tuiles font au maximum 380 px de large en écran retina.
-4. Déposer dans `/public/images/bendjo/` :
+3. Redimensionner. Inutile d'aller au-delà, les tuiles et les cartes font au maximum
+   380 px de large en écran retina :
 
    ```
-   about-atelier.webp     (IMAGE A)
-   about-sechage.webp     (IMAGE B)
-   about-terroir.webp     (IMAGE C — détourée)
+   about-atelier.webp             900 × 900     (A)
+   about-sechage.webp             900 × 675     (B)
+   about-terroir.webp             700 × 700     (C — détourée, fond transparent)
+   service-infusions.webp         760 × 950     (D — portrait 4:5)
+   service-petit-dejeuner.webp    760 × 950     (E — portrait 4:5)
+   service-traiteur.webp          760 × 950     (F — portrait 4:5)
    ```
 
-5. Me le dire : je remplace les trois visuels provisoires, je pose les bons
-   `width`/`height` (pas de décalage au chargement) et je rédige les `alt`.
+4. Déposer le tout dans `/public/images/bendjo/`.
+5. Me le dire : je remplace les visuels provisoires, je pose les bons `width`/`height`
+   (pas de décalage au chargement) et je rédige les `alt`.
+
+> Ne les livrez pas en WebP sans perte : les deux premières images étaient à 1,8 Mo
+> chacune. Je les recompresse systématiquement à l'intégration (~130 Ko sans perte
+> visible), mais autant partir léger.

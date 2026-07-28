@@ -2178,45 +2178,117 @@ main { --gut: clamp(22px, 5vw, 64px); }
     color: rgba(255, 255, 255, .76);
 }
 
-/* Aperçu Services */
+/* Aperçu Services — bandeau titre + cartes photo */
 .lp-services {
     max-width: 1160px;
     margin: 0 auto;
     padding: clamp(20px, 3vw, 34px) var(--gut) clamp(52px, 7vw, 90px);
 }
-.lp-services-grid {
+.srvx-head {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr);
+    align-items: end;
+    gap: clamp(24px, 4vw, 56px);
+    margin-bottom: clamp(26px, 3.5vw, 40px);
+}
+.srvx-eyebrow {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .3px;
+    color: var(--muted);
+    margin-bottom: 14px;
+}
+.srvx-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: clamp(36px, 5vw, 64px);
+    line-height: 1.02;
+    letter-spacing: -2px;
+    color: var(--title);
+}
+.srvx-aside p {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--muted);
+    max-width: 42ch;
+}
+.srvx-links { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 16px; }
+.srvx-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--green-ink);
+    text-decoration: none;
+    transition: gap .2s ease;
+}
+.srvx-links a:hover { gap: 12px; }
+
+/* La carte : photo plein cadre, libellé en bas à gauche, flèche en bas à droite */
+.srvx-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 16px;
     list-style: none;
 }
-.lp-service {
-    padding: 28px 26px 26px;
-    border-radius: 22px;
-    background: var(--c-soft);
-    border: 1px solid color-mix(in srgb, var(--c-ink) 18%, transparent);
+.srvx-card a {
+    position: relative;
+    display: block;
+    aspect-ratio: 4 / 5;
+    border-radius: 16px;
+    overflow: hidden;
+    text-decoration: none;
+    background: #2A1A0C;
 }
-.lp-service-num {
-    display: inline-grid;
-    place-items: center;
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    background: var(--c-bg);
-    color: var(--c-ink);
-    font-family: 'Fraunces', serif;
+.srvx-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .55s cubic-bezier(.2, .7, .3, 1);
+}
+.srvx-card a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top,
+        rgba(30, 16, 6, .88) 0%,
+        rgba(30, 16, 6, .45) 38%,
+        rgba(30, 16, 6, .06) 72%);
+}
+.srvx-label {
+    position: absolute;
+    z-index: 2;
+    left: 18px;
+    right: 78px;
+    bottom: 20px;
+    font-size: 14.5px;
     font-weight: 700;
-    font-size: 15px;
+    line-height: 1.25;
+    color: #fff;
 }
-.lp-service h3 {
-    margin-top: 16px;
-    font-family: 'Fraunces', serif;
-    font-weight: 600;
-    font-size: clamp(21px, 2vw, 25px);
-    letter-spacing: -.5px;
-    color: var(--c-ink);
+.srvx-arrow {
+    position: absolute;
+    z-index: 2;
+    right: 16px;
+    bottom: 16px;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #43280F;
+    color: #fff;
+    transition: transform .3s ease, background .3s ease, color .3s ease;
 }
-.lp-service p { margin-top: 9px; font-size: 14.5px; line-height: 1.6; color: var(--title); }
+.srvx-arrow svg { width: 17px; height: 17px; }
+/* Première carte mise en avant, comme dans la maquette */
+.is-accent .srvx-label { color: var(--accent); }
+.is-accent .srvx-arrow { background: var(--accent); color: #3A1F06; }
+
+.srvx-card a:hover img { transform: scale(1.06); }
+.srvx-card a:hover .srvx-arrow { transform: translate(3px, -3px); }
+.srvx-card a:focus-visible { outline: 3px solid var(--green-ink); outline-offset: 3px; }
 
 /* Galerie des infusions */
 .lp-gallery {
@@ -2285,7 +2357,11 @@ main { --gut: clamp(22px, 5vw, 64px); }
     .lp-head { text-align: left; }
     .lp-lead-center { margin-inline: 0; }
     .lp-lead { max-width: none; }
-    .lp-services-grid, .lp-gallery-grid { grid-template-columns: minmax(0, 1fr); }
+    .lp-gallery-grid { grid-template-columns: minmax(0, 1fr); }
+    .srvx-head { grid-template-columns: minmax(0, 1fr); align-items: start; }
+    .srvx-aside p { max-width: none; }
+    .srvx-grid { grid-template-columns: minmax(0, 1fr); }
+    .srvx-card a { aspect-ratio: 16 / 10; }
     .lp-link-center { margin-inline: 0; }
 }
 
