@@ -626,220 +626,597 @@ body {
 }
 
 /* ============================================================
-   PAGE « NOS INFUSIONS » — grille bento accessible
+   PAGE « NOS INFUSIONS » — mise en page éditoriale
    ============================================================ */
-.infusions-page { padding-top: 8px; }
+html { scroll-behavior: smooth; }
 
-.inf-intro {
-    max-width: 720px;
+.inf { --gut: clamp(22px, 5vw, 64px); }
+
+/* Palette par plante (fond pastel + encre foncée = contraste AA) */
+.plant-hibiscus, .jump-hibiscus, .step-hibiscus, .dot-hibiscus {
+    --c-bg: #F6DAD7; --c-soft: #FCEDEB; --c-ink: #A63535;
+}
+.plant-citronnelle, .jump-citronnelle, .step-citronnelle, .dot-citronnelle {
+    --c-bg: #F9E5BC; --c-soft: #FDF4E2; --c-ink: #935512;
+}
+.plant-basilic, .jump-basilic, .step-basilic, .dot-basilic {
+    --c-bg: #D6E7CF; --c-soft: #EDF5E9; --c-ink: #3B6942;
+}
+
+/* ---------------- Intro ---------------- */
+.inf-hero {
+    position: relative;
+    max-width: 880px;
     margin: 0 auto;
-    padding: 40px 40px 34px;
+    padding: clamp(26px, 5vw, 56px) var(--gut) clamp(38px, 6vw, 70px);
     text-align: center;
 }
+.inf-hero-decor {
+    position: absolute;
+    top: 20px;
+    right: -86px;
+    width: min(32vw, 250px);
+    height: auto;
+    opacity: .38;
+    pointer-events: none;
+    mask-image: radial-gradient(closest-side, #000 42%, transparent 100%);
+}
+.inf-hero > *:not(.inf-hero-decor) { position: relative; }
 .inf-eyebrow {
-    font-size: 13px;
+    font-size: 12.5px;
     font-weight: 700;
-    letter-spacing: 2px;
+    letter-spacing: 2.2px;
     text-transform: uppercase;
     color: var(--green-ink);
-    margin-bottom: 12px;
+    margin-bottom: 14px;
 }
 .inf-title {
     font-family: 'Fraunces', serif;
     font-weight: 600;
-    font-size: clamp(34px, 5vw, 56px);
-    color: var(--title);
-    letter-spacing: -1px;
+    font-size: clamp(38px, 6.4vw, 74px);
     line-height: 1.02;
+    letter-spacing: -1.6px;
+    color: var(--title);
 }
+.inf-title-em { color: var(--green-ink); }
 .inf-lead {
-    margin-top: 16px;
+    max-width: 58ch;
+    margin: 20px auto 0;
     font-size: 16px;
-    line-height: 1.65;
+    line-height: 1.7;
     color: var(--muted);
 }
 .inf-lead strong { color: var(--title); font-weight: 600; }
 
-.inf-grid {
-    display: grid;
-    grid-template-columns: 1.1fr 1fr;
-    gap: 16px;
-    max-width: 1080px;
-    margin: 0 auto;
-    padding: 0 40px 90px;
-}
-
-/* Couleurs par produit (fond pastel clair + encre foncée = contraste AA) */
-.card-hibiscus   { --c-bg: #F8DEDC; --c-ink: #A63535; }
-.card-citronnelle{ --c-bg: #FBEAC6; --c-ink: #935512; }
-.card-basilic    { --c-bg: #DBEAD4; --c-ink: #3B6942; }
-.card-soon       { --c-bg: #EEE6D8; --c-ink: #6B5A4A; }
-
-.inf-card {
-    position: relative;
-    overflow: hidden;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) clamp(118px, 40%, 220px);
-    grid-template-rows: auto 1fr auto;
-    column-gap: 10px;
-    background: var(--c-bg);
-    border: 1px solid color-mix(in srgb, var(--c-ink) 16%, transparent);
-    border-radius: 22px;
-    padding: 26px 26px 24px;
-    min-height: 250px;
-    transition: transform .25s ease, box-shadow .25s ease;
-}
-.inf-card-head { grid-column: 1 / -1; grid-row: 1; }
-.inf-card-body { grid-column: 1; grid-row: 2; }
-.inf-card-buy  { grid-column: 1; grid-row: 3; }
-/* Carte vedette : colonne image plus large */
-.is-feature { grid-template-columns: minmax(0, 1fr) clamp(150px, 46%, 290px); }
-.inf-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 26px 44px -26px color-mix(in srgb, var(--c-ink) 55%, transparent);
-}
-.card-hibiscus { grid-row: span 2; }     /* produit vedette : grande carte à gauche */
-.card-soon     { grid-column: 1 / -1; min-height: 0; }
-
-/* En-tête de carte */
-.inf-card-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: color-mix(in srgb, var(--c-ink) 78%, transparent);
-    position: relative;
-    z-index: 2;
-}
-
-/* Corps */
-.inf-card-body { position: relative; z-index: 2; margin-top: 14px; flex: 1; }
-.inf-latin {
-    font-size: 12.5px;
-    font-style: italic;
-    letter-spacing: .5px;
-    color: color-mix(in srgb, var(--c-ink) 72%, transparent);
-    margin-bottom: 4px;
-}
-.inf-name {
-    font-family: 'Fraunces', serif;
-    font-weight: 600;
-    font-size: clamp(30px, 3.4vw, 44px);
-    line-height: 1;
-    letter-spacing: -0.5px;
-    color: var(--c-ink);
-}
-.is-feature .inf-name { font-size: clamp(40px, 5vw, 60px); }
-.inf-note {
-    margin-top: 12px;
-    font-size: 14.5px;
-    line-height: 1.55;
-    color: var(--title);
-    max-width: 34ch;
-}
-.inf-benefits {
+/* Pastilles de navigation vers chaque infusion */
+.inf-jump {
     display: flex;
     flex-wrap: wrap;
-    gap: 7px;
-    margin-top: 16px;
-    list-style: none;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 34px;
 }
-.inf-benefits li {
-    font-size: 11.5px;
-    font-weight: 600;
-    padding: 5px 11px;
+.jump {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 20px 8px 8px;
     border-radius: 999px;
+    background: #fffdf9;
+    border: 1px solid color-mix(in srgb, var(--c-ink) 20%, transparent);
+    box-shadow: 0 14px 26px -20px rgba(74, 44, 24, .75);
+    text-decoration: none;
+    transition: transform .22s ease, box-shadow .22s ease, background .22s ease;
+}
+.jump img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: contain;
+    background: var(--c-bg);
+    padding: 3px;
+}
+.jump > span {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: 11.5px;
+    line-height: 1.35;
+    color: var(--muted);
+}
+.jump b {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    font-weight: 600;
     color: var(--c-ink);
-    background: color-mix(in srgb, var(--c-ink) 12%, transparent);
+}
+.jump:hover {
+    transform: translateY(-3px);
+    background: var(--c-soft);
+    box-shadow: 0 20px 30px -20px rgba(74, 44, 24, .85);
 }
 
-/* Prix + bouton */
-.inf-card-buy {
+/* ---------------- Bande produit ---------------- */
+.plant {
     position: relative;
-    z-index: 2;
+    overflow: hidden;
+    scroll-margin-top: 12px;
+    padding: clamp(52px, 7vw, 104px) var(--gut);
+    background: linear-gradient(165deg, var(--c-soft) 0%, var(--c-bg) 100%);
+}
+.plant-inner {
+    max-width: 1160px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.02fr);
+    align-items: center;
+    gap: clamp(26px, 5vw, 72px);
+}
+.is-reverse .plant-media { order: 2; }
+.is-reverse .plant-body { order: 1; }
+
+.plant-media {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 240px;
+}
+.plant-media::before {
+    content: '';
+    position: absolute;
+    width: min(96%, 440px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, color-mix(in srgb, var(--c-ink) 15%, transparent) 0%, transparent 74%);
+    filter: blur(6px);
+}
+/* Numéro en filigrane, calé dans l'angle haut extérieur de la bande */
+.plant-num {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(-10%, -30%);
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: clamp(130px, 17vw, 240px);
+    line-height: 1;
+    letter-spacing: -8px;
+    color: color-mix(in srgb, var(--c-ink) 14%, transparent);
+    user-select: none;
+}
+.is-reverse .plant-num { left: auto; right: 0; transform: translate(10%, -30%); }
+.plant-photo {
+    position: relative;
+    width: min(82%, 390px);
+    height: auto;
+    filter: drop-shadow(0 30px 38px rgba(74, 44, 24, .28));
+    animation: infFloat 7s ease-in-out infinite;
+}
+@keyframes infFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+.plant-kicker {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 14px;
-    margin-top: 22px;
+    gap: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--c-ink) 80%, transparent);
 }
-.inf-price {
+.plant-kicker::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: color-mix(in srgb, var(--c-ink) 22%, transparent);
+}
+.plant-tag {
+    padding: 4px 11px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--c-ink) 12%, transparent);
+}
+.plant-latin {
+    margin-top: 18px;
+    font-size: 13px;
+    font-style: italic;
+    letter-spacing: .4px;
+    color: color-mix(in srgb, var(--c-ink) 70%, transparent);
+}
+.plant-name {
+    margin-top: 2px;
     font-family: 'Fraunces', serif;
     font-weight: 600;
-    font-size: 22px;
+    font-size: clamp(42px, 6vw, 82px);
+    line-height: .96;
+    letter-spacing: -2px;
+    color: var(--c-ink);
+}
+.plant-tagline {
+    margin-top: 14px;
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: clamp(18px, 1.9vw, 23px);
+    color: var(--title);
+}
+.plant-note {
+    max-width: 46ch;
+    margin-top: 12px;
+    font-size: 15.5px;
+    line-height: 1.7;
+    color: var(--muted);
+}
+.plant-benefits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-top: 24px;
+    list-style: none;
+}
+.plant-benefits li {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 14px 7px 11px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--c-ink);
+    background: color-mix(in srgb, var(--c-ink) 11%, transparent);
+}
+.plant-benefits svg { width: 13px; height: 13px; }
+
+/* Mode de préparation */
+.plant-brew {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(20px, 3vw, 40px);
+    margin-top: 28px;
+    padding-top: 22px;
+    border-top: 1px solid color-mix(in srgb, var(--c-ink) 20%, transparent);
+}
+.plant-brew dt {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 21px;
+    color: var(--title);
+}
+.plant-brew dd {
+    margin-top: 3px;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 1.3px;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.plant-buy {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    margin-top: 30px;
+}
+.plant-price {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 30px;
     color: var(--title);
     white-space: nowrap;
 }
-.inf-price small { font-size: 12px; font-weight: 600; color: var(--muted); }
-.inf-add {
+.plant-price small { font-size: 13px; font-weight: 600; color: var(--muted); }
+.btn-add {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 9px;
+    padding: 14px 24px;
+    border: none;
+    border-radius: 999px;
     background: var(--c-ink);
     color: #fff;
-    border: none;
-    padding: 11px 18px;
-    border-radius: 999px;
-    font-size: 13.5px;
+    font-size: 14px;
     font-weight: 700;
     cursor: pointer;
-    transition: filter .2s ease, transform .2s ease;
+    box-shadow: 0 18px 30px -18px color-mix(in srgb, var(--c-ink) 90%, transparent);
+    transition: transform .2s ease, filter .2s ease;
 }
-.inf-add svg { width: 16px; height: 16px; }
-.inf-add:hover { filter: brightness(1.08); transform: translateY(-1px); }
-
-.inf-soon-badge {
-    font-size: 12px;
+.btn-add svg { width: 16px; height: 16px; }
+.btn-add:hover { transform: translateY(-2px); filter: brightness(1.08); }
+.btn-wa {
+    font-size: 13.5px;
     font-weight: 700;
-    letter-spacing: .5px;
-    padding: 7px 14px;
+    color: var(--green-ink);
+    text-decoration: none;
+    border-bottom: 1.5px solid color-mix(in srgb, var(--green-ink) 40%, transparent);
+    padding-bottom: 2px;
+    transition: border-color .2s ease;
+}
+.btn-wa:hover { border-bottom-color: var(--green-ink); }
+
+/* Mention de précaution (affichée seulement quand la plante en demande une) */
+.plant-caution {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    max-width: 52ch;
+    margin-top: 26px;
+    padding: 13px 16px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, .5);
+    border: 1px solid color-mix(in srgb, var(--c-ink) 16%, transparent);
+    font-size: 12.5px;
+    line-height: 1.55;
+    color: var(--muted);
+}
+.plant-caution svg {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: var(--c-ink);
+}
+
+/* ---------------- Rituel de la journée ---------------- */
+.ritual {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: clamp(58px, 8vw, 108px) var(--gut);
+}
+.ritual-head { max-width: 620px; margin: 0 auto; text-align: center; }
+.sec-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: clamp(31px, 4.2vw, 52px);
+    line-height: 1.05;
+    letter-spacing: -1.2px;
+    color: var(--title);
+}
+.sec-lead { margin-top: 14px; font-size: 16px; line-height: 1.65; color: var(--muted); }
+
+.ritual-steps {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 44px;
+    list-style: none;
+}
+.step {
+    padding: 30px 26px 28px;
+    border-radius: 22px;
+    background: #fffdf9;
+    border: 1px solid rgba(74, 44, 24, .10);
+    border-top: 3px solid var(--c-ink);
+    box-shadow: 0 26px 44px -34px rgba(74, 44, 24, .8);
+}
+.step-time {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1.5px;
+    color: var(--c-ink);
+}
+.step-name {
+    margin-top: 8px;
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 27px;
+    letter-spacing: -.5px;
+    color: var(--title);
+}
+.step-text { margin-top: 10px; font-size: 14.5px; line-height: 1.62; color: var(--muted); }
+
+/* ---------------- Pack découverte ---------------- */
+.pack {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(54px, 7.5vw, 100px) var(--gut);
+    background: linear-gradient(150deg, #33603B 0%, #23442A 100%);
+}
+.pack-inner {
+    max-width: 1160px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, .82fr);
+    align-items: center;
+    gap: clamp(30px, 5vw, 70px);
+}
+.pack-eyebrow {
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 2.2px;
+    text-transform: uppercase;
+    color: var(--accent);
+}
+.pack-title {
+    margin-top: 12px;
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: clamp(33px, 4.4vw, 58px);
+    line-height: 1.02;
+    letter-spacing: -1.4px;
+    color: #fff;
+}
+.pack-lead {
+    max-width: 46ch;
+    margin-top: 16px;
+    font-size: 15.5px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, .76);
+}
+.pack-list { display: grid; gap: 10px; margin-top: 24px; list-style: none; }
+.pack-list li {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+}
+.pack-list span { font-weight: 400; color: rgba(255, 255, 255, .55); }
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--c-bg);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--c-bg) 22%, transparent);
+}
+.pack-buy {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px;
+    margin-top: 32px;
+}
+.pack-price {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 34px;
+    color: #fff;
+    white-space: nowrap;
+}
+.pack-price small { font-size: 14px; color: rgba(255, 255, 255, .6); }
+.btn-pack {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 26px;
     border-radius: 999px;
-    color: var(--c-ink);
-    background: color-mix(in srgb, var(--c-ink) 14%, transparent);
+    background: #fff;
+    color: #23442A;
+    font-size: 14.5px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 20px 34px -18px rgba(0, 0, 0, .6);
+    transition: transform .2s ease;
 }
+.btn-pack svg { width: 19px; height: 19px; }
+.btn-pack:hover { transform: translateY(-3px); }
 
-/* Zone image (photo de la plante détourée) + filigrane décoratif */
-.inf-photo-zone {
+.pack-media { position: relative; display: grid; place-items: center; }
+.pack-media::before {
+    content: '';
     position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 1;
+    width: min(100%, 440px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(255, 255, 255, .16) 0%, transparent 70%);
 }
-.inf-leaf {
-    position: absolute;
-    right: -14px;
-    bottom: -14px;
-    width: 130px;
-    height: 130px;
-    color: var(--c-ink);
-    opacity: .12;
-    transform: rotate(-12deg);
-}
-.is-feature .inf-leaf { width: 190px; height: 190px; right: -20px; bottom: 40px; }
-/* Photo de la plante — colonne image dédiée (jamais sous le texte) */
-.inf-photo {
-    grid-column: 2;
-    grid-row: 2 / 4;
-    align-self: end;
-    justify-self: center;
-    width: 100%;
+/* tray.webp a un fond crème opaque : on l'assume en photo encadrée */
+.pack-media img {
+    position: relative;
+    width: min(100%, 420px);
     height: auto;
-    filter: drop-shadow(0 14px 20px rgba(74,44,24,.20));
-    pointer-events: none;
-    animation: infFloat 6s ease-in-out infinite;
+    border-radius: 26px;
+    box-shadow: 0 34px 54px -24px rgba(0, 0, 0, .55);
 }
-.is-feature .inf-photo { justify-self: end; }
-@keyframes infFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-/* La carte « à venir » : mise en page simple (pas de colonne image) */
-.card-soon { grid-template-columns: 1fr; }
 
-/* Responsive */
-@media (max-width: 900px) {
-    .inf-grid { grid-template-columns: 1fr; padding: 0 22px 70px; }
-    .card-hibiscus { grid-row: auto; }
-    .inf-intro { padding: 30px 24px 26px; }
-    .inf-note { max-width: none; }
+/* ---------------- Pied de page catalogue ---------------- */
+.inf-foot {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: clamp(48px, 7vw, 88px) var(--gut) clamp(60px, 8vw, 100px);
+}
+.soon {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    border-radius: 18px;
+    border: 1px dashed rgba(74, 44, 24, .28);
+}
+.soon-index {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 1px;
+    color: var(--muted);
+}
+.soon p { flex: 1; min-width: 240px; font-size: 14.5px; line-height: 1.55; color: var(--muted); }
+.soon b { color: var(--title); font-weight: 700; }
+.soon-badge {
+    padding: 6px 13px;
+    border-radius: 999px;
+    background: rgba(74, 44, 24, .08);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+/* Bandeau réassurance partagé avec l'accueil : on annule seulement la marge
+   négative qui le fait chevaucher le hero d'accueil. */
+.inf-foot .reassurance { margin-top: 30px; margin-bottom: 0; }
+
+.inf-legal {
+    max-width: 74ch;
+    margin: 30px auto 0;
+    font-size: 12.5px;
+    line-height: 1.65;
+    text-align: center;
+    color: color-mix(in srgb, var(--muted) 85%, transparent);
+}
+
+/* ---------------- Responsive ----------------
+   Mêmes paliers que la page d'accueil : 1000px (= bascule du menu burger)
+   puis 680px. Même colonne de contenu (600px), même gouttière (26px),
+   même texte aligné à gauche et mêmes CTA pleine largeur. */
+@media (max-width: 1000px) {
+    .inf { --gut: 26px; }
+
+    /* Colonne de contenu commune, calée sur celle du hero d'accueil */
+    .inf-hero,
+    .plant-inner,
+    .ritual,
+    .pack-inner,
+    .inf-foot { max-width: 600px; margin-inline: auto; }
+
+    /* Intro : même traitement éditorial que le hero d'accueil (aligné à gauche) */
+    .inf-hero { text-align: left; padding-bottom: 44px; }
+    .inf-title { font-size: clamp(34px, 7vw, 52px); line-height: 1.03; }
+    .inf-lead { margin-inline: 0; }
+    .inf-jump { justify-content: flex-start; margin-top: 28px; }
+    /* Décor rejeté hors de la colonne de texte (600px) pour ne jamais la croiser */
+    .inf-hero-decor { top: -12px; right: -160px; width: min(34vw, 230px); opacity: .22; }
+
+    /* Bandes produit : photo au-dessus du texte, quel que soit le sens */
+    .plant-inner { grid-template-columns: minmax(0, 1fr); gap: 26px; }
+    .plant-media, .is-reverse .plant-media { order: 0; }
+    .plant-body, .is-reverse .plant-body { order: 1; }
+    .plant-media { min-height: 0; }
+    .plant-photo { width: 66%; max-width: 250px; }
+    .plant-num { font-size: clamp(120px, 30vw, 210px); }
+    .plant-name { font-size: clamp(38px, 8vw, 58px); }
+    .plant-note, .plant-caution { max-width: none; }
+
+    /* CTA pleine largeur, comme .btn-shop / .btn-ghost sur l'accueil */
+    .plant-buy { gap: 14px; }
+    .btn-add, .btn-wa { width: 100%; justify-content: center; text-align: center; }
+    .btn-wa { border-bottom: none; text-decoration: underline; text-underline-offset: 4px; }
+
+    .ritual-head { text-align: left; margin-inline: 0; }
+    .ritual-steps { grid-template-columns: minmax(0, 1fr); gap: 12px; margin-top: 30px; }
+
+    .pack-inner { grid-template-columns: minmax(0, 1fr); }
+    .pack-media { order: -1; }
+    .pack-media img, .pack-media::before { width: 66%; max-width: 250px; }
+    .pack-title { font-size: clamp(32px, 7vw, 48px); }
+
+    .inf-legal { text-align: left; margin-inline: 0; }
+}
+
+/* ≤680 : même palier que le carrousel réassurance de l'accueil */
+@media (max-width: 680px) {
+    .inf-foot .reassurance { padding-inline: 0; }
+    .plant-brew { gap: 18px; }
+    .plant-brew dt { font-size: 19px; }
+    .jump { padding: 6px 16px 6px 6px; }
+    .jump img { width: 34px; height: 34px; }
+    .soon { padding: 18px 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .plant-photo { animation: none; }
+    .jump:hover, .btn-add:hover, .btn-pack:hover { transform: none; }
 }

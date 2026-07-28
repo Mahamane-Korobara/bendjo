@@ -1,107 +1,230 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
+import Reassurance from '../components/Reassurance.astro';
 
-const leaf =
-    'M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z';
+const WA = 'https://wa.me/2290162014161?text=';
 
 const products = [
     {
         id: 'hibiscus',
-        num: 'N°01',
+        num: '01',
         tag: 'Bissap',
         latin: 'Hibiscus sabdariffa',
         name: 'Hibiscus',
-        note: 'Rouge profond, acidulé. L’infusion qui réveille la journée.',
-        benefits: ['Vitamine C', 'Antioxydants', 'Magnésium', 'Potassium'],
+        tagline: 'Rouge profond, acidulé.',
+        note: 'Les calices séchés libèrent une infusion écarlate, franchement acidulée, qui se boit aussi bien brûlante que glacée. C’est l’infusion qui réveille la journée.',
+        benefits: ['Antioxydants', 'Anthocyanes', 'Potassium', 'Magnésium'],
+        caution:
+            'Déconseillé pendant la grossesse et l’allaitement. Si vous suivez un traitement contre l’hypertension, le diabète ou le paludisme, ou une contraception hormonale, demandez l’avis de votre médecin.',
+        brew: [
+            { v: '1 c. à s.', l: 'pour 25 cl' },
+            { v: '95 °C', l: 'température' },
+            { v: '5–7 min', l: 'infusion' },
+        ],
+        moment: 'Le matin',
         price: '1 500',
         photo: '/images/bendjo/p-hibiscus.webp',
     },
     {
         id: 'citronnelle',
-        num: 'N°02',
+        num: '02',
         tag: '3-en-1',
         latin: 'Cymbopogon citratus',
         name: 'Citronnelle',
-        note: 'Citronnelle, clou de girofle & laurier. Pour purifier après le repas.',
-        benefits: ['Digestion', 'Vitamine E', 'Enzymes digestives', 'Antioxydants'],
+        tagline: 'Citronnée, chaude, épicée.',
+        note: 'Citronnelle, clou de girofle et feuille de laurier réunis dans une même infusion. Un trio vif et réconfortant, à prendre après le repas pour purifier et digérer.',
+        benefits: ['Confort digestif', 'Antioxydants', 'Riche en citral'],
+        brew: [
+            { v: '1 c. à s.', l: 'pour 25 cl' },
+            { v: '95 °C', l: 'température' },
+            { v: '7–10 min', l: 'infusion' },
+        ],
+        moment: 'Après le repas',
         price: '1 500',
         photo: '/images/bendjo/p-citronnelle.webp',
     },
     {
         id: 'basilic',
-        num: 'N°03',
+        num: '03',
         tag: 'Sérénité',
         latin: 'Ocimum gratissimum',
         name: 'Basilic',
-        note: 'Vert poivré, apaisant. Le rituel du soir, 30 min avant de dormir.',
-        benefits: ['Calme & sommeil', 'Vitamines A · E · C', 'Anti-tensions'],
+        tagline: 'Vert poivré, apaisant.',
+        note: 'Le basilic africain donne une infusion herbacée, légèrement poivrée, qui aide à décompresser. Le rituel du soir, 30 minutes avant de dormir.',
+        benefits: ['Vitamines A · C', 'Antioxydants', 'Eugénol & thymol', 'Détente du soir'],
+        brew: [
+            { v: '1 c. à s.', l: 'pour 25 cl' },
+            { v: '90 °C', l: 'température' },
+            { v: '5 min', l: 'infusion' },
+        ],
+        moment: 'Le soir',
         price: '1 500',
         photo: '/images/bendjo/p-basilic.webp',
     },
+];
+
+const ritual = [
+    { h: '07:00', id: 'hibiscus', name: 'Hibiscus', text: 'À jeun ou au petit-déjeuner, pour démarrer avec une infusion écarlate riche en antioxydants.' },
+    { h: '13:30', id: 'citronnelle', name: 'Citronnelle', text: 'Juste après le déjeuner, pour alléger la digestion et éviter le coup de barre.' },
+    { h: '21:00', id: 'basilic', name: 'Basilic', text: 'Une demi-heure avant le coucher, pour faire redescendre la tension du jour.' },
 ];
 ---
 
 <Layout title="Nos infusions — BenDjo">
     <Header />
 
-    <main class="infusions-page">
-        <!-- Intro éducative -->
-        <section class="inf-intro">
+    <main class="inf">
+        <!-- ==================== INTRO ==================== -->
+        <section class="inf-hero">
+            <img class="inf-hero-decor" src="/images/bendjo/corner-top.webp" alt="" width="500" height="500" loading="lazy" />
+
             <p class="inf-eyebrow">Le catalogue</p>
-            <h1 class="inf-title">Nos infusions</h1>
+            <h1 class="inf-title">
+                Trois plantes,<br />
+                <span class="inf-title-em">trois rituels</span>
+            </h1>
             <p class="inf-lead">
-                Trois plantes du terroir béninois, récoltées et
-                <strong>séchées lentement à l’ombre</strong>. Une infusion, c’est
-                l’essence d’une plante libérée par l’eau chaude — sans additif, sans
-                colorant. Choisissez votre rituel.
+                Une infusion, c’est l’essence d’une plante libérée par l’eau chaude.
+                Rien d’autre. Nos trois plantes sont récoltées au Bénin et
+                <strong>séchées lentement à l’ombre</strong> — sans additif, sans
+                colorant, sans arôme ajouté.
             </p>
+
+            <nav class="inf-jump" aria-label="Aller à une infusion">
+                {products.map((p) => (
+                    <a class={`jump jump-${p.id}`} href={`#${p.id}`}>
+                        <img src={p.photo} alt="" width="500" height="500" loading="lazy" />
+                        <span><b>{p.name}</b>{p.moment}</span>
+                    </a>
+                ))}
+            </nav>
         </section>
 
-        <!-- Grille produits (bento) -->
-        <section class="inf-grid">
-            {products.map((p, i) => (
-                <article class={`inf-card card-${p.id} ${i === 0 ? 'is-feature' : ''}`}>
-                    <div class="inf-card-head">
-                        <span class="inf-num">{p.num}</span>
-                        <span class="inf-tag">{p.tag}</span>
+        <!-- ==================== UNE BANDE PAR PLANTE ==================== -->
+        {products.map((p, i) => (
+            <section class={`plant plant-${p.id} ${i % 2 === 1 ? 'is-reverse' : ''}`} id={p.id}>
+                <div class="plant-inner">
+                    <div class="plant-media">
+                        <span class="plant-num" aria-hidden="true">{p.num}</span>
+                        <img class="plant-photo" src={p.photo} alt={`Infusion ${p.name} BenDjo`} width="500" height="500" loading="lazy" />
                     </div>
 
-                    <div class="inf-card-body">
-                        <p class="inf-latin">{p.latin}</p>
-                        <h2 class="inf-name">{p.name}</h2>
-                        <p class="inf-note">{p.note}</p>
-                        <ul class="inf-benefits">
-                            {p.benefits.map((b) => <li>{b}</li>)}
+                    <div class="plant-body">
+                        <p class="plant-kicker">
+                            <span class="plant-index">N°{p.num}</span>
+                            <span class="plant-tag">{p.tag}</span>
+                        </p>
+                        <p class="plant-latin">{p.latin}</p>
+                        <h2 class="plant-name">{p.name}</h2>
+                        <p class="plant-tagline">{p.tagline}</p>
+                        <p class="plant-note">{p.note}</p>
+
+                        <ul class="plant-benefits">
+                            {p.benefits.map((b) => (
+                                <li>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 4.5 4.5L19 7"></path></svg>
+                                    {b}
+                                </li>
+                            ))}
                         </ul>
+
+                        <dl class="plant-brew">
+                            {p.brew.map((b) => (
+                                <div>
+                                    <dt>{b.v}</dt>
+                                    <dd>{b.l}</dd>
+                                </div>
+                            ))}
+                        </dl>
+
+                        <div class="plant-buy">
+                            <span class="plant-price">{p.price} <small>FCFA</small></span>
+                            <button class="btn-add" type="button" data-add={p.id} data-name={p.name}>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5v14"></path></svg>
+                                Ajouter au panier
+                            </button>
+                            <a class="btn-wa" href={`${WA}Bonjour%20BenDjo%2C%20je%20souhaite%20commander%20l%27infusion%20${encodeURIComponent(p.name)}.`} target="_blank" rel="noopener">
+                                Commander sur WhatsApp
+                            </a>
+                        </div>
+
+                        {p.caution && (
+                            <p class="plant-caution">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 16v-5M12 8h.01"></path></svg>
+                                <span>{p.caution}</span>
+                            </p>
+                        )}
                     </div>
+                </div>
+            </section>
+        ))}
 
-                    <div class="inf-card-buy">
-                        <span class="inf-price">{p.price} <small>FCFA</small></span>
-                        <button class="inf-add" type="button" data-add={p.id} data-name={p.name}>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5v14"></path></svg>
-                            Ajouter au panier
-                        </button>
+        <!-- ==================== LE RITUEL D'UNE JOURNÉE ==================== -->
+        <section class="ritual">
+            <div class="ritual-head">
+                <p class="inf-eyebrow">Le rituel</p>
+                <h2 class="sec-title">Une journée BenDjo</h2>
+                <p class="sec-lead">Les trois infusions ne se boivent pas au hasard : chacune a son moment.</p>
+            </div>
+
+            <ol class="ritual-steps">
+                {ritual.map((r) => (
+                    <li class={`step step-${r.id}`}>
+                        <span class="step-time">{r.h}</span>
+                        <h3 class="step-name">{r.name}</h3>
+                        <p class="step-text">{r.text}</p>
+                    </li>
+                ))}
+            </ol>
+        </section>
+
+        <!-- ==================== PACK DÉCOUVERTE ==================== -->
+        <section class="pack">
+            <div class="pack-inner">
+                <div class="pack-text">
+                    <p class="pack-eyebrow">Le trio complet</p>
+                    <h2 class="pack-title">Prenez les trois</h2>
+                    <p class="pack-lead">
+                        Hibiscus le matin, citronnelle après le repas, basilic le soir.
+                        Le trio couvre la journée entière — et c’est la meilleure façon
+                        de trouver celle qui vous correspond.
+                    </p>
+                    <ul class="pack-list">
+                        {products.map((p) => (
+                            <li><i class={`dot dot-${p.id}`}></i>{p.name} <span>· {p.moment.toLowerCase()}</span></li>
+                        ))}
+                    </ul>
+                    <div class="pack-buy">
+                        <span class="pack-price">4 500 <small>FCFA</small></span>
+                        <a class="btn-pack" href={`${WA}Bonjour%20BenDjo%2C%20je%20souhaite%20commander%20le%20trio%20complet%20(hibiscus%2C%20citronnelle%2C%20basilic).`} target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.11.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.39c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.83 2.42a8.2 8.2 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.28 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.42-.14 0-.31-.02-.47-.02s-.43.06-.66.31c-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29Z"></path></svg>
+                            Commander le trio
+                        </a>
                     </div>
+                </div>
 
-                    <img class="inf-photo" src={p.photo} alt={`Infusion ${p.name} BenDjo`} width="500" height="500" loading="lazy" />
-                </article>
-            ))}
+                <div class="pack-media">
+                    <img src="/images/bendjo/tray.webp" alt="Les trois infusions BenDjo" width="1100" height="1100" loading="lazy" />
+                </div>
+            </div>
+        </section>
 
-            <!-- Carte « à venir » -->
-            <article class="inf-card card-soon">
-                <div class="inf-card-head">
-                    <span class="inf-num">N°04</span>
-                    <span class="inf-tag">Bientôt</span>
-                </div>
-                <div class="inf-card-body">
-                    <h2 class="inf-name">Autres variétés</h2>
-                    <p class="inf-note">Feuille de laurier seule &amp; autres infusions du terroir — en préparation.</p>
-                </div>
-                <div class="inf-card-buy">
-                    <span class="inf-soon-badge">Prochainement</span>
-                </div>
-            </article>
+        <!-- ==================== À VENIR + RÉASSURANCE ==================== -->
+        <section class="inf-foot">
+            <div class="soon">
+                <span class="soon-index">N°04</span>
+                <p><b>Autres variétés</b> — feuille de laurier seule &amp; autres infusions du terroir, en préparation.</p>
+                <span class="soon-badge">Bientôt</span>
+            </div>
+
+            <Reassurance />
+
+            <p class="inf-legal">
+                Nos infusions sont des boissons de bien-être, pas des médicaments : elles
+                ne remplacent ni un avis médical ni un traitement. En cas de grossesse,
+                d’allaitement ou de traitement en cours, parlez-en à un professionnel de santé.
+            </p>
         </section>
     </main>
 </Layout>
