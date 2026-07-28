@@ -1,0 +1,171 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Reassurance from '../components/Reassurance.astro';
+import { WHATSAPP_BASE as WA } from '../data/products';
+
+const services = [
+    {
+        id: 'infusions',
+        num: '01',
+        tag: 'Grand public',
+        name: 'Infusions naturelles',
+        tagline: 'Le terroir béninois en sachet.',
+        note: 'Hibiscus, citronnelle associée au clou de girofle, basilic — trois plantes récoltées au Bénin, séchées et conditionnées en sachets individuels. Un packaging soigné, coloré, pensé pour être offert comme pour être gardé sur son bureau.',
+        benefits: [
+            'Trois plantes du terroir, sans additif ni colorant',
+            'Boîte de 10 sachets individuels',
+            'Livraison à Cotonou et Abomey-Calavi',
+        ],
+        steps: [
+            { t: 'Consultez le catalogue', d: 'Chaque infusion a sa fiche : goût, bienfaits, mode de préparation.' },
+            { t: 'Composez votre panier', d: 'Ajoutez les quantités que vous voulez, mélangez les trois plantes.' },
+            { t: 'Commandez sur WhatsApp', d: 'Le récapitulatif part pré-rempli. Nous confirmons prix et livraison.' },
+            { t: 'Recevez votre commande', d: 'Livraison à Cotonou et Abomey-Calavi, dès 500 FCFA.' },
+        ],
+        cta: { label: 'Voir le catalogue', href: '/nos-infusions' },
+    },
+    {
+        id: 'petit-dejeuner',
+        num: '02',
+        tag: 'Entreprises',
+        name: 'Petit-déjeuner en entreprise',
+        tagline: 'Déjà servi dans une cinquantaine de structures.',
+        note: 'C’est le métier historique de BenDjo. Nous préparons et livrons le petit-déjeuner directement dans vos locaux, à Cotonou et à Abomey-Calavi. Une cinquantaine d’entreprises nous font déjà confiance chaque semaine.',
+        benefits: [
+            'Livré directement dans vos locaux',
+            'Cotonou et Abomey-Calavi',
+            'Une cinquantaine d’entreprises servies',
+        ],
+        steps: [
+            { t: 'Vous nous écrivez', d: 'Un message sur WhatsApp avec votre effectif et votre zone.' },
+            { t: 'Nous cadrons ensemble', d: 'Fréquence, formules et modalités sont définies avec vous.' },
+            { t: 'Nous livrons', d: 'Le petit-déjeuner arrive prêt, à l’heure convenue, dans vos locaux.' },
+        ],
+        cta: { label: 'Demander une formule', href: `${WA}Bonjour%20BenDjo%2C%20je%20souhaite%20des%20informations%20sur%20le%20service%20de%20petit-d%C3%A9jeuner%20en%20entreprise.`, external: true },
+    },
+    {
+        id: 'traiteur',
+        num: '03',
+        tag: 'Événements',
+        name: 'Service traiteur',
+        tagline: 'Pour vos lancements de produit.',
+        note: 'BenDjo assure la partie restauration de vos événements, en particulier les lancements de produit. Une prestation pensée pour que vos invités se souviennent d’autre chose que du buffet — avec la même exigence sur les ingrédients que pour nos infusions.',
+        benefits: [
+            'Spécialisé dans les lancements de produit',
+            'Prestation cadrée avec vous en amont',
+            'Même exigence sur les ingrédients',
+        ],
+        steps: [
+            { t: 'Parlez-nous de l’événement', d: 'Date, lieu, nombre d’invités, format souhaité.' },
+            { t: 'Nous construisons la proposition', d: 'Nous revenons vers vous avec une prestation adaptée.' },
+            { t: 'Nous assurons le jour J', d: 'Vous vous occupez de vos invités, nous du reste.' },
+        ],
+        cta: { label: 'Parler de mon événement', href: `${WA}Bonjour%20BenDjo%2C%20je%20souhaite%20des%20informations%20sur%20votre%20service%20traiteur%20pour%20un%20%C3%A9v%C3%A9nement.`, external: true },
+    },
+];
+---
+
+<Layout
+    title="Nos services — BenDjo"
+    description="Les trois services BenDjo : infusions naturelles du terroir béninois, petit-déjeuner en entreprise à Cotonou et Abomey-Calavi, et service traiteur pour vos lancements de produit."
+>
+    <Header />
+
+    <main class="inf">
+        <!-- ==================== INTRO ==================== -->
+        <section class="inf-hero">
+            <p class="inf-eyebrow">Nos services</p>
+            <h1 class="inf-title">
+                Trois façons<br />
+                <span class="inf-title-em">de travailler ensemble</span>
+            </h1>
+            <p class="inf-lead">
+                BenDjo est née d’un même geste : nourrir avec ce que le Bénin produit déjà.
+                Cela se décline en <strong>trois services</strong> — nos infusions pour les
+                particuliers, le petit-déjeuner pour les entreprises, le traiteur pour vos
+                événements.
+            </p>
+
+            <nav class="inf-jump" aria-label="Aller à un service">
+                {services.map((s) => (
+                    <a class={`jump jump-${s.id}`} href={`#${s.id}`}>
+                        <span class="jump-num">{s.num}</span>
+                        <span><b>{s.name}</b>{s.tag}</span>
+                    </a>
+                ))}
+            </nav>
+        </section>
+
+        <!-- ==================== UNE BANDE PAR SERVICE ==================== -->
+        {services.map((s, i) => (
+            <section class={`plant srv-${s.id} ${i % 2 === 1 ? 'is-reverse' : ''}`} id={s.id}>
+                <div class="plant-inner srv-inner">
+                    <div class="plant-body">
+                        <p class="plant-kicker">
+                            <span class="plant-index">N°{s.num}</span>
+                            <span class="plant-tag">{s.tag}</span>
+                        </p>
+                        <h2 class="plant-name">{s.name}</h2>
+                        <p class="plant-tagline">{s.tagline}</p>
+                        <p class="plant-note">{s.note}</p>
+
+                        <ul class="plant-benefits srv-benefits">
+                            {s.benefits.map((b) => (
+                                <li>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 4.5 4.5L19 7"></path></svg>
+                                    {b}
+                                </li>
+                            ))}
+                        </ul>
+
+                        <a
+                            class="btn-add srv-cta"
+                            href={s.cta.href}
+                            target={s.cta.external ? '_blank' : undefined}
+                            rel={s.cta.external ? 'noopener' : undefined}
+                        >
+                            {s.cta.label}
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"></path></svg>
+                        </a>
+                    </div>
+
+                    <ol class="srv-steps">
+                        <p class="srv-steps-label">Comment en bénéficier</p>
+                        {s.steps.map((st, n) => (
+                            <li>
+                                <span class="srv-step-num">{n + 1}</span>
+                                <div>
+                                    <b>{st.t}</b>
+                                    <span>{st.d}</span>
+                                </div>
+                            </li>
+                        ))}
+                    </ol>
+                </div>
+            </section>
+        ))}
+
+        <!-- ==================== CTA FINAL ==================== -->
+        <section class="pack">
+            <div class="pack-inner pack-solo">
+                <div class="pack-text">
+                    <p class="pack-eyebrow">Une question</p>
+                    <h2 class="pack-title">Dites-nous ce dont vous avez besoin</h2>
+                    <p class="pack-lead">
+                        Que ce soit trois sachets ou le petit-déjeuner de cinquante
+                        personnes, tout commence par une conversation. Écrivez-nous, nous
+                        cadrons ensemble avant que vous ne vous engagiez.
+                    </p>
+                    <div class="pack-buy">
+                        <a class="btn-pack" href="/contact">Nous contacter</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="inf-foot">
+            <Reassurance />
+        </section>
+    </main>
+</Layout>

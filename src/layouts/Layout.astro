@@ -1,6 +1,13 @@
 ---
 import '../styles/global.css';
-const { title = 'BenDjo — Infusions naturelles 100% Made in Bénin' } = Astro.props;
+import CartDrawer from '../components/CartDrawer.astro';
+
+const {
+    title = 'BenDjo — Infusions naturelles 100% Made in Bénin',
+    description = 'BenDjo, marque béninoise basée à Cotonou : infusions naturelles hibiscus, citronnelle et basilic, petit-déjeuner en entreprise et service traiteur. 100% made in Bénin, sans additif.',
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://bendjo.bj');
 ---
 
 <!doctype html>
@@ -8,9 +15,17 @@ const { title = 'BenDjo — Infusions naturelles 100% Made in Bénin' } = Astro.
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="description" content="BenDjo — infusions naturelles 100% made in Bénin : hibiscus, citronnelle, basilic. Purifier, digérer, se détendre. La marque qui vous reconnecte à vos origines." />
+        <meta name="description" content={description} />
+        <link rel="canonical" href={canonical.href} />
         <link rel="icon" type="image/webp" href="/images/bendjo/logo-mark.webp" />
         <title>{title}</title>
+
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="BenDjo" />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:locale" content="fr_BJ" />
+        <meta name="twitter:card" content="summary_large_image" />
 
         <!-- Polices : Fraunces (titres) + Inter (corps) — chargement non bloquant + display=swap -->
         <link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
@@ -29,5 +44,6 @@ const { title = 'BenDjo — Infusions naturelles 100% Made in Bénin' } = Astro.
     </head>
     <body>
         <slot />
+        <CartDrawer />
     </body>
 </html>

@@ -3,66 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Reassurance from '../components/Reassurance.astro';
 
-const WA = 'https://wa.me/2290162014161?text=';
-
-const products = [
-    {
-        id: 'hibiscus',
-        num: '01',
-        tag: 'Bissap',
-        latin: 'Hibiscus sabdariffa',
-        name: 'Hibiscus',
-        tagline: 'Rouge profond, acidulé.',
-        note: 'Les calices séchés libèrent une infusion écarlate, franchement acidulée, qui se boit aussi bien brûlante que glacée. C’est l’infusion qui réveille la journée.',
-        benefits: ['Antioxydants', 'Anthocyanes', 'Potassium', 'Magnésium'],
-        caution:
-            'Déconseillé pendant la grossesse et l’allaitement. Si vous suivez un traitement contre l’hypertension, le diabète ou le paludisme, ou une contraception hormonale, demandez l’avis de votre médecin.',
-        brew: [
-            { v: '1 c. à s.', l: 'pour 25 cl' },
-            { v: '95 °C', l: 'température' },
-            { v: '5–7 min', l: 'infusion' },
-        ],
-        moment: 'Le matin',
-        price: '1 500',
-        photo: '/images/bendjo/p-hibiscus.webp',
-    },
-    {
-        id: 'citronnelle',
-        num: '02',
-        tag: '3-en-1',
-        latin: 'Cymbopogon citratus',
-        name: 'Citronnelle',
-        tagline: 'Citronnée, chaude, épicée.',
-        note: 'Citronnelle, clou de girofle et feuille de laurier réunis dans une même infusion. Un trio vif et réconfortant, à prendre après le repas pour purifier et digérer.',
-        benefits: ['Confort digestif', 'Antioxydants', 'Riche en citral'],
-        brew: [
-            { v: '1 c. à s.', l: 'pour 25 cl' },
-            { v: '95 °C', l: 'température' },
-            { v: '7–10 min', l: 'infusion' },
-        ],
-        moment: 'Après le repas',
-        price: '1 500',
-        photo: '/images/bendjo/p-citronnelle.webp',
-    },
-    {
-        id: 'basilic',
-        num: '03',
-        tag: 'Sérénité',
-        latin: 'Ocimum gratissimum',
-        name: 'Basilic',
-        tagline: 'Vert poivré, apaisant.',
-        note: 'Le basilic africain donne une infusion herbacée, légèrement poivrée, qui aide à décompresser. Le rituel du soir, 30 minutes avant de dormir.',
-        benefits: ['Vitamines A · C', 'Antioxydants', 'Eugénol & thymol', 'Détente du soir'],
-        brew: [
-            { v: '1 c. à s.', l: 'pour 25 cl' },
-            { v: '90 °C', l: 'température' },
-            { v: '5 min', l: 'infusion' },
-        ],
-        moment: 'Le soir',
-        price: '1 500',
-        photo: '/images/bendjo/p-basilic.webp',
-    },
-];
+import { products, packPrice, formatFCFA, WHATSAPP_BASE as WA } from '../data/products';
 
 const ritual = [
     { h: '07:00', id: 'hibiscus', name: 'Hibiscus', text: 'À jeun ou au petit-déjeuner, pour démarrer avec une infusion écarlate riche en antioxydants.' },
@@ -116,6 +57,7 @@ const ritual = [
                         <p class="plant-latin">{p.latin}</p>
                         <h2 class="plant-name">{p.name}</h2>
                         <p class="plant-tagline">{p.tagline}</p>
+                        <p class="plant-format">{p.format}</p>
                         <p class="plant-note">{p.note}</p>
 
                         <ul class="plant-benefits">
@@ -137,14 +79,11 @@ const ritual = [
                         </dl>
 
                         <div class="plant-buy">
-                            <span class="plant-price">{p.price} <small>FCFA</small></span>
+                            <span class="plant-price">{formatFCFA(p.price)} <small>FCFA</small></span>
                             <button class="btn-add" type="button" data-add={p.id} data-name={p.name}>
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5v14"></path></svg>
                                 Ajouter au panier
                             </button>
-                            <a class="btn-wa" href={`${WA}Bonjour%20BenDjo%2C%20je%20souhaite%20commander%20l%27infusion%20${encodeURIComponent(p.name)}.`} target="_blank" rel="noopener">
-                                Commander sur WhatsApp
-                            </a>
                         </div>
 
                         {p.caution && (
@@ -194,10 +133,11 @@ const ritual = [
                         ))}
                     </ul>
                     <div class="pack-buy">
-                        <span class="pack-price">4 500 <small>FCFA</small></span>
-                        <a class="btn-pack" href={`${WA}Bonjour%20BenDjo%2C%20je%20souhaite%20commander%20le%20trio%20complet%20(hibiscus%2C%20citronnelle%2C%20basilic).`} target="_blank" rel="noopener">
-                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.11.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.39c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.83 2.42a8.2 8.2 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.28 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.42-.14 0-.31-.02-.47-.02s-.43.06-.66.31c-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29Z"></path></svg>
-                            Commander le trio
+                        <span class="pack-price">{formatFCFA(packPrice)} <small>FCFA</small></span>
+                        <!-- ajoute les trois au panier ; sans JS, part sur WhatsApp -->
+                        <a class="btn-pack" data-add-all href={`${WA}Bonjour%20BenDjo%2C%20je%20souhaite%20commander%20le%20trio%20complet%20(hibiscus%2C%20citronnelle%2C%20basilic).`} target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5v14"></path></svg>
+                            Ajouter le trio au panier
                         </a>
                     </div>
                 </div>

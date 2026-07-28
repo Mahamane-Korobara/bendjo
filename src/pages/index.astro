@@ -2,9 +2,28 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Reassurance from '../components/Reassurance.astro';
+import { products, formatFCFA } from '../data/products';
 
 const WHATSAPP =
     'https://wa.me/2290162014161?text=Bonjour%20BenDjo%2C%20je%20souhaite%20commander%20vos%20infusions.';
+
+const servicesPreview = [
+    {
+        id: 'infusions',
+        name: 'Infusions naturelles',
+        text: 'Trois plantes du terroir béninois, en boîte de 10 sachets.',
+    },
+    {
+        id: 'petit-dejeuner',
+        name: 'Petit-déjeuner en entreprise',
+        text: 'Livré dans vos locaux, déjà dans une cinquantaine de structures.',
+    },
+    {
+        id: 'traiteur',
+        name: 'Service traiteur',
+        text: 'Pour vos événements et vos lancements de produit.',
+    },
+];
 ---
 
 <Layout>
@@ -32,11 +51,11 @@ const WHATSAPP =
                 >. Récoltées et séchées au Bénin, livrées chez vous.
             </p>
             <div class="hero-cta">
-                <a href={WHATSAPP} target="_blank" rel="noopener" class="btn-shop">
+                <a href={WHATSAPP} target="_blank" rel="noopener" class="btn-shop" data-wa-generic>
                     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.11.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.39c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.83 2.42a8.2 8.2 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.28 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.42-.14 0-.31-.02-.47-.02s-.43.06-.66.31c-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29Z"></path></svg>
                     Commander sur WhatsApp
                 </a>
-                <a href="#infusions" class="btn-ghost">Nos infusions <span class="arrow">→</span></a>
+                <a href="/nos-infusions" class="btn-ghost">Nos infusions <span class="arrow">→</span></a>
             </div>
         </div>
 
@@ -57,5 +76,114 @@ const WHATSAPP =
 
     <!-- ==================== BANDEAU RÉASSURANCE ==================== -->
     <Reassurance />
+
+    <!-- ==================== APERÇU À PROPOS (mosaïque) ==================== -->
+    <section class="lp-about">
+        <div class="lp-head">
+            <p class="inf-eyebrow">À propos</p>
+            <h2 class="sec-title">Née à Cotonou, en 2025</h2>
+            <p class="lp-lead lp-lead-center">
+                Une marque béninoise de produits alimentaires, portée par une petite
+                équipe et une conviction : ce qu’il faut pour bien manger et bien boire
+                pousse déjà ici.
+            </p>
+        </div>
+
+        <div class="bento">
+            <figure class="tile tile-photo tile-a">
+                <img src="/images/bendjo/about-atelier.webp" alt="Tri à la main des fleurs d’hibiscus séchées sur un plateau en osier, entourées de citronnelle, de basilic, de clous de girofle et de feuilles de laurier" width="900" height="900" loading="lazy" />
+            </figure>
+
+            <div class="tile tile-stats">
+                <dl>
+                    <div><dt>2025</dt><dd>année de création</dd></div>
+                    <div><dt>~50</dt><dd>entreprises servies</dd></div>
+                </dl>
+            </div>
+
+            <div class="tile tile-text">
+                <h3>Deux métiers,<br />une même exigence</h3>
+                <p>
+                    BenDjo a commencé par livrer des petits-déjeuners en entreprise, à
+                    Cotonou puis à Abomey-Calavi. La marque a ensuite étendu ce
+                    savoir-faire au terroir lui-même.
+                </p>
+            </div>
+
+            <figure class="tile tile-photo tile-b">
+                <img src="/images/bendjo/about-sechage.webp" alt="Bottes de citronnelle suspendues et claies d’hibiscus en train de sécher lentement à l’ombre" width="900" height="675" loading="lazy" />
+            </figure>
+
+            <article class="tile tile-feature">
+                <figure class="tile-feature-media">
+                    <img src="/images/bendjo/about-terroir.webp" alt="Gerbe des trois plantes BenDjo liée à la ficelle : citronnelle, hibiscus séché et basilic, avec clous de girofle et feuilles de laurier" width="500" height="500" loading="lazy" />
+                </figure>
+                <h3>Le terroir avant tout</h3>
+                <p>
+                    Hibiscus, citronnelle associée au clou de girofle, basilic : trois
+                    plantes récoltées au Bénin, séchées lentement à l’ombre, sans additif
+                    ni colorant.
+                </p>
+            </article>
+        </div>
+
+        <a class="lp-link lp-link-center" href="/a-propos">Notre histoire <span class="arrow">→</span></a>
+    </section>
+
+    <!-- ==================== APERÇU SERVICES ==================== -->
+    <section class="lp-services">
+        <div class="lp-head">
+            <p class="inf-eyebrow">Nos services</p>
+            <h2 class="sec-title">Trois façons de travailler ensemble</h2>
+        </div>
+        <ul class="lp-services-grid">
+            {servicesPreview.map((s, i) => (
+                <li class={`lp-service srv-${s.id}`}>
+                    <span class="lp-service-num">{String(i + 1).padStart(2, '0')}</span>
+                    <h3>{s.name}</h3>
+                    <p>{s.text}</p>
+                </li>
+            ))}
+        </ul>
+        <a class="lp-link lp-link-center" href="/services">Voir le détail des services <span class="arrow">→</span></a>
+    </section>
+
+    <!-- ==================== GALERIE DES INFUSIONS ==================== -->
+    <section class="lp-gallery">
+        <div class="lp-head">
+            <p class="inf-eyebrow">Nos infusions</p>
+            <h2 class="sec-title">Trois plantes, trois rituels</h2>
+        </div>
+        <ul class="lp-gallery-grid">
+            {products.map((p) => (
+                <li class={`lp-card plant-${p.id}`}>
+                    <a href={`/nos-infusions#${p.id}`}>
+                        <img src={p.photo} alt={`Infusion ${p.name} BenDjo — ${p.format}`} width="500" height="500" loading="lazy" />
+                        <h3>{p.name}</h3>
+                        <p class="lp-card-moment">{p.moment}</p>
+                        <p class="lp-card-price">{formatFCFA(p.price)} <small>FCFA</small></p>
+                    </a>
+                </li>
+            ))}
+        </ul>
+        <a class="lp-link lp-link-center" href="/nos-infusions">Voir le catalogue complet <span class="arrow">→</span></a>
+    </section>
+
+    <!-- ==================== APPEL À L'ACTION FINAL ==================== -->
+    <section class="pack">
+        <div class="pack-inner pack-solo">
+            <div class="pack-text">
+                <p class="pack-eyebrow">Parlons-en</p>
+                <h2 class="pack-title">Une commande, une question, un événement</h2>
+                <p class="pack-lead">
+                    Tout se règle dans une conversation. Écrivez-nous, nous confirmons le
+                    prix et la livraison avant que vous ne vous engagiez.
+                </p>
+                <div class="pack-buy">
+                    <a class="btn-pack" href="/contact">Nous contacter</a>
+                </div>
+            </div>
+        </div>
+    </section>
     </main>
 </Layout>

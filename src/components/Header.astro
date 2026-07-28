@@ -15,13 +15,13 @@ const WHATSAPP =
         <label for="nav-toggle" class="nav-close" aria-label="Fermer le menu"><span></span><span></span></label>
         <ul class="nav">
             <li><a href="/"><span class="num">01</span><span class="lbl">Accueil</span></a></li>
-            <li><a href="#"><span class="num">02</span><span class="lbl">À propos</span></a></li>
-            <li><a href="#"><span class="num">03</span><span class="lbl">Services</span></a></li>
+            <li><a href="/a-propos"><span class="num">02</span><span class="lbl">À propos</span></a></li>
+            <li><a href="/services"><span class="num">03</span><span class="lbl">Services</span></a></li>
             <li><a href="/nos-infusions"><span class="num">04</span><span class="lbl">Nos infusions</span></a></li>
-            <li><a href="#"><span class="num">05</span><span class="lbl">Contact</span></a></li>
+            <li><a href="/contact"><span class="num">05</span><span class="lbl">Contact</span></a></li>
         </ul>
         <div class="nav-foot">
-            <a href={WHATSAPP} target="_blank" rel="noopener" class="nav-foot-cta">Commander sur WhatsApp</a>
+            <a href={WHATSAPP} target="_blank" rel="noopener" class="nav-foot-cta" data-wa-generic>Commander sur WhatsApp</a>
             <div class="nav-contact">
                 <a href="tel:+2290162014161">+229 01 62 01 41 61</a>
                 <a href="mailto:bendjobenin@gmail.com">bendjobenin@gmail.com</a>
@@ -34,7 +34,8 @@ const WHATSAPP =
             <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"></circle><circle cx="19" cy="21" r="1"></circle><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path></svg>
             <span class="cart-count">0</span>
         </a>
-        <a href="/nos-infusions" class="btn-nav-cta desktop-cta">Commander</a>
+        <!-- ouvre le panier ; sans JS, reste un lien vers le catalogue -->
+        <a href="/nos-infusions" class="btn-nav-cta desktop-cta" data-cart-open>Commander</a>
         <label for="nav-toggle" class="burger" aria-label="Ouvrir le menu"><span></span><span></span><span></span></label>
     </div>
 </header>

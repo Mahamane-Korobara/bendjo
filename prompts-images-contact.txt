@@ -1,0 +1,153 @@
+==========================================================================
+BENDJO — PROMPTS IMAGES POUR LA PAGE CONTACT
+Convention identique au prompt "trois boîtes" déjà validé.
+Palette issue du brief officiel BenDjo (section 2).
+==========================================================================
+
+Rappel des références couleur à réutiliser dans tous les prompts :
+  Kraft / brun carton .... #C89B6B
+  Vert feuille ........... #4B7F52   (couleur principale de marque)
+  Rouge hibiscus ......... #D64545
+  Orange citronnelle ..... #E08A2E
+  Rose basilic ........... #E895A3
+  Crème / fond clair ..... #F5EFE6   (fond de page du site)
+  Fond image .............. #FDFBF7  (crème très clair, pour détourage facile)
+
+
+--------------------------------------------------------------------------
+IMAGE 1 — HERO DE LA PAGE CONTACT          [ESSENTIELLE]
+Emplacement : à droite du titre « Parlons de votre commande ».
+Rôle : humaniser la page — on écrit à des gens, pas à un formulaire.
+Format demandé : carré (1:1)
+--------------------------------------------------------------------------
+
+Photographie lifestyle premium, format carré, style publicitaire chaleureux.
+
+SUJET : deux mains féminines à la peau noire, manches d'un vêtement en tissu
+naturel écru, qui tendent délicatement une tasse en céramique claire remplie
+d'une infusion d'hibiscus rouge rubis, encore fumante. Le geste est celui de
+l'accueil : la tasse est offerte vers l'objectif, légèrement décentrée. Une
+fine vapeur monte de la boisson. À côté de la tasse, posés sur la surface,
+quelques fleurs d'hibiscus séchées rouge profond, un brin de citronnelle
+verte et deux feuilles de basilic frais. Un sachet de tisane en papier kraft
+brun clair, non ouvert, repose à plat.
+
+IMPORTANT : aucun texte, aucun logo, aucune lettre lisible nulle part —
+ni sur le sachet, ni sur la tasse, ni sur les vêtements. Le sachet kraft
+reste vierge, avec au maximum une petite illustration de feuille imprimée.
+Visage non visible : cadrage sur les mains, la tasse et la surface.
+
+STYLE : naturel, chaleureux, premium, bien-être, hospitalité ouest-africaine
+béninoise. Lumière douce et diffuse venant de la gauche, ombres portées
+légères, rendu photo réaliste haute définition, faible profondeur de champ
+(la tasse nette, l'arrière-plan doucement flou).
+
+PALETTE : fond crème chaud très clair et uni (#FDFBF7), surface en bois clair
+ou en lin écru ; accents rouge hibiscus (#D64545) pour l'infusion, vert
+feuille (#4B7F52) pour les plantes, kraft (#C89B6B) pour le sachet.
+Ambiance chaude, jamais froide ni bleutée.
+
+CADRAGE : composition centrée sur la tasse, équilibrée, avec de la marge
+autour (l'image sera affichée dans un cadre arrondi à droite d'un titre).
+
+À ÉVITER : épices indiennes (curcuma en poudre, cannelle, cardamome, cumin),
+plateau en laiton doré style thali indien, ambiance de marché indien, théière
+en fonte japonaise, citron ou tranches d'agrumes, texte ou logo lisible,
+vernis à ongles voyant, décor chargé. Rester 100% identité béninoise BenDjo
+et plantes réelles (hibiscus, citronnelle, basilic, girofle, laurier).
+
+
+--------------------------------------------------------------------------
+IMAGE 2 — BLOC « OÙ NOUS LIVRONS »          [ESSENTIELLE]
+Emplacement : sous la liste Cotonou / Abomey-Calavi, qui laisse un vide.
+Rôle : rendre la livraison concrète et rassurante.
+Format demandé : paysage 4:3
+--------------------------------------------------------------------------
+
+Photographie produit premium, format paysage 4:3, style publicitaire
+chaleureux.
+
+SUJET : un petit colis prêt à partir, posé sur une surface claire. Un sac en
+papier kraft brun clair (#C89B6B), plié et fermé par une ficelle de jute
+nouée, laisse dépasser trois boîtes de tisane en carton kraft naturel. Chaque
+boîte porte une bande de couleur d'accent différente : une bande ROUGE
+hibiscus, une bande ORANGE citronnelle, une bande ROSE basilic. À côté du
+sac, quelques fleurs d'hibiscus séchées, un brin de citronnelle et une
+feuille de laurier, posés naturellement. Une petite étiquette en carton
+vierge pend à la ficelle.
+
+IMPORTANT : aucun texte, aucun logo, aucune lettre, aucun chiffre lisible —
+ni sur les boîtes, ni sur le sac, ni sur l'étiquette. L'étiquette reste
+totalement vierge. Les boîtes sont épurées : juste la bande de couleur et
+une petite illustration de feuille.
+
+STYLE : naturel, soigné, artisanal mais professionnel, terroir béninois,
+sensation de commande préparée à la main avec attention. Lumière douce et
+diffuse, ombres portées courtes, rendu photo réaliste haute définition.
+
+PALETTE : fond crème chaud très clair et uni (#FDFBF7) ; kraft (#C89B6B)
+dominant ; accents rouge hibiscus (#D64545), orange citronnelle (#E08A2E),
+rose basilic (#E895A3) ; touches de vert feuille (#4B7F52) pour les plantes.
+
+CADRAGE : composition légèrement décentrée vers la gauche, vue de trois
+quarts, avec de la marge en haut et à droite (l'image sera recadrée dans un
+bloc arrondi).
+
+À ÉVITER : épices indiennes (curcuma en poudre, cannelle, cardamome, cumin),
+plateau en laiton doré style thali indien, ambiance de marché indien, carton
+d'expédition industriel avec scotch, code-barres, texte ou logo lisible,
+packaging chargé. Rester 100% identité béninoise BenDjo et plantes réelles
+(hibiscus, citronnelle, basilic, girofle, laurier).
+
+
+--------------------------------------------------------------------------
+IMAGE 3 — FAQ « COMMENT PRÉPARER L'INFUSION »          [OPTIONNELLE]
+Emplacement : en tête de la colonne FAQ, si tu veux l'alléger visuellement.
+Rôle : illustrer le geste de préparation.
+Format demandé : carré (1:1)
+--------------------------------------------------------------------------
+
+Photographie produit premium, format carré, style publicitaire chaleureux.
+
+SUJET : un sachet de tisane en papier kraft brun clair plongé dans un verre
+transparent rempli d'eau chaude, saisi au moment exact où l'infusion se
+diffuse : des volutes rouge rubis d'hibiscus se déploient dans l'eau claire
+depuis le sachet, comme de l'encre dans l'eau. Une fine vapeur s'élève à la
+surface. Autour du verre, posés à plat, quelques fleurs d'hibiscus séchées,
+des brins de citronnelle et deux clous de girofle.
+
+IMPORTANT : aucun texte, aucun logo, aucune lettre lisible sur le sachet ni
+sur l'étiquette du sachet. Le sachet et son étiquette restent vierges, en
+kraft naturel.
+
+STYLE : naturel, appétissant, premium, bien-être, terroir africain béninois.
+Lumière douce et diffuse en contre-jour léger pour faire ressortir la
+transparence du verre et les volutes colorées. Rendu photo réaliste haute
+définition, macro, faible profondeur de champ.
+
+PALETTE : fond crème chaud très clair et uni (#FDFBF7) ; rouge hibiscus
+(#D64545) éclatant dans l'eau ; kraft (#C89B6B) pour le sachet ; vert feuille
+(#4B7F52) pour les plantes.
+
+CADRAGE : verre centré, vue légèrement en plongée, marge généreuse autour.
+
+À ÉVITER : épices indiennes (curcuma en poudre, cannelle, cardamome, cumin),
+plateau en laiton doré style thali indien, ambiance de marché indien, sachet
+de thé industriel avec ficelle et étiquette imprimée, tranche de citron,
+glaçons, texte ou logo lisible. Rester 100% identité béninoise BenDjo et
+plantes réelles (hibiscus, citronnelle, basilic, girofle, laurier).
+
+
+==========================================================================
+APRÈS GÉNÉRATION
+==========================================================================
+1. Détourer ou garder le fond crème selon le rendu — le fond #FDFBF7 se
+   fond avec le fond du site (#FAF0E2) sans raccord visible.
+2. Convertir en WebP avant intégration (les images actuelles du site sont
+   toutes en .webp, 500x500 pour les produits, 1100x1100 pour le plateau).
+3. Déposer dans /public/images/bendjo/ en nommant :
+      contact-hero.webp
+      contact-livraison.webp
+      contact-preparation.webp   (si tu génères l'image 3)
+4. Me le dire : j'intègre, je pose les attributs width/height et le alt text
+   (le brief exige l'alt text sur les images, section 5).
