@@ -301,6 +301,61 @@ identité béninoise BenDjo.
 ```
 
 ---
+---
+
+# Section finale « Parlons-en » — 1 image
+
+Bloc de clôture vert foncé : texte + CTA à gauche, photo à droite dans une carte
+arrondie, avec un badge blanc flottant (le numéro de téléphone) qui déborde sur son
+angle bas-gauche.
+
+⚠️ Le badge blanc recouvre **l'angle bas-gauche** de la photo sur environ 240 × 70 px :
+ne placez rien d'essentiel dans ce coin. L'image est recadrée en `object-fit: cover`
+(4:5 sur desktop, 4:3 sur mobile) → sujet centré, marge de sécurité sur les bords.
+
+**Le fichier est déjà référencé dans le code** : la carte restera vide tant qu'il
+n'est pas déposé.
+
+## IMAGE G — visuel de clôture
+
+**Fichier cible : `/public/images/bendjo/cta-remise.webp`** · **Portrait 4:5**
+
+```
+Photographie lifestyle premium, format portrait 4:5, style publicitaire chaleureux.
+
+SUJET : le moment de la remise d'une commande. Deux personnes à la peau noire,
+de trois quarts, échangent un petit sac en papier kraft brun clair fermé par une
+ficelle de jute : une main le tend, l'autre le reçoit, les deux mains se
+rejoignent au centre du cadre. Le sac laisse dépasser le haut de deux boîtes de
+tisane en carton kraft avec des bandes de couleur (rouge et vert). En arrière-plan
+doucement flou, une rue ou une terrasse ensoleillée d'Afrique de l'Ouest, avec de
+la verdure. Sourires visibles mais visages coupés au niveau du menton, ou bien
+légèrement flous : l'attention reste sur le geste et le sac.
+
+IMPORTANT : aucun texte, aucun logo, aucune lettre lisible — ni sur le sac, ni sur
+les boîtes, ni sur les vêtements. Le sac kraft reste vierge, avec au maximum une
+petite illustration de feuille. Sujet centré, marge de sécurité sur les quatre
+bords. L'angle BAS-GAUCHE doit rester calme et sans détail important : il sera
+recouvert par un badge blanc.
+
+STYLE : chaleureux, humain, spontané, lumière de fin d'après-midi dorée, sensation
+de proximité et de confiance. Rendu photo réaliste haute définition, faible
+profondeur de champ (les mains et le sac nets, l'arrière-plan flou).
+
+PALETTE : lumière chaude et dorée, verdure en arrière-plan ; kraft (#C89B6B)
+dominant pour le sac, accents rouge hibiscus (#D64545) et vert feuille (#4B7F52)
+sur les boîtes. Ambiance chaude, jamais froide ni bleutée.
+
+CADRAGE : plan rapproché sur les mains et le sac, composition centrée, échange au
+centre du cadre.
+
+À ÉVITER : épices indiennes, plateau en laiton doré style thali indien, ambiance
+de marché indien, sac plastique, carton d'expédition industriel, uniforme de
+livreur d'une marque connue, casque de moto de plateforme de livraison, texte ou
+logo lisible. Rester 100% identité béninoise BenDjo.
+```
+
+---
 
 ## Après génération
 
@@ -317,6 +372,7 @@ identité béninoise BenDjo.
    service-infusions.webp         760 × 950     (D — portrait 4:5)
    service-petit-dejeuner.webp    760 × 950     (E — portrait 4:5)
    service-traiteur.webp          760 × 950     (F — portrait 4:5)
+   cta-remise.webp                760 × 950     (G — portrait 4:5)
    ```
 
 4. Déposer le tout dans `/public/images/bendjo/`.

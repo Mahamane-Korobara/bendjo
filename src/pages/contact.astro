@@ -8,6 +8,7 @@ const PHONE_DISPLAY = '+229 01 62 01 41 61';
 const PHONE_TEL = '+2290162014161';
 const WA_NUMBER = '2290162014161';
 const EMAIL = 'bendjobenin@gmail.com';
+const WA_LINK = `https://wa.me/${WA_NUMBER}?text=Bonjour%20BenDjo%2C%20j%27ai%20une%20question.`;
 
 // Comptes officiels, fournis par BenDjo dans le brief du projet
 const SOCIALS = [
@@ -43,80 +44,127 @@ const faq = [
         a: 'Chaque fiche produit indique la dose, la température de l’eau et le temps d’infusion recommandés.',
         link: { href: '/nos-infusions', label: 'Voir les fiches' },
     },
+    {
+        q: 'Proposez-vous des prestations pour les entreprises ?',
+        a: 'Oui — le petit-déjeuner livré en entreprise est notre métier historique, déjà présent dans une cinquantaine de structures, et nous assurons aussi le traiteur pour vos lancements de produit.',
+        link: { href: '/services', label: 'Voir les services' },
+    },
 ];
 ---
 
-<Layout title="Contact — BenDjo">
+<Layout
+    title="Contact — BenDjo"
+    description="Contactez BenDjo à Cotonou : WhatsApp, téléphone, email. Commandes d’infusions, petit-déjeuner en entreprise et traiteur. Livraison à Cotonou et Abomey-Calavi."
+>
     <Header />
 
     <main class="ct">
-        <!-- ==================== INTRO ==================== -->
+        <!-- ==================== HERO ==================== -->
         <section class="ct-hero">
-            <p class="inf-eyebrow">Nous écrire</p>
-            <h1 class="inf-title">
-                Parlons de<br />
-                <span class="inf-title-em">votre commande</span>
-            </h1>
-            <p class="inf-lead">
-                Chez BenDjo, une commande se règle dans une conversation : vous nous dites
-                ce qu’il vous faut, nous confirmons le prix et la livraison. <strong
-                    >Aucun formulaire ne tombe dans le vide</strong
-                > — tout arrive directement sur notre WhatsApp.
-            </p>
+            <div class="ct-hero-inner">
+                <div class="ct-hero-text">
+                    <p class="srvx-eyebrow">/ Nous écrire</p>
+                    <h1 class="srvx-title">
+                        Parlons de<br />
+                        <span class="ct-title-em">votre commande</span>
+                    </h1>
+                    <p class="ct-hero-lead">
+                        Chez BenDjo, une commande se règle dans une conversation : vous nous
+                        dites ce qu’il vous faut, nous confirmons le prix et la livraison.
+                        Aucun formulaire ne tombe dans le vide.
+                    </p>
+
+                    <ul class="ct-chips">
+                        <li>
+                            <a href={WA_LINK} target="_blank" rel="noopener" data-wa-generic>
+                                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.11.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.39c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.83 2.42a8.2 8.2 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.28 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.42-.14 0-.31-.02-.47-.02s-.43.06-.66.31c-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29Z"></path></svg>
+                                WhatsApp
+                            </a>
+                        </li>
+                        <li><a href={`tel:${PHONE_TEL}`}>Appeler</a></li>
+                        <li><a href={`mailto:${EMAIL}`}>Envoyer un mail</a></li>
+                    </ul>
+                </div>
+
+                <div class="ct-hero-media">
+                    <figure class="ct-hero-photo">
+                        <img src="/images/bendjo/contact-hero.webp" alt="Une tasse d’infusion d’hibiscus tendue vers l’objectif, accompagnée de plantes du terroir béninois" width="760" height="950" loading="eager" fetchpriority="high" />
+                    </figure>
+                    <div class="ct-hero-badge">
+                        <span class="ct-badge-dot" aria-hidden="true"></span>
+                        <div>
+                            <b>On répond ici</b>
+                            <span>WhatsApp · {PHONE_DISPLAY}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <!-- ==================== LES CANAUX ==================== -->
-        <section class="ct-channels">
-            <a
-                class="channel is-primary"
-                href={`https://wa.me/${WA_NUMBER}?text=Bonjour%20BenDjo%2C%20j%27ai%20une%20question.`}
-                target="_blank"
-                rel="noopener"
-                data-wa-generic
-            >
-                <span class="channel-icon">
-                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.11.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.39c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.83 2.42a8.2 8.2 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.28 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.42-.14 0-.31-.02-.47-.02s-.43.06-.66.31c-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29Z"></path></svg>
-                </span>
-                <p class="channel-label">WhatsApp — le plus rapide</p>
-                <p class="channel-value">{PHONE_DISPLAY}</p>
-                <span class="channel-cta">Ouvrir la conversation <span class="arrow">→</span></span>
-            </a>
+        <!-- ==================== BENTO CONTACT ==================== -->
+        <section class="ct-bento-wrap">
+            <div class="ct-bento">
+                <a class="ctb ctb-wa" href={WA_LINK} target="_blank" rel="noopener" data-wa-generic>
+                    <span class="ctb-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.11.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.39c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.83 2.42a8.2 8.2 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.28 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.42-.14 0-.31-.02-.47-.02s-.43.06-.66.31c-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29Z"></path></svg>
+                    </span>
+                    <p class="ctb-label">Le plus rapide</p>
+                    <p class="ctb-value">{PHONE_DISPLAY}</p>
+                    <span class="ctb-cta">Ouvrir la conversation <span class="ctb-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"></path></svg></span></span>
+                </a>
 
-            <a class="channel" href={`tel:${PHONE_TEL}`}>
-                <span class="channel-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.4-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2Z"></path></svg>
-                </span>
-                <p class="channel-label">Au téléphone</p>
-                <p class="channel-value">{PHONE_DISPLAY}</p>
-                <span class="channel-cta">Appeler <span class="arrow">→</span></span>
-            </a>
+                <a class="ctb ctb-tel" href={`tel:${PHONE_TEL}`}>
+                    <span class="ctb-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.4-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2Z"></path></svg>
+                    </span>
+                    <p class="ctb-label">Au téléphone</p>
+                    <p class="ctb-value">{PHONE_DISPLAY}</p>
+                </a>
 
-            <a class="channel" href={`mailto:${EMAIL}`}>
-                <span class="channel-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"></rect><path d="m3 7 8.2 5.6a1.5 1.5 0 0 0 1.6 0L21 7"></path></svg>
-                </span>
-                <p class="channel-label">Par email</p>
-                <p class="channel-value">{EMAIL}</p>
-                <span class="channel-cta">Écrire un mail <span class="arrow">→</span></span>
-            </a>
+                <a class="ctb ctb-mail" href={`mailto:${EMAIL}`}>
+                    <span class="ctb-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"></rect><path d="m3 7 8.2 5.6a1.5 1.5 0 0 0 1.6 0L21 7"></path></svg>
+                    </span>
+                    <p class="ctb-label">Par email</p>
+                    <p class="ctb-value ctb-value-sm">{EMAIL}</p>
+                </a>
+
+                <div class="ctb ctb-place">
+                    <span class="ctb-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>
+                    </span>
+                    <p class="ctb-label">Où nous sommes</p>
+                    <p class="ctb-value">Cotonou, Bénin</p>
+                    <ul class="ctb-socials">
+                        {SOCIALS.map((s) => (
+                            <li>
+                                <a href={s.href} target="_blank" rel="noopener" aria-label={s.label}>
+                                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d={s.icon}></path></svg>
+                                    {s.label}
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
         </section>
 
         <!-- ==================== FORMULAIRE → WHATSAPP ==================== -->
         <section class="ct-write">
             <div class="ct-write-inner">
                 <div class="ct-write-text">
-                    <p class="pack-eyebrow">Votre message</p>
-                    <h2 class="pack-title">Écrivez-nous</h2>
-                    <p class="pack-lead">
+                    <p class="cta-eyebrow">/ Votre message</p>
+                    <h2 class="cta-title">Écrivez-nous</h2>
+                    <p class="cta-lead">
                         Ce formulaire n’envoie pas d’email : il prépare votre message et
                         l’ouvre dans WhatsApp. Vous le relisez, vous l’envoyez — et vous
                         gardez la trace de l’échange dans votre téléphone.
                     </p>
-                    <ul class="ct-steps">
-                        <li><b>1.</b> Vous remplissez</li>
-                        <li><b>2.</b> WhatsApp s’ouvre, message prêt</li>
-                        <li><b>3.</b> Nous répondons dans la conversation</li>
-                    </ul>
+                    <ol class="cta-steps ct-write-steps">
+                        <li><b>01</b><span>Vous remplissez</span></li>
+                        <li><b>02</b><span>WhatsApp s’ouvre</span></li>
+                        <li><b>03</b><span>Nous répondons</span></li>
+                    </ol>
                 </div>
 
                 <form
@@ -127,15 +175,17 @@ const faq = [
                     rel="noopener"
                     data-wa-form
                 >
-                    <label class="field">
-                        <span>Votre nom</span>
-                        <input type="text" name="nom" autocomplete="name" placeholder="Ex. Aïcha D." required />
-                    </label>
+                    <div class="ct-form-row">
+                        <label class="field">
+                            <span>Votre nom</span>
+                            <input type="text" name="nom" autocomplete="name" placeholder="Ex. Aïcha D." required />
+                        </label>
 
-                    <label class="field">
-                        <span>Votre email</span>
-                        <input type="email" name="email" autocomplete="email" placeholder="Ex. aicha@exemple.com" required />
-                    </label>
+                        <label class="field">
+                            <span>Votre email</span>
+                            <input type="email" name="email" autocomplete="email" placeholder="aicha@exemple.com" required />
+                        </label>
+                    </div>
 
                     <label class="field">
                         <span>Ville ou quartier</span>
@@ -155,54 +205,72 @@ const faq = [
             </div>
         </section>
 
-        <!-- ==================== LIVRAISON + FAQ ==================== -->
-        <section class="ct-info">
-            <div class="ct-delivery">
-                <p class="inf-eyebrow">Livraison</p>
-                <h2 class="sec-title">Où nous livrons</h2>
-                <ul class="zones">
-                    <li><b>Cotonou</b><span>à partir de 500 FCFA</span></li>
-                    <li><b>Abomey-Calavi</b><span>à partir de 500 FCFA</span></li>
-                </ul>
-                <p class="ct-note">
-                    Ailleurs au Bénin, écrivez-nous : nous regardons ensemble ce qui est
-                    possible avant de valider quoi que ce soit.
-                </p>
-
-                <div class="ct-located">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>
-                    <p><b>BenDjo est basée à Cotonou</b><span>Bénin — service également actif à Abomey-Calavi</span></p>
+        <!-- ==================== LIVRAISON ==================== -->
+        <section class="ct-zones">
+            <div class="srvx-head">
+                <div>
+                    <p class="srvx-eyebrow">/ Livraison</p>
+                    <h2 class="srvx-title">Où nous livrons</h2>
                 </div>
-
-                <div class="ct-socials">
-                    <p class="ct-socials-label">Nous suivre</p>
-                    <ul>
-                        {SOCIALS.map((s) => (
-                            <li>
-                                <a href={s.href} target="_blank" rel="noopener">
-                                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d={s.icon}></path></svg>
-                                    <span><b>{s.label}</b>{s.handle}</span>
-                                </a>
-                            </li>
-                        ))}
-                    </ul>
+                <div class="srvx-aside">
+                    <p>
+                        Deux villes couvertes aujourd’hui, à partir de 500 FCFA. Ailleurs au
+                        Bénin, écrivez-nous : nous regardons ensemble ce qui est possible
+                        avant de valider quoi que ce soit.
+                    </p>
+                    <div class="srvx-links">
+                        <a href={WA_LINK} target="_blank" rel="noopener" data-wa-generic>Demander pour ma ville <span aria-hidden="true">›</span></a>
+                    </div>
                 </div>
             </div>
 
-            <div class="ct-faq">
-                <p class="inf-eyebrow">Questions fréquentes</p>
-                <h2 class="sec-title">Ce qu’on nous demande</h2>
-                <dl class="faq">
-                    {faq.map((f) => (
-                        <div class="faq-item">
-                            <dt>{f.q}</dt>
-                            <dd>
-                                {f.a}
-                                {f.link && <a href={f.link.href}>{f.link.label} <span class="arrow">→</span></a>}
-                            </dd>
+            <div class="zone-grid">
+                <article class="zone-card">
+                    <span class="zone-index">01</span>
+                    <h3>Cotonou</h3>
+                    <p>Livraison à partir de 500 FCFA</p>
+                </article>
+                <article class="zone-card">
+                    <span class="zone-index">02</span>
+                    <h3>Abomey-Calavi</h3>
+                    <p>Livraison à partir de 500 FCFA</p>
+                </article>
+                <figure class="zone-photo">
+                    <img src="/images/bendjo/contact-livraison.webp" alt="Commande BenDjo préparée dans un sac kraft, prête à être livrée" width="900" height="675" loading="lazy" />
+                </figure>
+            </div>
+        </section>
+
+        <!-- ==================== FAQ ==================== -->
+        <section class="ct-faq">
+            <div class="srvx-head">
+                <div>
+                    <p class="srvx-eyebrow">/ Questions fréquentes</p>
+                    <h2 class="srvx-title">Ce qu’on nous demande</h2>
+                </div>
+                <div class="srvx-aside">
+                    <p>
+                        Les réponses aux questions qui reviennent le plus. Si la vôtre n’y
+                        est pas, elle se règle en une minute sur WhatsApp.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-list">
+                {faq.map((f, i) => (
+                    <details class="faq-item" open={i === 0}>
+                        <summary>
+                            <span>{f.q}</span>
+                            <span class="faq-sign" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M12 5v14"></path></svg>
+                            </span>
+                        </summary>
+                        <div class="faq-answer">
+                            <p>{f.a}</p>
+                            {f.link && <a href={f.link.href}>{f.link.label} <span aria-hidden="true">›</span></a>}
                         </div>
-                    ))}
-                </dl>
+                    </details>
+                ))}
             </div>
         </section>
 
@@ -214,7 +282,7 @@ const faq = [
 </Layout>
 
 <script>
-    // Le formulaire compose un seul message WhatsApp à partir des trois champs.
+    // Le formulaire compose un seul message WhatsApp à partir des champs.
     // Sans JS, le navigateur poste quand même vers wa.me : seul le champ
     // « text » est retenu, le message part sans le nom ni la ville.
     const form = document.querySelector<HTMLFormElement>('[data-wa-form]');

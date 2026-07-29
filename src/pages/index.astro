@@ -13,25 +13,25 @@ const servicesPreview = [
         id: 'infusions',
         name: 'Infusions naturelles',
         img: '/images/bendjo/service-infusions.webp',
-        alt: 'Préparation des infusions BenDjo : tri des fleurs d’hibiscus séchées',
-        w: 900,
-        h: 900,
+        alt: 'Les trois boîtes d’infusion BenDjo en carton kraft, avec fleurs d’hibiscus séchées, citronnelle et basilic',
+        w: 760,
+        h: 1013,
     },
     {
         id: 'petit-dejeuner',
         name: 'Petit-déjeuner en entreprise',
         img: '/images/bendjo/service-petit-dejeuner.webp',
-        alt: 'Service de petit-déjeuner BenDjo livré en entreprise',
-        w: 900,
-        h: 675,
+        alt: 'Petit-déjeuner BenDjo dressé sur une table de réunion : viennoiseries, fruits frais et infusion d’hibiscus',
+        w: 760,
+        h: 950,
     },
     {
         id: 'traiteur',
         name: 'Service traiteur',
         img: '/images/bendjo/service-traiteur.webp',
-        alt: 'Service traiteur BenDjo pour événements et lancements de produit',
-        w: 500,
-        h: 500,
+        alt: 'Buffet traiteur BenDjo dressé pour un lancement de produit, verres d’infusion et bouchées',
+        w: 760,
+        h: 1140,
     },
 ];
 ---
@@ -219,37 +219,99 @@ const servicesPreview = [
 
     <!-- ==================== GALERIE DES INFUSIONS ==================== -->
     <section class="lp-gallery">
-        <div class="lp-head">
-            <p class="inf-eyebrow">Nos infusions</p>
-            <h2 class="sec-title">Trois plantes, trois rituels</h2>
+        <div class="srvx-head">
+            <div>
+                <p class="srvx-eyebrow">/ Nos infusions</p>
+                <h2 class="srvx-title">Trois plantes,<br />trois rituels</h2>
+            </div>
+            <div class="srvx-aside">
+                <p>
+                    Trois plantes du terroir, en boîte de 10 sachets. Chacune a son moment
+                    dans la journée, son goût et son mode de préparation.
+                </p>
+                <div class="srvx-links">
+                    <a href="/nos-infusions">Voir le catalogue <span aria-hidden="true">›</span></a>
+                    <a href="/nos-infusions" data-cart-open>Composer mon panier <span aria-hidden="true">›</span></a>
+                </div>
+            </div>
         </div>
-        <ul class="lp-gallery-grid">
+
+        <ul class="rit-grid">
             {products.map((p) => (
-                <li class={`lp-card plant-${p.id}`}>
+                <li class={`rit-card plant-${p.id}`}>
                     <a href={`/nos-infusions#${p.id}`}>
-                        <img src={p.photo} alt={`Infusion ${p.name} BenDjo — ${p.format}`} width="500" height="500" loading="lazy" />
-                        <h3>{p.name}</h3>
-                        <p class="lp-card-moment">{p.moment}</p>
-                        <p class="lp-card-price">{formatFCFA(p.price)} <small>FCFA</small></p>
+                        <span class="rit-kicker">
+                            <span class="rit-index">N°{p.num}</span>
+                            <span class="rit-moment">{p.moment}</span>
+                        </span>
+
+                        <span class="rit-media">
+                            <span class="rit-num" aria-hidden="true">{p.num}</span>
+                            <img src={p.photo} alt={`Infusion ${p.name} BenDjo — ${p.format}`} width="500" height="500" loading="lazy" />
+                        </span>
+
+                        <span class="rit-latin">{p.latin}</span>
+                        <span class="rit-name">{p.name}</span>
+
+                        <span class="rit-foot">
+                            <span class="rit-price">{formatFCFA(p.price)} <small>FCFA</small></span>
+                            <span class="rit-arrow" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"></path></svg>
+                            </span>
+                        </span>
                     </a>
                 </li>
             ))}
         </ul>
-        <a class="lp-link lp-link-center" href="/nos-infusions">Voir le catalogue complet <span class="arrow">→</span></a>
     </section>
 
     <!-- ==================== APPEL À L'ACTION FINAL ==================== -->
-    <section class="pack">
-        <div class="pack-inner pack-solo">
-            <div class="pack-text">
-                <p class="pack-eyebrow">Parlons-en</p>
-                <h2 class="pack-title">Une commande, une question, un événement</h2>
-                <p class="pack-lead">
-                    Tout se règle dans une conversation. Écrivez-nous, nous confirmons le
-                    prix et la livraison avant que vous ne vous engagiez.
+    <section class="cta">
+        <div class="cta-inner">
+            <div class="cta-text">
+                <p class="cta-eyebrow">/ Parlons-en</p>
+                <h2 class="cta-title">
+                    Une commande,<br />
+                    une question,<br />
+                    <span class="cta-title-em">un événement</span>
+                </h2>
+                <p class="cta-lead">
+                    Tout se règle dans une conversation. Vous nous dites ce qu’il vous
+                    faut, nous confirmons le prix et la livraison — avant que vous ne vous
+                    engagiez à quoi que ce soit.
                 </p>
-                <div class="pack-buy">
-                    <a class="btn-pack" href="/contact">Nous contacter</a>
+
+                <div class="cta-actions">
+                    <a class="cta-primary" href={WHATSAPP} target="_blank" rel="noopener" data-wa-generic>
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.11.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.39c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.83 2.42a8.2 8.2 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.28 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.42-.14 0-.31-.02-.47-.02s-.43.06-.66.31c-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29Z"></path></svg>
+                        Commander sur WhatsApp
+                    </a>
+                    <a class="cta-ghost" href="/contact">
+                        Nous écrire
+                        <span class="cta-ghost-arrow" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"></path></svg>
+                        </span>
+                    </a>
+                </div>
+
+                <ol class="cta-steps">
+                    <li><b>01</b><span>Vous écrivez</span></li>
+                    <li><b>02</b><span>Nous confirmons</span></li>
+                    <li><b>03</b><span>Nous livrons</span></li>
+                </ol>
+            </div>
+
+            <div class="cta-media">
+                <figure class="cta-photo">
+                    <img src="/images/bendjo/cta-remise.webp" alt="Remise d’une commande BenDjo : un sac kraft et une infusion tendus à une cliente" width="760" height="950" loading="lazy" />
+                </figure>
+
+                <div class="cta-badge">
+                    <span class="cta-badge-dot" aria-hidden="true"></span>
+                    <div>
+                        <b>+229 01 62 01 41 61</b>
+                        <span>Cotonou &amp; Abomey-Calavi</span>
+                    </div>
                 </div>
             </div>
         </div>
