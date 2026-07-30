@@ -18,17 +18,26 @@ const ritual = [
     <main class="inf">
         <!-- ==================== INTRO ==================== -->
         <section class="inf-hero">
-            <p class="inf-eyebrow">Le catalogue</p>
-            <h1 class="inf-title">
-                Trois plantes,<br />
-                <span class="inf-title-em">trois rituels</span>
-            </h1>
-            <p class="inf-lead">
-                Une infusion, c’est l’essence d’une plante libérée par l’eau chaude.
-                Rien d’autre. Nos trois plantes sont récoltées au Bénin et <strong
-                    >séchées lentement à l’ombre</strong
-                > — sans additif, sans colorant, sans arôme ajouté.
-            </p>
+            <div class="srvx-head">
+                <div>
+                    <p class="srvx-eyebrow">/ Le catalogue</p>
+                    <h1 class="srvx-title">
+                        Trois plantes,<br />
+                        <span class="srvx-title-em">trois rituels</span>
+                    </h1>
+                </div>
+                <div class="srvx-aside">
+                    <p>
+                        Une infusion, c’est l’essence d’une plante libérée par l’eau chaude.
+                        Rien d’autre. Nos trois plantes sont récoltées au Bénin et séchées
+                        lentement à l’ombre — sans additif, sans colorant, sans arôme ajouté.
+                    </p>
+                    <div class="srvx-links">
+                        <a href="/nos-infusions" data-cart-open>Composer mon panier <span aria-hidden="true">›</span></a>
+                        <a href="/contact">Nous écrire <span aria-hidden="true">›</span></a>
+                    </div>
+                </div>
+            </div>
 
             <nav class="inf-jump" aria-label="Aller à une infusion">
                 {products.map((p) => (

@@ -3,126 +3,179 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Reassurance from '../components/Reassurance.astro';
 import { products } from '../data/products';
+import { ACTIVE_SOCIALS, wa } from '../data/site';
+
+const WA_PRO = wa('Bonjour BenDjo, je souhaite en savoir plus sur votre marque.');
 
 const facts = [
     { v: '2025', l: 'année de création' },
-    { v: 'Cotonou', l: 'siège de la marque' },
     { v: '~50', l: 'entreprises servies' },
     { v: String(products.length), l: 'infusions au catalogue' },
+    { v: '2', l: 'villes couvertes' },
 ];
 
-// Comptes officiels fournis par BenDjo
+// Comptes personnels de la co-fondatrice, fournis par BenDjo
 const LOVI = {
     linkedin: 'https://linkedin.com/in/bénédite-lovi-5bb16b22a',
     facebook: 'https://facebook.com/profile.php?id=100071926549471',
 };
+
+const pillars = [
+    {
+        n: '01',
+        t: 'Le terroir d’abord',
+        d: 'Des plantes récoltées au Bénin, jamais importées. L’hibiscus, la citronnelle et le basilic poussent ici depuis toujours.',
+    },
+    {
+        n: '02',
+        t: 'Rien d’ajouté',
+        d: 'Sans additif, sans colorant, sans arôme. Un séchage lent à l’ombre, qui préserve la plante au lieu de la brusquer.',
+    },
+    {
+        n: '03',
+        t: 'Une alternative saine',
+        d: 'Aux boissons sucrées importées, à toute heure de la journée. Un produit fini, propre, et fier de son origine.',
+    },
+];
 ---
 
 <Layout
     title="À propos — BenDjo"
-    description="BenDjo, marque béninoise fondée en 2025 à Cotonou : infusions du terroir, petit-déjeuner en entreprise et traiteur. La marque qui vous reconnecte à vos origines."
+    description="BenDjo, marque béninoise fondée en 2025 à Cotonou par Bénédite Lovi : infusions du terroir, petit-déjeuner en entreprise et traiteur. La marque qui vous reconnecte à vos origines."
 >
     <Header />
 
-    <main class="inf">
-        <!-- ==================== INTRO ==================== -->
-        <section class="inf-hero">
-            <p class="inf-eyebrow">À propos</p>
-            <h1 class="inf-title">
-                La marque qui vous<br />
-                <span class="inf-title-em">reconnecte à vos origines</span>
-            </h1>
-            <p class="inf-lead">
-                BenDjo est une marque béninoise de produits alimentaires, fondée en <strong
-                    >2025 à Cotonou</strong>. Une petite équipe, deux métiers, et une
-                même idée : ce qu’il faut pour bien manger et bien boire pousse déjà ici.
-            </p>
-        </section>
-
-        <!-- ==================== CHIFFRES ==================== -->
-        <section class="ab-facts">
-            <dl>
-                {facts.map((f) => (
-                    <div>
-                        <dt>{f.v}</dt>
-                        <dd>{f.l}</dd>
+    <main class="ab">
+        <!-- ==================== HERO ==================== -->
+        <section class="ab-hero">
+            <div class="srvx-head">
+                <div>
+                    <p class="srvx-eyebrow">/ À propos</p>
+                    <h1 class="srvx-title">
+                        La marque qui vous<br />
+                        <span class="ab-title-em">reconnecte à vos origines</span>
+                    </h1>
+                </div>
+                <div class="srvx-aside">
+                    <p>
+                        BenDjo est une marque béninoise de produits alimentaires, fondée en
+                        2025 à Cotonou. Une petite équipe, deux métiers, et une conviction :
+                        ce qu’il faut pour bien manger et bien boire pousse déjà ici.
+                    </p>
+                    <div class="srvx-links">
+                        <a href="/nos-infusions">Découvrir les infusions <span aria-hidden="true">›</span></a>
+                        <a href="/services">Nos services <span aria-hidden="true">›</span></a>
                     </div>
-                ))}
-            </dl>
+                </div>
+            </div>
+
+            <!-- Mosaïque d'ouverture -->
+            <div class="ab-bento">
+                <figure class="ab-tile ab-photo-lg">
+                    <img src="/images/bendjo/about-atelier.webp" alt="Tri à la main des fleurs d’hibiscus séchées sur un plateau en osier, entourées de citronnelle, de basilic et de clous de girofle" width="900" height="900" loading="eager" fetchpriority="high" />
+                </figure>
+
+                <dl class="ab-tile ab-facts">
+                    {facts.map((f) => (
+                        <div>
+                            <dt>{f.v}</dt>
+                            <dd>{f.l}</dd>
+                        </div>
+                    ))}
+                </dl>
+
+                <figure class="ab-tile ab-photo-sm">
+                    <img src="/images/bendjo/about-sechage.webp" alt="Bottes de citronnelle suspendues et claies d’hibiscus en train de sécher lentement à l’ombre" width="900" height="675" loading="lazy" />
+                </figure>
+            </div>
         </section>
 
-        <!-- ==================== NAISSANCE ==================== -->
+        <!-- ==================== LA NAISSANCE ==================== -->
         <section class="ab-story">
             <div class="ab-story-inner">
                 <div class="ab-story-text">
-                    <p class="inf-eyebrow">La naissance</p>
-                    <h2 class="sec-title">Deux métiers, une même exigence</h2>
-                    <p>
+                    <p class="cta-eyebrow">/ La naissance</p>
+                    <h2 class="cta-title">Deux métiers,<br />une même exigence</h2>
+                    <p class="ab-story-p">
                         BenDjo ne commence pas par une boîte de tisane, mais par des
-                        petits-déjeuners livrés en entreprise. Le service s’installe
-                        d’abord à Cotonou, puis à Abomey-Calavi, jusqu’à être présent dans <strong
-                            >une cinquantaine de structures</strong>. C’est ce contact
-                        quotidien avec les équipes qui a fait naître le reste.
+                        petits-déjeuners livrés en entreprise. Le service s’installe d’abord
+                        à Cotonou, puis à Abomey-Calavi, jusqu’à être présent dans une
+                        cinquantaine de structures. C’est ce contact quotidien avec les
+                        équipes qui a fait naître le reste.
                     </p>
-                    <p>
+                    <p class="ab-story-p">
                         La marque étend ensuite son savoir-faire au terroir lui-même, avec
                         des infusions issues de plantes récoltées au Bénin — hibiscus,
                         citronnelle associée au clou de girofle, basilic — séchées et
                         conditionnées en sachets individuels. Le service traiteur, tourné
                         vers les lancements de produit, complète l’ensemble.
                     </p>
+
+                    <ol class="cta-steps ab-timeline">
+                        <li><b>2025</b><span>Création à Cotonou</span></li>
+                        <li><b>~50</b><span>Entreprises servies</span></li>
+                        <li><b>3</b><span>Infusions au catalogue</span></li>
+                    </ol>
                 </div>
 
                 <figure class="ab-story-media">
-                    <img src="/images/bendjo/tray.webp" alt="Les infusions BenDjo et leurs plantes : hibiscus, citronnelle, basilic" width="1100" height="1100" loading="lazy" />
+                    <img src="/images/bendjo/about-terroir.webp" alt="Gerbe des trois plantes BenDjo liée à la ficelle : citronnelle, hibiscus séché et basilic" width="500" height="500" loading="lazy" />
                 </figure>
             </div>
         </section>
 
-        <!-- ==================== POURQUOI CE DOMAINE ==================== -->
-        <section class="ab-why">
-            <div class="ab-why-inner">
-                <p class="pack-eyebrow">Pourquoi ce domaine</p>
-                <h2 class="pack-title">Valoriser ce qui pousse ici</h2>
-                <p class="pack-lead">
-                    Au Bénin, l’hibiscus, la citronnelle et le basilic poussent depuis
-                    toujours. Ils se boivent depuis toujours. Ce qui manquait, c’était un
-                    produit fini, propre et fier de son origine — plutôt qu’une boisson
-                    sucrée importée. C’est la place que BenDjo occupe.
-                </p>
-
-                <ul class="ab-pillars">
-                    <li>
-                        <b>Le terroir d’abord</b>
-                        <span>Des plantes récoltées au Bénin, pas importées.</span>
-                    </li>
-                    <li>
-                        <b>Rien d’ajouté</b>
-                        <span>Sans additif, sans colorant, sans arôme.</span>
-                    </li>
-                    <li>
-                        <b>Une alternative saine</b>
-                        <span>Aux boissons sucrées, à toute heure de la journée.</span>
-                    </li>
-                </ul>
+        <!-- ==================== CE QUI NOUS TIENT ==================== -->
+        <section class="ab-pillars-wrap">
+            <div class="srvx-head">
+                <div>
+                    <p class="srvx-eyebrow">/ Pourquoi ce domaine</p>
+                    <h2 class="srvx-title">Valoriser<br />ce qui pousse ici</h2>
+                </div>
+                <div class="srvx-aside">
+                    <p>
+                        Au Bénin, l’hibiscus, la citronnelle et le basilic se boivent depuis
+                        toujours. Ce qui manquait, c’était un produit fini, propre et fier de
+                        son origine. C’est la place que BenDjo occupe.
+                    </p>
+                </div>
             </div>
+
+            <ul class="ab-pillars">
+                {pillars.map((p) => (
+                    <li>
+                        <span class="ab-pillar-num">{p.n}</span>
+                        <h3>{p.t}</h3>
+                        <p>{p.d}</p>
+                    </li>
+                ))}
+            </ul>
         </section>
 
         <!-- ==================== L'ÉQUIPE ==================== -->
         <section class="ab-team">
-            <div class="ab-team-head">
-                <p class="inf-eyebrow">L’équipe</p>
-                <h2 class="sec-title">Derrière la marque</h2>
-                <p class="sec-lead">
-                    BenDjo compte une équipe de 2 à 10 personnes, basée à Cotonou.
-                </p>
-            </div>
+            <div class="ab-team-inner">
+                <figure class="ab-portrait">
+                    <img src="/images/bendjo/benedite.webp" alt="Bénédite Lovi, co-fondatrice de BenDjo" width="800" height="800" loading="lazy" />
+                    <figcaption>
+                        <b>Bénédite Lovi</b>
+                        <span>Co-fondatrice</span>
+                    </figcaption>
+                </figure>
 
-            <article class="ab-person">
-                <div class="ab-person-mark" aria-hidden="true">BL</div>
-                <div class="ab-person-txt">
-                    <p class="ab-person-role">Co-fondatrice</p>
-                    <h3 class="ab-person-name">Bénédite Lovi</h3>
+                <div class="ab-team-text">
+                    <p class="srvx-eyebrow">/ L’équipe</p>
+                    <h2 class="srvx-title">Derrière la marque</h2>
+                    <p class="ab-team-lead">
+                        BenDjo est portée par une équipe de 2 à 10 personnes basée à Cotonou,
+                        et par sa co-fondatrice <strong>Bénédite Lovi</strong>.
+                    </p>
+                    <p class="ab-team-p">
+                        C’est elle qui tient les deux bouts du projet : le service de
+                        petit-déjeuner qui tourne chaque matin dans une cinquantaine
+                        d’entreprises, et la gamme d’infusions qui met le terroir béninois en
+                        sachet.
+                    </p>
+
                     <ul class="ab-person-links">
                         <li>
                             <a href={LOVI.linkedin} target="_blank" rel="noopener">
@@ -138,22 +191,41 @@ const LOVI = {
                         </li>
                     </ul>
                 </div>
-            </article>
+            </div>
         </section>
 
-        <!-- ==================== CTA ==================== -->
-        <section class="pack">
-            <div class="pack-inner pack-solo">
-                <div class="pack-text">
-                    <p class="pack-eyebrow">Faire connaissance</p>
-                    <h2 class="pack-title">Le mieux, c’est encore de goûter</h2>
-                    <p class="pack-lead">
+        <!-- ==================== CLÔTURE ==================== -->
+        <section class="cta ab-cta">
+            <div class="cta-inner ab-cta-inner">
+                <div class="cta-text">
+                    <p class="cta-eyebrow">/ Faire connaissance</p>
+                    <h2 class="cta-title">Le mieux,<br />c’est encore <span class="cta-title-em">de goûter</span></h2>
+                    <p class="cta-lead">
                         Trois plantes, trois moments de la journée. Commencez par celle qui
-                        vous ressemble.
+                        vous ressemble — ou prenez le trio et laissez la journée décider.
                     </p>
-                    <div class="pack-buy">
-                        <a class="btn-pack" href="/nos-infusions">Découvrir les infusions</a>
+                    <div class="cta-actions">
+                        <a class="cta-primary" href="/nos-infusions">Découvrir les infusions</a>
+                        <a class="cta-ghost" href={WA_PRO} target="_blank" rel="noopener" data-wa-generic>
+                            Nous écrire
+                            <span class="cta-ghost-arrow" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"></path></svg>
+                            </span>
+                        </a>
                     </div>
+
+                    {ACTIVE_SOCIALS.length > 0 && (
+                        <ul class="ab-cta-socials">
+                            {ACTIVE_SOCIALS.map((s) => (
+                                <li>
+                                    <a href={s.href} target="_blank" rel="noopener">
+                                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d={s.icon}></path></svg>
+                                        {s.label}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
                 </div>
             </div>
         </section>

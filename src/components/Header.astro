@@ -1,6 +1,11 @@
 ---
-const WHATSAPP =
-    'https://wa.me/2290162014161?text=Bonjour%20BenDjo%2C%20je%20souhaite%20commander%20vos%20infusions.';
+import { NAV, PHONE_DISPLAY, PHONE_TEL, EMAIL, wa } from '../data/site';
+
+const WHATSAPP = wa('Bonjour BenDjo, je souhaite commander vos infusions.');
+
+// Page courante : sert à colorer le lien actif, desktop comme mobile.
+const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
 ---
 
 <header class="header">
@@ -14,17 +19,19 @@ const WHATSAPP =
     <nav class="nav-wrap">
         <label for="nav-toggle" class="nav-close" aria-label="Fermer le menu"><span></span><span></span></label>
         <ul class="nav">
-            <li><a href="/"><span class="num">01</span><span class="lbl">Accueil</span></a></li>
-            <li><a href="/a-propos"><span class="num">02</span><span class="lbl">À propos</span></a></li>
-            <li><a href="/services"><span class="num">03</span><span class="lbl">Services</span></a></li>
-            <li><a href="/nos-infusions"><span class="num">04</span><span class="lbl">Nos infusions</span></a></li>
-            <li><a href="/contact"><span class="num">05</span><span class="lbl">Contact</span></a></li>
+            {NAV.map((item) => (
+                <li>
+                    <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
+                        <span class="num">{item.num}</span><span class="lbl">{item.label}</span>
+                    </a>
+                </li>
+            ))}
         </ul>
         <div class="nav-foot">
             <a href={WHATSAPP} target="_blank" rel="noopener" class="nav-foot-cta" data-wa-generic>Commander sur WhatsApp</a>
             <div class="nav-contact">
-                <a href="tel:+2290162014161">+229 01 62 01 41 61</a>
-                <a href="mailto:bendjobenin@gmail.com">bendjobenin@gmail.com</a>
+                <a href={`tel:${PHONE_TEL}`}>{PHONE_DISPLAY}</a>
+                <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
             </div>
         </div>
     </nav>

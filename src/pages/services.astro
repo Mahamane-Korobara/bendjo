@@ -75,17 +75,27 @@ const services = [
     <main class="inf">
         <!-- ==================== INTRO ==================== -->
         <section class="inf-hero">
-            <p class="inf-eyebrow">Nos services</p>
-            <h1 class="inf-title">
-                Trois façons<br />
-                <span class="inf-title-em">de travailler ensemble</span>
-            </h1>
-            <p class="inf-lead">
-                BenDjo est née d’un même geste : nourrir avec ce que le Bénin produit déjà.
-                Cela se décline en <strong>trois services</strong> — nos infusions pour les
-                particuliers, le petit-déjeuner pour les entreprises, le traiteur pour vos
-                événements.
-            </p>
+            <div class="srvx-head">
+                <div>
+                    <p class="srvx-eyebrow">/ Nos services</p>
+                    <h1 class="srvx-title">
+                        Trois façons<br />
+                        <span class="srvx-title-em">de travailler ensemble</span>
+                    </h1>
+                </div>
+                <div class="srvx-aside">
+                    <p>
+                        BenDjo est née d’un même geste : nourrir avec ce que le Bénin produit
+                        déjà. Cela se décline en trois services — nos infusions pour les
+                        particuliers, le petit-déjeuner pour les entreprises, le traiteur
+                        pour vos événements.
+                    </p>
+                    <div class="srvx-links">
+                        <a href="/nos-infusions">Voir le catalogue <span aria-hidden="true">›</span></a>
+                        <a href="/contact">Nous écrire <span aria-hidden="true">›</span></a>
+                    </div>
+                </div>
+            </div>
 
             <nav class="inf-jump" aria-label="Aller à un service">
                 {services.map((s) => (

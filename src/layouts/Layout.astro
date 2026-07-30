@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import CartDrawer from '../components/CartDrawer.astro';
+import Footer from '../components/Footer.astro';
 
 const {
     title = 'BenDjo — Infusions naturelles 100% Made in Bénin',
@@ -44,6 +45,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://bendjo.bj')
     </head>
     <body>
         <slot />
+        <Footer />
         <CartDrawer />
     </body>
 </html>
