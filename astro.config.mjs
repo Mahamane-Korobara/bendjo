@@ -6,6 +6,6 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
     // Base des URL canoniques, des métadonnées de partage (Layout.astro) et du
     // sitemap. Sans elle, Astro.site est undefined et l'URL doit être en dur.
-    site: 'https://bendjo.bj',
+    site: 'https://bendjo-delta.vercel.app',
     integrations: [sitemap()],
 });

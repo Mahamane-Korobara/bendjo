@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://bendjo.bj/sitemap-index.xml
+Sitemap: https://bendjo-delta.vercel.app/sitemap-index.xml
