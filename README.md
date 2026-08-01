@@ -247,10 +247,6 @@ im.save('photo.webp', 'WEBP', quality=82, method=6)"
 L'image de partage (`og-cover.webp`, 1200×630) est celle qui s'affiche quand un lien du
 site est envoyé sur WhatsApp ou LinkedIn.
 
-Les fichiers `prompts-images-accueil.md` et `prompts-images-contact.txt` conservent les
-consignes ayant servi à générer les visuels, si d'autres sont à produire dans le même
-style.
-
 ---
 
 ## Accessibilité

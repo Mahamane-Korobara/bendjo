@@ -60,7 +60,16 @@ const WA_FALLBACK = wa('Bonjour BenDjo, je souhaite passer commande.');
                 <strong data-cart-total>0 FCFA</strong>
             </div>
 
-            <a class="cart-order is-disabled" data-cart-order href={WA_FALLBACK} target="_blank" rel="noopener" aria-disabled="true">
+            <a
+                class="cart-order is-disabled"
+                data-cart-order
+                data-fallback={WA_FALLBACK}
+                href={WA_FALLBACK}
+                target="_blank"
+                rel="noopener"
+                aria-disabled="true"
+                tabindex="-1"
+            >
                 <WhatsApp />
                 Commander sur WhatsApp
             </a>
@@ -168,19 +177,17 @@ const WA_FALLBACK = wa('Bonjour BenDjo, je souhaite passer commande.');
             totalEl.textContent = fmt(total);
             emptyEl.hidden = count > 0;
 
-            // Panier vide : on retire le href, pas seulement le style. Le CSS
-            // ne pose que pointer-events:none, qui bloque la souris mais pas
-            // Tab + Entrée — un panier vide partait alors sur WhatsApp avec
-            // « je souhaite commander : / Total : 0 FCFA ». Sans href, le lien
-            // sort de l'ordre de tabulation et n'est plus activable.
+            // Panier vide : le CSS ne pose que pointer-events:none, qui bloque
+            // la souris mais pas Tab + Entrée — un panier vide partait alors sur
+            // WhatsApp avec « je souhaite commander : / Total : 0 FCFA ».
+            // On sort donc le lien de la tabulation et on garde une garde au
+            // clic. Mais on lui laisse toujours un href : un <a> sans href est
+            // compté comme lien non explorable par les robots.
             const empty = count === 0;
             orderEl.classList.toggle('is-disabled', empty);
             orderEl.setAttribute('aria-disabled', String(empty));
-            if (empty) {
-                orderEl.removeAttribute('href');
-            } else {
-                orderEl.href = recap;
-            }
+            orderEl.tabIndex = empty ? -1 : 0;
+            orderEl.href = empty ? (orderEl.dataset.fallback ?? recap) : recap;
         }
 
         let lastFocus: HTMLElement | null = null;
@@ -243,6 +250,12 @@ const WA_FALLBACK = wa('Bonjour BenDjo, je souhaite passer commande.');
                 addAll();
                 open();
             });
+        });
+
+        // Ceinture et bretelles : le lien garde un href pour rester explorable,
+        // donc on bloque explicitement son activation quand le panier est vide.
+        orderEl.addEventListener('click', (e) => {
+            if (orderEl.getAttribute('aria-disabled') === 'true') e.preventDefault();
         });
 
         drawer.querySelectorAll('[data-cart-close]').forEach((el) =>
