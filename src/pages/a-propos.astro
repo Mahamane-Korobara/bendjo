@@ -45,7 +45,7 @@ const pillars = [
 >
     <Header />
 
-    <main class="ab">
+    <main id="contenu" class="ab">
         <!-- ==================== HERO ==================== -->
         <section class="ab-hero">
             <div class="srvx-head">
@@ -206,7 +206,9 @@ const pillars = [
                     </p>
                     <div class="cta-actions">
                         <a class="cta-primary" href="/nos-infusions">Découvrir les infusions</a>
-                        <a class="cta-ghost" href={WA_PRO} target="_blank" rel="noopener" data-wa-generic>
+                        <!-- Pas de data-wa-generic : « Nous écrire » ouvre une
+                             conversation, pas un bon de commande. -->
+                        <a class="cta-ghost" href={WA_PRO} target="_blank" rel="noopener">
                             Nous écrire
                             <span class="cta-ghost-arrow" aria-hidden="true">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"></path></svg>

@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Reassurance from '../components/Reassurance.astro';
-import { WHATSAPP_BASE as WA } from '../data/products';
+import { wa } from '../data/site';
 
 const services = [
     {
@@ -42,7 +42,11 @@ const services = [
             { t: 'Nous cadrons ensemble', d: 'Fréquence, formules et modalités sont définies avec vous.' },
             { t: 'Nous livrons', d: 'Le petit-déjeuner arrive prêt, à l’heure convenue, dans vos locaux.' },
         ],
-        cta: { label: 'Demander une formule', href: `${WA}Bonjour%20BenDjo%2C%20je%20souhaite%20des%20informations%20sur%20le%20service%20de%20petit-d%C3%A9jeuner%20en%20entreprise.`, external: true },
+        cta: {
+            label: 'Demander une formule',
+            href: wa('Bonjour BenDjo, je souhaite des informations sur le service de petit-déjeuner en entreprise.'),
+            external: true,
+        },
     },
     {
         id: 'traiteur',
@@ -61,7 +65,11 @@ const services = [
             { t: 'Nous construisons la proposition', d: 'Nous revenons vers vous avec une prestation adaptée.' },
             { t: 'Nous assurons le jour J', d: 'Vous vous occupez de vos invités, nous du reste.' },
         ],
-        cta: { label: 'Parler de mon événement', href: `${WA}Bonjour%20BenDjo%2C%20je%20souhaite%20des%20informations%20sur%20votre%20service%20traiteur%20pour%20un%20%C3%A9v%C3%A9nement.`, external: true },
+        cta: {
+            label: 'Parler de mon événement',
+            href: wa('Bonjour BenDjo, je souhaite des informations sur votre service traiteur pour un événement.'),
+            external: true,
+        },
     },
 ];
 ---
@@ -72,7 +80,7 @@ const services = [
 >
     <Header />
 
-    <main class="inf">
+    <main id="contenu" class="inf">
         <!-- ==================== INTRO ==================== -->
         <section class="inf-hero">
             <div class="srvx-head">

@@ -3,15 +3,19 @@
  * Source unique : header, footer, page contact et page à propos lisent ici.
  */
 
+// WA_NUMBER et wa() vivent dans core.ts — le seul module que le script du
+// panier importe côté client. On les réexporte ici pour que les composants
+// n'aient qu'une adresse à connaître : data/site.
+export { WA_NUMBER, wa } from './core';
+
 export const PHONE_DISPLAY = '+229 01 62 01 41 61';
 export const PHONE_TEL = '+2290162014161';
-export const WA_NUMBER = '2290162014161';
 export const EMAIL = 'bendjobenin@gmail.com';
-export const CITY = 'Cotonou, Bénin';
-export const FOUNDED = 2025;
 
-export const wa = (text: string) =>
-    `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;
+/** Ville seule, pour les phrases qui l'intègrent au fil du texte. */
+export const CITY_SHORT = 'Cotonou';
+/** Ville + pays, pour les blocs de coordonnées. Composé, jamais retaillé à la volée. */
+export const CITY = `${CITY_SHORT}, Bénin`;
 
 export interface Social {
     label: string;

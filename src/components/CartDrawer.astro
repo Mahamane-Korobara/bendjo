@@ -1,5 +1,11 @@
 ---
-import { products, formatFCFA, WHATSAPP_BASE } from '../data/products';
+import { products, formatFCFA } from '../data/products';
+import { wa } from '../data/site';
+import WhatsApp from './icons/WhatsApp.astro';
+
+// Repli sans JavaScript : le tiroir n'est alors pas atteignable, mais le lien
+// pointe vers une conversation valide plutôt qu'un message vide.
+const WA_FALLBACK = wa('Bonjour BenDjo, je souhaite passer commande.');
 ---
 
 <div class="cart-drawer" id="cart-drawer" aria-hidden="true">
@@ -54,8 +60,8 @@ import { products, formatFCFA, WHATSAPP_BASE } from '../data/products';
                 <strong data-cart-total>0 FCFA</strong>
             </div>
 
-            <a class="cart-order is-disabled" data-cart-order href={WHATSAPP_BASE} target="_blank" rel="noopener" aria-disabled="true">
-                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.11.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.39c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.83 2.42a8.2 8.2 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.28 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.42-.14 0-.31-.02-.47-.02s-.43.06-.66.31c-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29Z"></path></svg>
+            <a class="cart-order is-disabled" data-cart-order href={WA_FALLBACK} target="_blank" rel="noopener" aria-disabled="true">
+                <WhatsApp />
                 Commander sur WhatsApp
             </a>
 
@@ -68,28 +74,50 @@ import { products, formatFCFA, WHATSAPP_BASE } from '../data/products';
 </div>
 
 <script>
+    // Les <script> d'Astro sont bundlés par Vite : ils peuvent importer les
+    // mêmes modules que le frontmatter. Plus de numéro ni de formateur recopiés.
+    // On vise data/core directement : passer par site.ts ou products.ts
+    // embarquerait le catalogue et les tracés SVG dans le bundle client.
+    import { WA_NUMBER, formatFCFA } from '../data/core';
+
     const KEY = 'bendjo-cart';
-    const WA = 'https://wa.me/2290162014161?text=';
+    const WA = `https://wa.me/${WA_NUMBER}?text=`;
 
     const drawer = document.getElementById('cart-drawer');
 
-    if (drawer) {
-        const panel = drawer.querySelector('.cart-panel') as HTMLElement;
+    const panel = drawer?.querySelector<HTMLElement>('.cart-panel');
+    const totalEl = drawer?.querySelector<HTMLElement>('[data-cart-total]');
+    const emptyEl = drawer?.querySelector<HTMLElement>('[data-cart-empty]');
+    const orderEl = drawer?.querySelector<HTMLAnchorElement>('[data-cart-order]');
+    const closeBtn = drawer?.querySelector<HTMLButtonElement>('.cart-close');
+
+    // Une garde plutôt que des « as » : si le balisage change de classe, le
+    // panier s'arrête proprement au lieu de lever un TypeError au premier rendu
+    // — ce qui interromprait le script et figerait le compteur de la nav.
+    if (drawer && panel && totalEl && emptyEl && orderEl && closeBtn) {
         const items = Array.from(drawer.querySelectorAll<HTMLElement>('[data-item]'));
-        const totalEl = drawer.querySelector('[data-cart-total]') as HTMLElement;
-        const emptyEl = drawer.querySelector('[data-cart-empty]') as HTMLElement;
-        const orderEl = drawer.querySelector('[data-cart-order]') as HTMLAnchorElement;
-        const closeBtn = drawer.querySelector('.cart-close') as HTMLButtonElement;
+        const connus = new Set(items.map((el) => el.dataset.item));
 
-        const fmt = (n: number) =>
-            String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' FCFA';
+        const fmt = (n: number) => `${formatFCFA(n)} FCFA`;
 
-        let cart: Record<string, number> = {};
-        try {
-            cart = JSON.parse(localStorage.getItem(KEY) || '{}') || {};
-        } catch {
-            cart = {};
-        }
+        const lire = (brut: string | null): Record<string, number> => {
+            try {
+                const objet = JSON.parse(brut || '{}');
+                if (!objet || typeof objet !== 'object') return {};
+                // On ne garde que les produits encore au catalogue, en quantité
+                // valide : une entrée orpheline resterait sinon indéfiniment
+                // dans le navigateur du visiteur.
+                return Object.fromEntries(
+                    Object.entries(objet as Record<string, unknown>)
+                        .map(([id, n]) => [id, Math.max(0, Math.floor(Number(n) || 0))] as const)
+                        .filter(([id, n]) => connus.has(id) && n > 0),
+                );
+            } catch {
+                return {};
+            }
+        };
+
+        let cart = lire(localStorage.getItem(KEY));
 
         const save = () => {
             try {
@@ -105,13 +133,15 @@ import { products, formatFCFA, WHATSAPP_BASE } from '../data/products';
             const lines: string[] = [];
 
             items.forEach((el) => {
-                const id = el.dataset.item as string;
+                const id = el.dataset.item ?? '';
                 const price = Number(el.dataset.price);
                 const qty = cart[id] || 0;
 
-                (el.querySelector('[data-qty]') as HTMLElement).textContent = String(qty);
+                const val = el.querySelector<HTMLElement>('[data-qty]');
+                const moins = el.querySelector<HTMLButtonElement>('[data-delta="-1"]');
+                if (val) val.textContent = String(qty);
+                if (moins) moins.disabled = qty === 0;
                 el.classList.toggle('is-active', qty > 0);
-                (el.querySelector('[data-delta="-1"]') as HTMLButtonElement).disabled = qty === 0;
 
                 total += qty * price;
                 count += qty;
@@ -137,19 +167,38 @@ import { products, formatFCFA, WHATSAPP_BASE } from '../data/products';
 
             totalEl.textContent = fmt(total);
             emptyEl.hidden = count > 0;
-            orderEl.classList.toggle('is-disabled', count === 0);
-            orderEl.setAttribute('aria-disabled', String(count === 0));
-            orderEl.href = recap;
+
+            // Panier vide : on retire le href, pas seulement le style. Le CSS
+            // ne pose que pointer-events:none, qui bloque la souris mais pas
+            // Tab + Entrée — un panier vide partait alors sur WhatsApp avec
+            // « je souhaite commander : / Total : 0 FCFA ». Sans href, le lien
+            // sort de l'ordre de tabulation et n'est plus activable.
+            const empty = count === 0;
+            orderEl.classList.toggle('is-disabled', empty);
+            orderEl.setAttribute('aria-disabled', String(empty));
+            if (empty) {
+                orderEl.removeAttribute('href');
+            } else {
+                orderEl.href = recap;
+            }
         }
 
         let lastFocus: HTMLElement | null = null;
 
+        // Le reste de la page est neutralisé pendant que le tiroir est ouvert :
+        // le piège à focus retient déjà la tabulation, mais sans « inert » un
+        // lecteur d'écran en parcours libre continuait de lire l'arrière-plan.
+        const arrierePlan = () =>
+            document.querySelectorAll<HTMLElement>('body > *:not(.cart-drawer)');
+
         function open() {
             if (drawer.classList.contains('is-open')) return;
-            lastFocus = document.activeElement as HTMLElement;
+            lastFocus =
+                document.activeElement instanceof HTMLElement ? document.activeElement : null;
             drawer.classList.add('is-open');
             drawer.setAttribute('aria-hidden', 'false');
             document.body.classList.add('has-cart-open');
+            arrierePlan().forEach((el) => el.setAttribute('inert', ''));
             closeBtn.focus();
         }
 
@@ -157,20 +206,22 @@ import { products, formatFCFA, WHATSAPP_BASE } from '../data/products';
             drawer.classList.remove('is-open');
             drawer.setAttribute('aria-hidden', 'true');
             document.body.classList.remove('has-cart-open');
+            arrierePlan().forEach((el) => el.removeAttribute('inert'));
             lastFocus?.focus();
         }
 
         function bump(id: string, delta: number) {
-            cart[id] = Math.max(0, (cart[id] || 0) + delta);
-            if (cart[id] === 0) delete cart[id];
+            const n = Math.max(0, (cart[id] || 0) + delta);
+            if (n === 0) delete cart[id];
+            else cart[id] = n;
             save();
             render();
         }
 
         function addAll() {
             items.forEach((el) => {
-                const id = el.dataset.item as string;
-                cart[id] = (cart[id] || 0) + 1;
+                const id = el.dataset.item;
+                if (id) cart[id] = (cart[id] || 0) + 1;
             });
             save();
             render();
@@ -199,21 +250,22 @@ import { products, formatFCFA, WHATSAPP_BASE } from '../data/products';
         );
 
         drawer.querySelectorAll<HTMLButtonElement>('[data-step]').forEach((btn) => {
-            btn.addEventListener('click', () =>
-                bump(btn.dataset.step as string, Number(btn.dataset.delta)),
-            );
+            btn.addEventListener('click', () => {
+                if (btn.dataset.step) bump(btn.dataset.step, Number(btn.dataset.delta));
+            });
         });
 
         // « Ajouter au panier » : on ajoute puis on ouvre le tiroir sur la ligne concernée
         document.querySelectorAll<HTMLButtonElement>('[data-add]').forEach((btn) => {
             btn.addEventListener('click', () => {
-                const id = btn.dataset.add as string;
+                const id = btn.dataset.add;
+                if (!id) return;
                 bump(id, 1);
                 open();
-                const row = drawer.querySelector(`[data-item="${id}"]`);
+                const row = drawer.querySelector<HTMLElement>(`[data-item="${id}"]`);
                 if (row) {
                     row.classList.remove('just-added');
-                    void (row as HTMLElement).offsetWidth; // relance l'animation
+                    void row.offsetWidth; // relance l'animation
                     row.classList.add('just-added');
                 }
             });
@@ -226,11 +278,7 @@ import { products, formatFCFA, WHATSAPP_BASE } from '../data/products';
         // Panier partagé entre les onglets ouverts
         window.addEventListener('storage', (e) => {
             if (e.key !== KEY) return;
-            try {
-                cart = JSON.parse(e.newValue || '{}') || {};
-            } catch {
-                cart = {};
-            }
+            cart = lire(e.newValue);
             render();
         });
 

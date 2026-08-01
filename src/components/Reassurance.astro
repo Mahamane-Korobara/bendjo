@@ -1,9 +1,20 @@
 ---
 // Bandeau réassurance partagé (accueil + catalogue).
-// Responsive : rangée 3 colonnes ≥1000px → carrousel CSS auto ≤680px.
+// Responsive : rangée de 3 colonnes ≥1000px → cartes empilées en dessous.
 // `variant` choisit le jeu d'arguments : la home parle de la marque,
 // le catalogue parle de l'achat. Toutes les infos viennent des données du site.
+import { products, formatFCFA } from '../data/products';
+import { PHONE_DISPLAY } from '../data/site';
+
+export interface Props {
+    variant?: 'brand' | 'delivery' | 'catalog';
+}
+
 const { variant = 'brand' } = Astro.props;
+
+// « Le même prix pour les trois » n'est vrai que tant qu'ils le sont vraiment.
+const prix = [...new Set(products.map((p) => p.price))];
+const memePrix = prix.length === 1;
 
 const icons = {
     leaf: 'M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z|M2 21c0-3 1.85-5.36 5.08-6',
@@ -28,13 +39,19 @@ const sets = {
         { icon: 'truck', title: 'Livraison dès 500 FCFA', sub: 'Cotonou & Abomey-Calavi' },
     ],
     catalog: [
-        { icon: 'tag', title: '1 500 FCFA l’unité', sub: 'Le même prix pour les trois' },
-        { icon: 'chat', title: 'Commande WhatsApp', sub: '+229 01 62 01 41 61' },
+        {
+            icon: 'tag',
+            title: memePrix
+                ? `${formatFCFA(prix[0])} FCFA l’unité`
+                : `Dès ${formatFCFA(Math.min(...prix))} FCFA l’unité`,
+            sub: memePrix ? 'Le même prix pour les trois' : 'Selon la plante choisie',
+        },
+        { icon: 'chat', title: 'Commande WhatsApp', sub: PHONE_DISPLAY },
         { icon: 'clock', title: 'Trois moments par jour', sub: 'Matin · après-repas · soir' },
     ],
 };
 
-const items = sets[variant] ?? sets.brand;
+const items = sets[variant];
 ---
 
 <section class="reassurance">
@@ -50,5 +67,4 @@ const items = sets[variant] ?? sets.brand;
             </div>
         ))}
     </div>
-    <div class="trust-dots" aria-hidden="true"><i></i><i></i><i></i></div>
 </section>

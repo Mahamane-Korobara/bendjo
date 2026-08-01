@@ -1,3 +1,7 @@
+// formatFCFA vit dans core.ts, partagé avec le script du panier ; réexporté
+// ici pour que les composants continuent de l'importer depuis data/products.
+export { formatFCFA } from './core';
+
 export interface Brew {
     /** valeur affichée en gros : « 1 c. à s. » */
     v: string;
@@ -89,13 +93,3 @@ export const products: Product[] = [
 
 /** Prix du trio complet — calculé, jamais saisi à la main. */
 export const packPrice = products.reduce((sum, p) => sum + p.price, 0);
-
-/**
- * 1500 → « 1 500 ». Espace insécable : le nombre ne se coupe jamais en fin de ligne,
- * et le rendu est identique côté serveur et côté navigateur.
- */
-export function formatFCFA(n: number): string {
-    return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
-}
-
-export const WHATSAPP_BASE = 'https://wa.me/2290162014161?text=';

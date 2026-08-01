@@ -12,6 +12,37 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+/* Anneau de focus par défaut, sur tout ce qui est actionnable.
+   :where() garde la spécificité à 0 : n'importe quelle règle plus loin dans le
+   fichier continue de l'emporter. Sans cela, on héritait de l'anneau système,
+   souvent illisible sur les fonds sombres de la page. */
+:where(a, button, summary, input, textarea, select, [tabindex]):focus-visible {
+    outline: 3px solid var(--green-ink);
+    outline-offset: 3px;
+    border-radius: 6px;
+}
+/* Lien d'évitement : hors écran, il apparaît au premier Tab de la page */
+.skip {
+    position: absolute;
+    top: 0;
+    left: -9999px;
+    z-index: 100;
+    padding: 13px 22px;
+    border-radius: 0 0 14px 0;
+    background: var(--green-ink);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+}
+.skip:focus { left: 0; }
+
+/* Sur fond sombre, l'anneau passe en ambre pour rester visible */
+:where(.cta, .pack, .ft, .ct-write, .ab-story, .ctb-wa, .srvx-card, .ab-portrait)
+    :where(a, button, summary):focus-visible {
+    outline-color: var(--accent);
+}
+
 body {
     font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
     background: var(--bg);
@@ -127,8 +158,9 @@ body {
 }
 .btn-nav-cta:hover { background: color-mix(in srgb, var(--green-ink) 85%, #000); }
 
-/* Menu mobile (hamburger CSS-only) — éléments mobiles masqués sur desktop */
-.header { position: relative; }
+/* Menu mobile (hamburger CSS-only) — éléments mobiles masqués sur desktop.
+   Sur desktop la case reste en display:none : pas d'arrêt de tabulation fantôme
+   pour un menu qui n'existe pas. Elle redevient focusable sous 1000px. */
 .nav-toggle { display: none; }
 .burger { display: none; }
 .nav .num, .nav-close, .nav-foot { display: none; }
@@ -196,14 +228,6 @@ body {
 }
 @keyframes draw { to { stroke-dashoffset: 0; } }
 @keyframes navIn { to { opacity: 1; transform: translateX(0); } }
-/* Carrousel réassurance mobile : chaque carte apparaît ~3s puis cède la place */
-@keyframes trustCycle {
-    0%   { opacity: 0; transform: translateY(10px); }
-    4%   { opacity: 1; transform: translateY(0); }
-    29%  { opacity: 1; transform: translateY(0); }
-    34%  { opacity: 0; transform: translateY(-10px); }
-    100% { opacity: 0; transform: translateY(-10px); }
-}
 
 .hero-title {
     font-family: 'Fraunces', serif;
@@ -326,15 +350,22 @@ body {
 
 /* Étiquettes infusions — masquées sur desktop, affichées autour de la tasse sur mobile */
 .infusion-tag { display: none; }
-/* Pastilles du carrousel réassurance — mobile uniquement */
-.trust-dots { display: none; }
 
-/* ---------------- DÉCORS BenDjo — plantes dans les coins gauches ---------------- */
+/* ---------------- DÉCORS BenDjo — plantes dans les coins gauches ----------------
+   Rendus en background-image dans une media query desktop : une image de fond
+   dont la media query ne s'applique pas n'est jamais téléchargée, contrairement
+   à un <img> en display:none. */
+.decor { display: none; }
+
+@media (min-width: 1001px) {
 .decor {
+    display: block;
     position: absolute;
     width: 300px;
     max-width: 26vw;
-    height: auto;
+    aspect-ratio: 1;            /* les deux visuels sont carrés (500×500) */
+    background-size: contain;
+    background-repeat: no-repeat;
     z-index: 1;                 /* derrière le texte : le titre reste lisible */
     pointer-events: none;
     /* Fondu des bords : dissout l'arête droite du PNG en dégradé doux */
@@ -349,8 +380,19 @@ body {
 }
 /* Chaque image a déjà sa densité dans le bon coin (aucun retournement).
    Entrée en pulsation de cœur, légèrement décalée après le visuel produit. */
-.decor-top    { top: -20px;    left: -30px; transform-origin: top left;     animation: heartbeat 1.5s ease-out .15s both; }
-.decor-bottom { bottom: -25px; left: -30px; transform-origin: bottom left;  animation: heartbeat 1.5s ease-out .30s both; }
+.decor-top {
+    top: -20px; left: -30px;
+    transform-origin: top left;
+    background-image: url('/images/bendjo/corner-top.webp');
+    animation: heartbeat 1.5s ease-out .15s both;
+}
+.decor-bottom {
+    bottom: -25px; left: -30px;
+    transform-origin: bottom left;
+    background-image: url('/images/bendjo/corner-bottom.webp');
+    animation: heartbeat 1.5s ease-out .30s both;
+}
+}   /* fin @media (min-width: 1001px) — décors */
 
 /* ---------------- RÉASSURANCE : carte flottante qui chevauche hero/corps ---------------- */
 .reassurance {
@@ -423,6 +465,27 @@ body {
         width: 42px;
         height: 42px;
         cursor: pointer;
+    }
+
+    /* La case à cocher EST le bouton du menu : c'est elle qui reçoit le focus
+       clavier et qui s'active à la barre d'espace. Un <label> n'étant jamais
+       focusable, display:none la rendait inatteignable → menu inouvrable au
+       clavier. On la masque à l'œil sans la sortir de l'ordre de tabulation.
+       pointer-events:none : à la souris, c'est toujours le label qui agit. */
+    .nav-toggle {
+        display: block;
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: 0;
+        opacity: 0;
+        pointer-events: none;
+    }
+    /* L'anneau de focus se dessine sur le burger, seul élément visible */
+    .nav-toggle:focus-visible ~ .actions .burger {
+        outline: 3px solid var(--green-ink);
+        outline-offset: 2px;
+        border-radius: 10px;
     }
     .actions .desktop-cta { display: none; }   /* « Commander » desktop → dans le menu */
 
@@ -512,7 +575,7 @@ body {
 
     /* (hero empilé + réassurance : gérés dans les blocs dédiés plus bas) */
 }
-@media (max-width: 640px) {
+@media (max-width: 680px) {
     .logo .wordmark { display: none; }   /* mobile : seul le monogramme */
 }
 /* ≤ 1000px : hero mobile + tablette éditorial — Eyebrow → Titre → Image → Sous-titre → CTA */
@@ -586,14 +649,16 @@ body {
     .hero-subtitle { order: 4; margin-top: 6px; }
     .hero-cta      { order: 5; justify-content: flex-start; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
     .btn-shop, .btn-ghost { width: 100%; justify-content: center; }
-
-    /* coins retirés : l'image + les étiquettes portent déjà l'univers */
-    .decor { display: none; }
+    /* les coins décoratifs ne sont plus déclarés ici : ils n'existent que dans
+       la media query desktop (l'image + les étiquettes portent déjà l'univers) */
 }
 
-/* Réassurance ≤1000 : cartes individuelles qui défilent (carrousel auto CSS).
-   Même palier que le reste du responsive — en 3 colonnes sous 1000px, les
-   libellés passaient sur 2 à 3 lignes. */
+/* Réassurance ≤1000 : les trois arguments empilés.
+   C'était un carrousel qui les faisait défiler toutes les 3 s, sans bouton de
+   pause — du contenu en mouvement automatique de plus de 5 s, ce que WCAG 2.2.2
+   interdit. Empilés, les trois se lisent d'un coup et le problème disparaît
+   au lieu d'être contourné. Même palier que le reste du responsive : en 3
+   colonnes sous 1000px, les libellés passaient sur 2 à 3 lignes. */
 @media (max-width: 1000px) {
     .reassurance {
         background: transparent;
@@ -604,46 +669,21 @@ body {
         padding: 0 16px;
     }
     .reassurance-inner {
-        position: relative;
-        display: block;
-        height: 88px;
+        display: grid;
+        gap: 10px;
         padding: 0;
     }
     .trust {
-        position: absolute;
-        inset: 0;
         flex: none;
         gap: 14px;
+        padding: 15px 20px;
+        margin: 0;
         background: #FFFDF9;
         border: 1px solid rgba(74,44,24,.10);
         border-radius: 16px;
         box-shadow: 0 16px 30px -18px rgba(74,44,24,.32);
-        padding: 0 20px;
-        margin: 0;
-        opacity: 0;
-        animation: trustCycle 9s infinite;
     }
-    .trust + .trust { border-top: none; border-left: none; }
-    .trust:nth-child(1) { animation-delay: 0s; }
-    .trust:nth-child(2) { animation-delay: 3s; }
-    .trust:nth-child(3) { animation-delay: 6s; }
-
-    /* pastilles indicatrices (3 points) */
-    .trust-dots { display: flex; justify-content: center; gap: 7px; margin-top: 14px; }
-    .trust-dots i {
-        width: 7px; height: 7px; border-radius: 50%;
-        background: color-mix(in srgb, var(--green) 30%, transparent);
-        animation: dotCycle 9s infinite;
-    }
-    .trust-dots i:nth-child(1) { animation-delay: 0s; }
-    .trust-dots i:nth-child(2) { animation-delay: 3s; }
-    .trust-dots i:nth-child(3) { animation-delay: 6s; }
-}
-@keyframes dotCycle {
-    0%   { background: var(--green); transform: scale(1.3); }
-    33%  { background: var(--green); transform: scale(1.3); }
-    34%  { background: color-mix(in srgb, var(--green) 25%, transparent); transform: scale(1); }
-    100% { background: color-mix(in srgb, var(--green) 25%, transparent); transform: scale(1); }
+    .trust + .trust { border-left: none; }
 }
 
 /* ============================================================
@@ -653,17 +693,34 @@ html { scroll-behavior: smooth; }
 
 .inf { --gut: clamp(22px, 5vw, 64px); }
 
-/* Palette par plante — accents officiels du brief BenDjo, déclinés en un
-   pastel (fond) et une encre foncée (texte) pour rester en contraste AA :
-   rouge hibiscus #D64545 · orange citronnelle #E08A2E · rose basilic #E895A3 */
-.plant-hibiscus, .jump-hibiscus, .step-hibiscus, .dot-hibiscus {
-    --c-bg: #F6DAD7; --c-soft: #FCEDEB; --c-ink: #A63535;
+/* Palette par accent — issue des couleurs officielles du brief BenDjo, déclinée
+   en un pastel (fond), un pastel très clair (soft) et une encre foncée (texte)
+   pour rester en contraste AA :
+   rouge hibiscus #D64545 · orange citronnelle #E08A2E · rose basilic #E895A3
+
+   Les quatre triplets sont définis une fois ici. Les sélecteurs qui suivent s'y
+   branchent — plantes du catalogue, pastilles de navigation, étapes du rituel,
+   points du pack et bandes de la page Services partagent les mêmes valeurs. */
+:root {
+    --pal-rouge-bg: #F6DAD7;  --pal-rouge-soft: #FCEDEB;  --pal-rouge-ink: #A63535;
+    --pal-ambre-bg: #F9E5BC;  --pal-ambre-soft: #FDF4E2;  --pal-ambre-ink: #935512;
+    --pal-rose-bg:  #F4D2E0;  --pal-rose-soft:  #FCEBF2;  --pal-rose-ink:  #A9455E;
+    --pal-vert-bg:  #DDEAD6;  --pal-vert-soft:  #EFF6EB;  --pal-vert-ink:  #3C6A43;
 }
-.plant-citronnelle, .jump-citronnelle, .step-citronnelle, .dot-citronnelle {
-    --c-bg: #F9E5BC; --c-soft: #FDF4E2; --c-ink: #935512;
+
+.plant-hibiscus, .jump-hibiscus, .step-hibiscus, .dot-hibiscus,
+.srv-infusions, .jump-infusions {
+    --c-bg: var(--pal-rouge-bg); --c-soft: var(--pal-rouge-soft); --c-ink: var(--pal-rouge-ink);
+}
+.plant-citronnelle, .jump-citronnelle, .step-citronnelle, .dot-citronnelle,
+.srv-petit-dejeuner, .jump-petit-dejeuner {
+    --c-bg: var(--pal-ambre-bg); --c-soft: var(--pal-ambre-soft); --c-ink: var(--pal-ambre-ink);
 }
 .plant-basilic, .jump-basilic, .step-basilic, .dot-basilic {
-    --c-bg: #F4D2E0; --c-soft: #FCEBF2; --c-ink: #A9455E;
+    --c-bg: var(--pal-rose-bg); --c-soft: var(--pal-rose-soft); --c-ink: var(--pal-rose-ink);
+}
+.srv-traiteur, .jump-traiteur {
+    --c-bg: var(--pal-vert-bg); --c-soft: var(--pal-vert-soft); --c-ink: var(--pal-vert-ink);
 }
 
 /* ---------------- Intro ---------------- */
@@ -1432,6 +1489,8 @@ body.has-cart-open { overflow: hidden; }
     color: color-mix(in srgb, var(--muted) 85%, transparent);
 }
 
+/* Hors grille, volontairement : ajustement local au tiroir panier, sur les
+   écrans les plus étroits où ses marges internes deviennent trop lourdes. */
 @media (max-width: 480px) {
     .cart-panel { width: 100%; }
     .cart-head { padding: 20px 18px 16px; }
@@ -1870,14 +1929,6 @@ a.ctb:hover { transform: translateY(-4px); box-shadow: 0 30px 46px -28px rgba(74
 /* ============================================================
    PAGE « SERVICES » — réutilise les bandes de « Nos infusions »
    ============================================================ */
-.srv-infusions      { --c-bg: #F6DAD7; --c-soft: #FCEDEB; --c-ink: #A63535; }
-.srv-petit-dejeuner { --c-bg: #F9E5BC; --c-soft: #FDF4E2; --c-ink: #935512; }
-.srv-traiteur       { --c-bg: #DDEAD6; --c-soft: #EFF6EB; --c-ink: #3C6A43; }
-
-.jump-infusions      { --c-bg: #F6DAD7; --c-soft: #FCEDEB; --c-ink: #A63535; }
-.jump-petit-dejeuner { --c-bg: #F9E5BC; --c-soft: #FDF4E2; --c-ink: #935512; }
-.jump-traiteur       { --c-bg: #DDEAD6; --c-soft: #EFF6EB; --c-ink: #3C6A43; }
-
 .jump .jump-num {
     display: grid;
     place-items: center;
@@ -1909,7 +1960,6 @@ a.ctb:hover { transform: translateY(-4px); box-shadow: 0 30px 46px -28px rgba(74
     background: color-mix(in srgb, #fffdf9 78%, transparent);
     border: 1px solid color-mix(in srgb, var(--c-ink) 16%, transparent);
     list-style: none;
-    counter-reset: none;
 }
 .srv-steps-label {
     font-size: 11px;
@@ -2214,29 +2264,6 @@ a.ctb:hover { transform: translateY(-4px); box-shadow: 0 30px 46px -28px rgba(74
    ============================================================ */
 main { --gut: clamp(22px, 5vw, 64px); }
 
-.lp-head { max-width: 620px; margin: 0 auto clamp(30px, 4vw, 44px); text-align: center; }
-.lp-lead { margin-top: 16px; font-size: 15.5px; line-height: 1.72; color: var(--muted); max-width: 50ch; }
-.lp-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 22px;
-    font-size: 14.5px;
-    font-weight: 700;
-    color: var(--green-ink);
-    text-decoration: none;
-}
-.lp-link .arrow {
-    display: grid;
-    place-items: center;
-    width: 30px;
-    height: 30px;
-    border-radius: 999px;
-    border: 1.6px solid color-mix(in srgb, var(--green-ink) 30%, transparent);
-    transition: transform .22s ease, background .22s ease, color .22s ease;
-}
-.lp-link:hover .arrow { background: var(--green-ink); color: #fff; transform: translateX(4px); }
-.lp-link-center { display: flex; width: fit-content; margin: clamp(26px, 4vw, 38px) auto 0; }
 
 /* Aperçu À propos — mosaïque bento */
 .lp-about {
@@ -2244,8 +2271,6 @@ main { --gut: clamp(22px, 5vw, 64px); }
     margin: 0 auto;
     padding: clamp(52px, 7vw, 96px) var(--gut) clamp(20px, 3vw, 34px);
 }
-.lp-lead-center { margin-inline: auto; }
-
 .bento {
     display: grid;
     grid-template-columns: 1.12fr .92fr 1fr;
@@ -2296,7 +2321,7 @@ main { --gut: clamp(22px, 5vw, 64px); }
     color: rgba(255, 255, 255, .72);
 }
 
-/* Carte texte pastel */
+/* Carte texte pastel — reprend l'accent hibiscus de la palette */
 .tile-text {
     grid-column: 2;
     grid-row: 1;
@@ -2304,8 +2329,8 @@ main { --gut: clamp(22px, 5vw, 64px); }
     flex-direction: column;
     justify-content: center;
     padding: 28px 26px;
-    background: linear-gradient(160deg, #FCEDEB 0%, #F6DAD7 100%);
-    border-color: rgba(166, 53, 53, .18);
+    background: linear-gradient(160deg, var(--pal-rouge-soft) 0%, var(--pal-rouge-bg) 100%);
+    border-color: color-mix(in srgb, var(--pal-rouge-ink) 18%, transparent);
 }
 .tile-text h3 {
     font-family: 'Fraunces', serif;
@@ -2313,7 +2338,7 @@ main { --gut: clamp(22px, 5vw, 64px); }
     font-size: clamp(22px, 2.2vw, 28px);
     line-height: 1.12;
     letter-spacing: -.6px;
-    color: #A63535;
+    color: var(--pal-rouge-ink);
 }
 .tile-text p { margin-top: 12px; font-size: 14.5px; line-height: 1.6; color: var(--title); }
 
@@ -2620,25 +2645,21 @@ main { --gut: clamp(22px, 5vw, 64px); }
 
 @media (max-width: 1000px) {
     main { --gut: 26px; }
-    .lp-about, .lp-services, .lp-gallery, .lp-head { max-width: 600px; margin-inline: auto; }
+    .lp-about, .lp-services, .lp-gallery { max-width: 600px; margin-inline: auto; }
     .bento { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; }
     .tile-a, .tile-b, .tile-stats, .tile-text, .tile-feature { grid-column: 1; grid-row: auto; }
     .tile-a { min-height: 210px; }
     .tile-b { min-height: 180px; }
-    .lp-head { text-align: left; }
-    .lp-lead-center { margin-inline: 0; }
-    .lp-lead { max-width: none; }
     .rit-grid { grid-template-columns: minmax(0, 1fr); }
     .srvx-head { grid-template-columns: minmax(0, 1fr); align-items: start; }
     .srvx-aside p { max-width: none; }
     .srvx-grid { grid-template-columns: minmax(0, 1fr); }
     .srvx-card a { aspect-ratio: 16 / 10; }
-    .lp-link-center { margin-inline: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
     .rit-card:hover, .rit-card:hover .rit-media img,
-    .rit-card:hover .rit-arrow, .lp-link:hover .arrow { transform: none; }
+    .rit-card:hover .rit-arrow { transform: none; }
 }
 
 /* ============================================================
@@ -2977,10 +2998,10 @@ main { --gut: clamp(22px, 5vw, 64px); }
     font-size: 13.5px;
     font-weight: 700;
     text-decoration: none;
+    white-space: nowrap;
     transition: transform .2s ease, filter .2s ease;
 }
 .ft-cta svg { width: 17px; height: 17px; flex-shrink: 0; }
-.ft-cta { white-space: nowrap; }
 .ft-cta:hover { transform: translateY(-2px); filter: brightness(1.08); }
 
 /* Bas de page */
@@ -3010,6 +3031,8 @@ main { --gut: clamp(22px, 5vw, 64px); }
     .ft-desc, .ft-claim { max-width: none; }
 }
 
+/* Hors grille, volontairement : les trois colonnes du footer tiennent encore à
+   680px, elles ne se cassent qu'en dessous. */
 @media (max-width: 560px) {
     .ft-cols { grid-template-columns: minmax(0, 1fr); }
     .ft-col-contact { grid-column: auto; }
@@ -3018,4 +3041,27 @@ main { --gut: clamp(22px, 5vw, 64px); }
 
 @media (prefers-reduced-motion: reduce) {
     .ft-socials a:hover, .ft-cta:hover { transform: none; }
+}
+
+/* ============================================================
+   MOUVEMENT RÉDUIT — filet de sécurité global
+   ============================================================
+   Les blocs prefers-reduced-motion répartis plus haut ne couvraient que deux
+   animations. Celles de l'accueil (flottement continu du visuel hero, pulsation
+   d'entrée, tracé du trait sous « origines », cascade des liens du menu)
+   tournaient quel que soit le réglage système. Ce bloc ferme la liste. */
+@media (prefers-reduced-motion: reduce) {
+    .hero-visual,
+    .hero-visual img,
+    .decor,
+    .origines path,
+    .nav-toggle:checked ~ .nav-wrap .nav a {
+        animation: none !important;
+    }
+    /* Le trait sous « origines » est tracé par l'animation : sans elle il faut
+       le rendre visible d'emblée plutôt que de le laisser invisible. */
+    .origines path { stroke-dashoffset: 0; }
+    /* Les liens du menu naissent à opacity 0 pour la cascade : sans animation,
+       ils doivent être visibles tout de suite. */
+    .nav a { opacity: 1 !important; transform: none !important; }
 }

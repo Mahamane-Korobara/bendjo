@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://bendjo.bj/sitemap-index.xml

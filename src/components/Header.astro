@@ -9,7 +9,10 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
 ---
 
 <header class="header">
-    <input type="checkbox" id="nav-toggle" class="nav-toggle" />
+    <!-- C'est cette case qui porte le contrôle du menu : elle est focusable et
+         s'active à la barre d'espace. Les deux <label> ci-dessous ne sont que
+         sa représentation visuelle, d'où leur aria-hidden. -->
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Menu" />
 
     <a href="/" class="logo" aria-label="BenDjo">
         <img class="mark-img" src="/images/bendjo/logo-mark.webp" alt="BenDjo" width="130" height="285" />
@@ -17,7 +20,7 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
     </a>
 
     <nav class="nav-wrap">
-        <label for="nav-toggle" class="nav-close" aria-label="Fermer le menu"><span></span><span></span></label>
+        <label for="nav-toggle" class="nav-close" aria-hidden="true"><span></span><span></span></label>
         <ul class="nav">
             {NAV.map((item) => (
                 <li>
@@ -43,6 +46,54 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
         </a>
         <!-- ouvre le panier ; sans JS, reste un lien vers le catalogue -->
         <a href="/nos-infusions" class="btn-nav-cta desktop-cta" data-cart-open>Commander</a>
-        <label for="nav-toggle" class="burger" aria-label="Ouvrir le menu"><span></span><span></span><span></span></label>
+        <label for="nav-toggle" class="burger" aria-hidden="true"><span></span><span></span><span></span></label>
     </div>
 </header>
+
+<script>
+    // Amélioration progressive : sans JS, le menu s'ouvre et se ferme déjà à la
+    // souris (label) comme au clavier (case à cocher). Ce script ajoute ce que
+    // le CSS seul ne peut pas faire — fermer avec Échap, et empêcher la
+    // tabulation d'atteindre le logo et le panier passés sous le calque.
+    const brut = document.getElementById('nav-toggle');
+    const toggle = brut instanceof HTMLInputElement ? brut : null;
+    const header = document.querySelector<HTMLElement>('.header');
+
+    if (toggle && header) {
+        const behind = [
+            header.querySelector<HTMLElement>('.logo'),
+            header.querySelector<HTMLElement>('.actions'),
+        ].filter((el): el is HTMLElement => el !== null);
+
+        // Même palier que le CSS : au-delà, le calque n'existe plus et rien ne
+        // doit être neutralisé (cas du redimensionnement menu ouvert).
+        const mobile = window.matchMedia('(max-width: 1000px)');
+
+        const sync = () => {
+            const covered = toggle.checked && mobile.matches;
+            behind.forEach((el) => el.toggleAttribute('inert', covered));
+        };
+
+        toggle.addEventListener('change', sync);
+        mobile.addEventListener('change', sync);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && toggle.checked) {
+                toggle.checked = false;
+                sync();
+                toggle.focus();
+            }
+        });
+
+        // Le menu se referme quand on suit un lien vers une ancre de la page
+        // courante : sans cela, le calque resterait ouvert par-dessus la cible.
+        header.querySelectorAll('.nav a, .nav-foot a').forEach((a) =>
+            a.addEventListener('click', () => {
+                toggle.checked = false;
+                sync();
+            }),
+        );
+
+        sync();
+    }
+</script>

@@ -3,19 +3,28 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Reassurance from '../components/Reassurance.astro';
 
-import { products, packPrice, formatFCFA, WHATSAPP_BASE as WA } from '../data/products';
+import { products, packPrice, formatFCFA } from '../data/products';
+import { wa } from '../data/site';
 
-const ritual = [
-    { h: '07:00', id: 'hibiscus', name: 'Hibiscus', text: 'À jeun ou au petit-déjeuner, pour démarrer avec une infusion écarlate riche en antioxydants.' },
-    { h: '13:30', id: 'citronnelle', name: 'Citronnelle', text: 'Juste après le déjeuner, pour alléger la digestion et éviter le coup de barre.' },
-    { h: '21:00', id: 'basilic', name: 'Basilic', text: 'Une demi-heure avant le coucher, pour faire redescendre la tension du jour.' },
-];
+const WA_TRIO = wa('Bonjour BenDjo, je souhaite commander le trio complet (hibiscus, citronnelle, basilic).');
+
+// Seuls l'heure et le texte sont propres au rituel : l'identifiant et le nom
+// viennent du catalogue, pour qu'un renommage n'ait qu'un seul endroit à toucher.
+const rituel: Record<string, { h: string; text: string }> = {
+    hibiscus: { h: '07:00', text: 'À jeun ou au petit-déjeuner, pour démarrer avec une infusion écarlate riche en antioxydants.' },
+    citronnelle: { h: '13:30', text: 'Juste après le déjeuner, pour alléger la digestion et éviter le coup de barre.' },
+    basilic: { h: '21:00', text: 'Une demi-heure avant le coucher, pour faire redescendre la tension du jour.' },
+};
+
+const ritual = products
+    .filter((p) => p.id in rituel)
+    .map((p) => ({ id: p.id, name: p.name, ...rituel[p.id] }));
 ---
 
 <Layout title="Nos infusions — BenDjo">
     <Header />
 
-    <main class="inf">
+    <main id="contenu" class="inf">
         <!-- ==================== INTRO ==================== -->
         <section class="inf-hero">
             <div class="srvx-head">
@@ -144,7 +153,7 @@ const ritual = [
                     <div class="pack-buy">
                         <span class="pack-price">{formatFCFA(packPrice)} <small>FCFA</small></span>
                         <!-- ajoute les trois au panier ; sans JS, part sur WhatsApp -->
-                        <a class="btn-pack" data-add-all href={`${WA}Bonjour%20BenDjo%2C%20je%20souhaite%20commander%20le%20trio%20complet%20(hibiscus%2C%20citronnelle%2C%20basilic).`} target="_blank" rel="noopener">
+                        <a class="btn-pack" data-add-all href={WA_TRIO} target="_blank" rel="noopener">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5v14"></path></svg>
                             Ajouter le trio au panier
                         </a>
